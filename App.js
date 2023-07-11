@@ -27,7 +27,11 @@ import Users from './components/users/users'
 import DocumentDetails from './components/Doccuments/Document-details';
 import DocContextProvider from './store/doc-context';
 import { getDocumentsByUserID } from './util/documentApis';
-import QuizScreen from './screens/Quiz/QuizScreen'
+import QuizScreen from './screens/Quiz/QuizScreen';
+import Certificates from './screens/Certificates';
+import DashBoard from './screens/DashBoard';
+
+
 function AuthStack() {
   const navigator = useNavigation();
   return (
@@ -82,6 +86,16 @@ function AuthenticatedStack() {
           name="User Management"
           options={{headerShown:true,headerTintColor:'white',unmountOnBlur:true, headerTitleAlign:'center' ,headerStyle:{backgroundColor:'#145C7B'}}}
           component={Users}
+        />
+        <Drawer.Screen 
+          name='Certificates'
+          options={{headerShown:true,headerTintColor:'white',unmountOnBlur:true, headerTitleAlign:'center' ,headerStyle:{backgroundColor:'#145C7B'}}}
+          component={Certificates}
+        />
+        <Drawer.Screen
+        name='DashBoard'
+        options={{headerShown:true,headerTintColor:'white',unmountOnBlur:true, headerTitleAlign:'center' ,headerStyle:{backgroundColor:'#145C7B'}}}
+        component={DashBoard}
         />
          <Drawer.Screen
           name="Logout"
