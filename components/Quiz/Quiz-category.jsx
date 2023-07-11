@@ -2,10 +2,37 @@ import { View, StyleSheet, Text, SafeAreaView, Pressable, TouchableOpacity, } fr
 
 import { useNavigation } from "@react-navigation/native";
 import React from "react";
+import { useEffect, useState } from "react";
+import * as Font from 'expo-font'
+import * as SplashScreen from 'expo-splash-screen';
 
+
+let customFonts = {
+    'Fraunces': require('../../assets/fonts/Fraunces.ttf'),
+    'Poppins': require('../../assets/fonts/Poppins.ttf'),
+    'Fraunces-regular': require('../../assets/fonts/FrauncesRegular.ttf'),
+    'Fraunces-semibold': require('../../assets/fonts/Fraunces_72pt-SemiBold.ttf')
+  };
 const QuizCategory = ({item}) =>{
 
     const navigation = useNavigation();
+
+    const [isFontsLoaded, setIsFontsLoaded] = useState(false);
+
+    useEffect(() =>{
+        async function  loadFontsAsync() {
+        await Font.loadAsync(customFonts);
+        setIsFontsLoaded(true);
+        SplashScreen.hideAsync()
+        }
+        loadFontsAsync()
+    },[])
+    
+    if(!isFontsLoaded){
+        SplashScreen.preventAutoHideAsync();
+        return null
+    }
+
     const goToDetails = () =>{
         navigation.navigate('Details',{
             item:item
@@ -13,26 +40,26 @@ const QuizCategory = ({item}) =>{
     }
     return (
         <View style = {styles.container}>         
-            <Text style={{fontSize:18, fontWeight:'bold'}}>{item.title}</Text>
+            <Text style={{fontSize:18,fontFamily:'Poppins',fontWeight:'bold'}}>{item.title}</Text>
             <View style={{flexDirection:'row', justifyContent:'space-between'}}>
                 <View style={{flexDirection:'row', marginVertical:5}}>
-                    <Text>Questions    </Text>
-                    <Text>{item.questions}</Text>
+                    <Text style = {styles.subItems}>Questions    </Text>
+                    <Text style = {styles.subItems}>{item.questions}</Text>
                 </View>
                 <View style={{flexDirection:'row'}}>
-                    <Text>Duration    </Text>
-                    <Text>{item.duration}</Text>
+                    <Text style = {styles.subItems}>Duration    </Text>
+                    <Text style = {styles.subItems}>{item.duration}</Text>
                 </View>
             </View>
             <View style={{flexDirection:'row', justifyContent:'space-between'}}>
                 <View style={{flexDirection:'row'}}>
-                    <Text>Qualify score</Text>
-                    <Text>{item.qualify}</Text>
+                    <Text style = {styles.subItems}>Qualify score</Text>
+                    <Text style = {styles.subItems}>{item.qualify}</Text>
                 </View>
-                <Text style={{marginRight:20}}>{item.level}</Text>
+                <Text style={{marginRight:20,fontFamily:'Poppins'}}>{item.level}</Text>
             </View>
             <TouchableOpacity style={styles.button} onPress={goToDetails}>
-                <Text style={{color:'white'}}>Attempt now</Text>
+                <Text style={{color:'white',fontFamily:'Poppins'}}>Attempt now</Text>
             </TouchableOpacity>
         </View>
     )
@@ -57,5 +84,8 @@ const styles = StyleSheet.create({
         borderRadius:8,
         paddingHorizontal:15,
         marginTop:10
+    },
+    subItems:{
+        fontFamily:'Poppins'
     }
 })

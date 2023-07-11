@@ -9,11 +9,68 @@ import ResultScreen from "./ResultScreen";
 import { AuthContext } from "../../store/auth-context";
 
 const {width, height} = Dimensions.get('window')
+import * as Font from 'expo-font'
+import * as SplashScreen from 'expo-splash-screen';
+
+let customFonts = {
+  'Fraunces': require('../../assets/fonts/Fraunces.ttf'),
+  'Poppins': require('../../assets/fonts/Poppins.ttf')
+};
 
 
 const ExamScreen = () => {
     const authcontxt = useContext(AuthContext)
     authcontxt.setHeaderShowns(false)
+    const [isFontsLoaded, setIsFontsLoaded] = useState(false);
+
+    const navigation = useNavigation()
+    const route = useRoute();
+    const handleBackPress = () => {
+        Alert.alert(
+          'Confirmation',
+          'Are you sure you want to exit?',
+          [
+            { text: 'Cancel', onPress: () => {}, style: 'cancel' },
+            {
+              text: 'OK',
+              onPress: () => {
+                // Replace the current stack with the new stack
+                navigation.dispatch(StackActions.replace('Result',{
+                    score: 38,
+                    result:'fail'
+                }));
+              },
+            },
+          ],
+          { cancelable: false }
+        );
+        return true; // Return true to prevent default back button action
+    };
+
+    useEffect(() => {
+        async function  loadFontsAsync() {
+            console.log('came here ')
+            await Font.loadAsync(customFonts);
+            console.log('fonts loaded')
+            setIsFontsLoaded(true);
+            // SplashScreen.hideAsync()
+            console.log(isFontsLoaded)
+        }
+        BackHandler.addEventListener('hardwareBackPress', handleBackPress);
+        return () => {
+            loadFontsAsync()
+            BackHandler.removeEventListener('hardwareBackPress', handleBackPress);
+        };
+        
+    }, []);
+
+    if(!isFontsLoaded){
+        SplashScreen.preventAutoHideAsync();
+        return null
+    }
+    const [answers, setAnswers] = useState([]);
+    let selectedOption = '';
+
     function NextButton() {
         return (
             <View style={{flexDirection:'row', backgroundColor:'white', position:'absolute', bottom:height*0.05, alignSelf:'center'}}>
@@ -51,57 +108,6 @@ const ExamScreen = () => {
             })
         )
     }
-
-    const navigation = useNavigation()
-    const route = useRoute();
-
-    const [showAlert, setShowAlert] = useState(false);
-
-    const handleBackPress = () => {
-        Alert.alert(
-          'Confirmation',
-          'Are you sure you want to exit?',
-          [
-            { text: 'Cancel', onPress: () => {}, style: 'cancel' },
-            {
-              text: 'OK',
-              onPress: () => {
-                // Replace the current stack with the new stack
-                navigation.dispatch(StackActions.replace('Result',{
-                    score: 38,
-                    result:'fail'
-                }));
-              },
-            },
-          ],
-          { cancelable: false }
-        );
-        return true; // Return true to prevent default back button action
-      };
-
-    useEffect(() => {
-      console.log("came into useeffect");
-    //   navigation.addListener("beforeRemove", (e) => {
-    //     e.preventDefault();
-    //     Alert.alert("Warning", "You are not allowed?");
-    //   });
-    //   return () => {
-    //     navigation.removeListener("beforeRemove", (e) => {
-    //       console.log("hello");
-    //     });
-    //   }; 
-
-
-        BackHandler.addEventListener('hardwareBackPress', handleBackPress);
-
-        // Remove the event listener when the component unmounts
-        return () => {
-        BackHandler.removeEventListener('hardwareBackPress', handleBackPress);
-        };
-    }, []);
-
-    const [answers, setAnswers] = useState([]);
-    let selectedOption = '';
 
     function incrementQuestion(){
         if(currentQuestion+1<noOfQuestions){

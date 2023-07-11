@@ -7,6 +7,16 @@ import { sendRequestAccess } from '../../util/documentApis';
 import LoadingOverlay from '../ui/LoadingOverlay';
 import { Image } from 'expo-image';
 
+import * as Font from 'expo-font'
+import * as SplashScreen from 'expo-splash-screen';
+
+let customFonts = {
+  'Fraunces': require('../../assets/fonts/Fraunces.ttf'),
+  'Poppins': require('../../assets/fonts/Poppins.ttf'),
+  'Fraunces-regular': require('../../assets/fonts/FrauncesRegular.ttf'),
+  'Fraunces-semibold': require('../../assets/fonts/Fraunces_72pt-SemiBold.ttf')
+};
+
 const { width, height } = Dimensions.get('window');
 
 export default function DocumentDetails({route, navigation}) {
@@ -21,6 +31,22 @@ export default function DocumentDetails({route, navigation}) {
     const [isSending, setIssending] = useState(false);
 
     const [reason, setReason] = useState('');
+
+    const [isFontsLoaded, setIsFontsLoaded] = useState(false);
+
+    useEffect(() =>{
+        async function  loadFontsAsync() {
+        await Font.loadAsync(customFonts);
+        setIsFontsLoaded(true);
+        SplashScreen.hideAsync()
+        }
+        loadFontsAsync()
+    },[])
+    
+    if(!isFontsLoaded){
+        SplashScreen.preventAutoHideAsync();
+        return null
+    }
 
     const handleTextChange = (inputText) => {
         setReason(inputText);
@@ -57,7 +83,7 @@ export default function DocumentDetails({route, navigation}) {
         <View style={{paddingHorizontal:width*0.0,marginHorizontal:0 ,flex:1,alignItems:'center' , justifyContent:'center', paddingTop:10}}>
         <ScrollView style={{}} keyboardShouldPersistTaps='handled'>
                 <View style={{ flex:1 ,justifyContent:'center', alignItems:'flex-start' ,paddingHorizontal:width*0.05}}>
-                <Text style={{fontSize:25, alignSelf:'center', fontWeight:'bold'}}>{currentItem.title}</Text>
+                <Text style={{fontSize:22, alignSelf:'center',fontFamily:'Fraunces-semibold'}}>{currentItem.title}</Text>
                 <Image
                 source={{
                     uri: "http://ihiapps.com:8080/wildbase/downloadFile/images/" + currentItem.image,
@@ -68,7 +94,7 @@ export default function DocumentDetails({route, navigation}) {
                   }}
                 style={{height:height*0.4,width:'60%' , resizeMode:'stretch', alignSelf:'center', borderColor:'#145C7B',marginVertical:10, borderRadius:8 ,borderWidth:1.3}}
                 />
-                <Text style={{color:'grey', alignSelf:'center', fontSize:15, lineHeight:20}}>{currentItem.description}</Text>
+                <Text style={{color:'grey', alignSelf:'center', fontSize:15, lineHeight:20, fontFamily:'Poppins'}}>{currentItem.description}</Text>
                 {!requestAccess && <Text style={{fontSize:18, fontWeight:600, marginVertical:15}}>Foreword Acknowledgement</Text>}
                 { accessable && 
                     <View style={{flexDirection:'row', flexWrap:'wrap', marginTop:height*0.05, alignSelf:'center',justifyContent:'center'}}>
@@ -97,7 +123,8 @@ export default function DocumentDetails({route, navigation}) {
                             borderRadius: 8,
                             paddingBottom:120,
                             paddingLeft:10,
-                            flex:1
+                            flex:1,
+                            fontFamily:'Poppins'
                             }}
                             value={reason}
                             placeholder='Please provide the reason for the access'
@@ -128,12 +155,14 @@ const styles = StyleSheet.create({
         marginVertical:10,
         textAlign:'center',
         color:'white',
-        fontWeight:700
+        fontWeight:700,
+        fontFamily:'Poppins'
     },
     button:{
         minWidth:width*0.4,
         backgroundColor:'#145C7B',
         margin:height*0.005,
         borderRadius:8,
+        fontFamily:'Poppins'
     }
 })

@@ -4,16 +4,19 @@ import { quizData } from "../../components/Objects";
 
 const { width, height } = Dimensions.get("window");
 import { useEffect } from "react";
+import * as Font from 'expo-font'
+import * as SplashScreen from 'expo-splash-screen';
+
+let customFonts = {
+  'Fraunces': require('../../assets/fonts/Fraunces.ttf'),
+  'Poppins': require('../../assets/fonts/Poppins.ttf')
+};
 
 
 const QuizHomeScreen = ({navigation}) => {
 
-  console.log('navigation is', navigation)
-    // useEffect(() =>{
-    //   navigation.setOptions({
-    //     drawerLabel: 'Quiz'
-    //   })
-    // }, [navigation])
+  console.log('navigation is', navigation);
+
 
     const categories = [
         {

@@ -8,6 +8,13 @@ import { validateOtpFunction } from "../util/auth";
 
 const {width, height} = Dimensions.get('window');
 const elephant_cropped = require('../assets/elephant-cropped.png');
+import * as Font from 'expo-font'
+import * as SplashScreen from 'expo-splash-screen';
+
+let customFonts = {
+  'Fraunces': require('../assets/fonts/Fraunces.ttf'),
+  'Poppins': require('../assets/fonts/Poppins.ttf')
+};
 
 export default function OtpScreen({route, navigation}) {
   let email = route?.params?.email;
@@ -18,7 +25,22 @@ export default function OtpScreen({route, navigation}) {
   const [isPinReady, setIsPinReady] = useState(false);
   const maximumCodeLength = 4;
 
-  const [timeLeft, setTimeLeft] = useState(30);
+
+  const [isFontsLoaded, setIsFontsLoaded] = useState(false);
+
+  useEffect(() =>{
+    async function  loadFontsAsync() {
+      await Font.loadAsync(customFonts);
+      setIsFontsLoaded(true);
+      SplashScreen.hideAsync()
+    }
+    loadFontsAsync()
+  },[])
+  
+  if(!isFontsLoaded){
+    SplashScreen.preventAutoHideAsync();
+    return null
+  }
 
   async function validateOtp(otpCode){
     const response = await validateOtpFunction(otpCode,email);
@@ -29,22 +51,7 @@ export default function OtpScreen({route, navigation}) {
     else {
       navigation.navigate('Login');
     }
-  }
-
-  // useEffect(() =>{
-  //   if(timeLeft==0){
-  //     clearInterval(myInterval)
-  //   }
-  // },[])
-  
-  // if('wrongotp') {
-  //   myInterval = setInterval(() =>{
-  //     setTimeLeft(timeLeft-1)
-  //   }, 1000);
-  // }
-
-
-  
+  }  
   
   return (
     <ScrollView style = {{backgroundColor:'white'}} keyboardShouldPersistTaps='handled'>
@@ -54,29 +61,30 @@ export default function OtpScreen({route, navigation}) {
       style={{position:'absolute', top: height*0.047, width: width*1.05, height:height*0.25}}
       />
       <View style={{paddingTop:100}}>
-      <Text style= {{color:"#207398", fontSize:24, marginBottom:10 ,textAlign:'center', fontSize:30, fontWeight:500}}>OTP Verification</Text>
-      <Text style={{color:'grey'}}>An authentication code has been sent to your email id</Text>
-      <Text style={{color:'grey'}}>{email}</Text>
+      <Text style= {{color:"#145C7B", marginBottom:10 ,textAlign:'center', fontSize:30, fontWeight:700, fontFamily:'Poppins'}}>OTP Verification</Text>
+      <Text style={{color:'grey', fontFamily:'Poppins'}}>An authentication code has been sent to your email id</Text>
+      <Text style={{color:'grey', fontFamily:'Poppins'}}>{email}</Text>
       </View>
-      <Text style={{color:"#207398", fontSize:24, marginBottom:10, textAlign:'center', fontSize:30, fontWeight:500}} >Enter OTP</Text>
+      <Text style={{color:"#145C7B", fontSize:24,fontFamily:'Poppins', marginTop:40, marginBottom:10, textAlign:'center', fontSize:30, fontWeight:700}} >Enter OTP</Text>
       <OTPInput
         code={otpCode}
         setCode={setOTPCode}
         maximumLength={maximumCodeLength}
         setIsPinReady={setIsPinReady}
       />
-      <Text style={{marginTop:50, marginBottom:50}}>Resend OTP in <Text style={{color:'#207398'}}>{timeLeft} Second</Text></Text>
+      <Text style={{marginTop:50, marginBottom:50, fontFamily:'Poppins'}}>Resend OTP in <Text style={{fontFamily:'Poppins',color:'#00B0B7'}}>{24} Second</Text></Text>
       <ButtonContainer
         disabled={!isPinReady} onPress={() =>{
           validateOtp(otpCode)
         }}
         style={{
-          backgroundColor: !isPinReady ? "grey" : "#207398",
+          backgroundColor: !isPinReady ? "grey" : "#145C7B",
         }} 
       >
         <ButtonText
           style={{
             color: !isPinReady ? "black" : "#EEEEEE",
+            fontFamily:'Poppins'
           }} 
         >
           Verify now

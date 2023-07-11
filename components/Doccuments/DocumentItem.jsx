@@ -1,13 +1,36 @@
 import {Dimensions,StyleSheet,Switch,Text,TouchableOpacity,View} from "react-native";
-import React, { useState, useContext } from "react";
+import React, { useState, useContext, useEffect } from "react";
 import { AuthContext } from "../../store/auth-context";
 import {Image} from 'expo-image'
-// import NetworkImage from "../ui/networkImage";
 
 const { width, height } = Dimensions.get("window");
+import * as Font from 'expo-font'
+import * as SplashScreen from 'expo-splash-screen';
+
+let customFonts = {
+  'Fraunces': require('../../assets/fonts/Fraunces.ttf'),
+  'Poppins': require('../../assets/fonts/Poppins.ttf'),
+  'Fraunces-regular': require('../../assets/fonts/FrauncesRegular.ttf'),
+  'Fraunces-semibold': require('../../assets/fonts/Fraunces_72pt-SemiBold.ttf')
+};
 
 export default function DocumentItem({ item, navigation }) {
   const authctx = useContext(AuthContext);
+  const [isFontsLoaded, setIsFontsLoaded] = useState(false);
+
+  useEffect(() =>{
+    async function  loadFontsAsync() {
+      await Font.loadAsync(customFonts);
+      setIsFontsLoaded(true);
+      SplashScreen.hideAsync()
+    }
+    loadFontsAsync()
+  },[])
+  
+  if(!isFontsLoaded){
+    SplashScreen.preventAutoHideAsync();
+    return null
+  }
 
   return (
     <TouchableOpacity
@@ -56,7 +79,7 @@ export default function DocumentItem({ item, navigation }) {
             justifyContent: "space-between",
           }}
         >
-          <Text style={{ fontSize: 20, fontWeight: 500 }}>{item.title}</Text>
+          <Text style={{ fontSize: 20, fontFamily: 'Fraunces-semibold' }}>{item.title}</Text>
 
           <View
             style={{
@@ -67,7 +90,7 @@ export default function DocumentItem({ item, navigation }) {
               borderColor: "#145C7B",
             }}
           >
-            <Text style={{ fontSize: 20 }}>{item.country}</Text>
+            <Text style={{ fontSize: 20, fontFamily:'Poppins' }}>{item.country}</Text>
             <Image
               onError={(err) =>{console.log('err is', err)}}
               source={{

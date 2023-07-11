@@ -2,6 +2,13 @@ import { StyleSheet, Text, View } from 'react-native';
 import axios from 'axios';
 import { useEffect, useState, useContext } from 'react';
 import { AuthContext } from '../store/auth-context';
+import * as Font from 'expo-font'
+import * as SplashScreen from 'expo-splash-screen';
+
+let customFonts = {
+  'Fraunces': require('../assets/fonts/Fraunces.ttf'),
+  'Poppins': require('../assets/fonts/Poppins.ttf')
+};
 
 function WelcomeScreen() {
   const [fetchedMessage, setFetchedMesage] = useState('')

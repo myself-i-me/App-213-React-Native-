@@ -8,19 +8,19 @@ import QuizDetails from "./QuizDetails";
 import { useEffect, useContext } from "react";
 import AuthcontextProvider, { AuthContext } from '../../store/auth-context';
 
+import * as Font from 'expo-font'
+import * as SplashScreen from 'expo-splash-screen';
+
+let customFonts = {
+  'Fraunces': require('../../assets/fonts/Fraunces.ttf'),
+  'Poppins': require('../../assets/fonts/Poppins.ttf')
+};
 
 
 const Tab = createNativeStackNavigator();
 const QuizScreen = ({navigation}) => {
   const authctx = useContext(AuthContext);
   authctx.setHeaderTitles('Quiz')
-
-    // useEffect(() =>{
-    //     navigation.setOptions({
-    //       drawerLabel: 'Quiz'
-    //     })
-    //   }, [navigation])
-
 
     return (
         <Tab.Navigator>

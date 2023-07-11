@@ -5,15 +5,40 @@ import Button from "../../components/ui/Button";
 import { AuthContext } from "../../store/auth-context";
 
 const {width, height} = Dimensions.get('window')
+import * as Font from 'expo-font'
+import * as SplashScreen from 'expo-splash-screen';
+
+let customFonts = {
+  'Fraunces': require('../../assets/fonts/Fraunces.ttf'),
+  'Poppins': require('../../assets/fonts/Poppins.ttf'),
+  'Fraunces-regular': require('../../assets/fonts/FrauncesRegular.ttf'),
+  'Fraunces-semibold': require('../../assets/fonts/Fraunces_72pt-SemiBold.ttf')
+};
 
 
 
 function SuccessScreen({score}) {
-    const certiFicateIcon = require('../../assets/certificate-icon_1.png')
+    const certiFicateIcon = require('../../assets/certificate-icon_1.png');
+    const [isFontsLoaded, setIsFontsLoaded] = useState(false);
+
+    useEffect(() =>{
+        async function  loadFontsAsync() {
+        await Font.loadAsync(customFonts);
+        setIsFontsLoaded(true);
+        SplashScreen.hideAsync()
+        }
+        loadFontsAsync()
+    },[])
+    
+    if(!isFontsLoaded){
+        SplashScreen.preventAutoHideAsync();
+        return null
+    }
+
     return(
         <View style={styles.successContainer}>
-        <Text style={{fontWeight:'bold', fontSize:22}}>Basic fundamentals of wildlife of Kenya</Text>
-        <Text style={{marginTop:height*0.05, fontSize:26,color:'#19771D' ,textAlign:'center', fontWeight:'bold'}}>Congratulations</Text>
+        <Text style={{fontFamily:'Fraunces-semibold', fontSize:22}}>Basic fundamentals of wildlife of Kenya</Text>
+        <Text style={{marginTop:height*0.05, fontSize:26,color:'#19771D' ,textAlign:'center',fontFamily:'Fraunces-semibold'}}>Congratulations</Text>
         <Image
         source={certiFicateIcon}
         style={{backgroundColor:'white', alignSelf:'center', height:height*0.2, width:height*0.31, marginVertical:height*0.03,}}
@@ -37,17 +62,32 @@ function SuccessScreen({score}) {
 
 
 function FailScreen({score, goToHome}) {
+    const [isFontsLoaded, setIsFontsLoaded] = useState(false);
+
+    useEffect(() =>{
+        async function  loadFontsAsync() {
+        await Font.loadAsync(customFonts);
+        setIsFontsLoaded(true);
+        SplashScreen.hideAsync()
+        }
+        loadFontsAsync()    
+    },[])
+    
+    if(!isFontsLoaded){
+        SplashScreen.preventAutoHideAsync();
+        return null
+    }
     const sadIcon = require('../../assets/sad-icon_1.png')
     return(
     <View style={styles.failScreenCnotainer}>
-        <Text style={{fontWeight:'bold', fontSize:22}}>Basic fundamentals of wildlife of Kenya</Text>
+        <Text style={{fontFamily:'Fraunces-semibold', fontSize:28, alignSelf:'center'}}>Basic fundamentals of wildlife of Kenya</Text>
         <Text style={{marginTop:height*0.05, fontSize:26,color:'#B41616' ,textAlign:'center', fontWeight:'bold'}}>Better luck next time</Text>
         <Image
         source={sadIcon}
         style={{backgroundColor:'white', alignSelf:'center', height:height*0.3, width:height*0.31, marginVertical:height*0.1}}
         />
-        <Text style={{alignSelf:'center', fontSize:20,  paddingHorizontal:width*0.05}}>
-            You score <Text style={{fontWeight:'900'}}>{score}%</Text>  , which is lower than the qualifying percentage
+        <Text style={{alignSelf:'center', fontSize:20,  paddingHorizontal:width*0.05, fontFamily:'Poppins'}}>
+            You score <Text style={{fontWeight:'900',fontFamily:'Poppins'}}>{score}%</Text>  , which is lower than the qualifying percentage
         </Text>
         <TouchableOpacity onPress= {goToHome} style={{backgroundColor:'#207398', paddingHorizontal:width*0.18, paddingVertical:height*0.015, borderRadius:8, alignSelf:'center', marginTop:height*0.05}}>
                     <Text style={{color:'white',fontWeight:'bold', fontSize:19}}>Go back</Text>

@@ -18,7 +18,18 @@ import { createUser, sendOtp } from "../util/auth";
 const { width, height } = Dimensions.get("window");
 import Checkbox from 'expo-checkbox';
 import axios from "axios";
+
+import * as Font from 'expo-font'
+import * as SplashScreen from 'expo-splash-screen';
+
+let customFonts = {
+  'Fraunces': require('../assets/fonts/Fraunces.ttf'),
+  'Poppins': require('../assets/fonts/Poppins.ttf')
+};
+
+
 function RegisterScreen() {
+
   const elephant_cropped = require("../assets/elephant-cropped.png");
   const [countries, setCountries] = useState([]);
   const [isSendingOtp, setIsSendingOtp] = useState(false);
@@ -49,9 +60,16 @@ function RegisterScreen() {
   } = credentialsInvalid;
 
   const authctx = useContext(AuthContext);
+  const [isFontsLoaded, setIsFontsLoaded] = useState(false);
+
 
   useEffect(() => {
-    console.log(authctx.token,authctx.refreshToken)
+    async function  loadFontsAsync() {
+      await Font.loadAsync(customFonts);
+      setIsFontsLoaded(true);
+      SplashScreen.hideAsync()
+    }
+    loadFontsAsync()
     axios
       .get("http://ihiapps.com:8080/wildbase/countries/list")
       .then((resp) => {
@@ -62,6 +80,11 @@ function RegisterScreen() {
         console.log("err is ", err);
       });
   }, []);
+
+  if(!isFontsLoaded){
+    SplashScreen.preventAutoHideAsync();
+    return null
+  }
 
   async function SignUpHandler({
     firstName,
@@ -201,14 +224,15 @@ function RegisterScreen() {
           <Text
             style={{
               fontSize: 35,
-              fontWeight: "500",
+              fontWeight: "700",
               color: "#1a475c",
               textAlign: "center",
+              fontFamily:'Poppins'
             }}
           >
             Register
           </Text>
-          <Text style={{ textAlign: "center", color: "grey" }}>
+          <Text style={{ textAlign: "center", color: "grey", fontFamily:'Poppins' }}>
             Create your new account
           </Text>
           <Input
@@ -259,8 +283,9 @@ function RegisterScreen() {
             style={{
               textAlign: "center",
               marginVertical: 10,
-              color: "#207398",
-              marginLeft:10
+              color: "#145C7B",
+              marginLeft:10,
+              fontFamily:'Poppins'
             }}
           >
             Agreed terms and conditions
@@ -268,13 +293,13 @@ function RegisterScreen() {
           </View>
           <Button
             title="Sign up"
-            backgroundColor="#207398"
+            backgroundColor="#145C7B"
             onPress={onSubmit}
           />
-          <Text style={{ marginVertical: 10, textAlign: "center" }}>
+          <Text style={{ marginVertical: 10, textAlign: "center",fontFamily:'Poppins' }}>
             Already have and account?
             <Text
-              style={{ color: "#207398", textDecorationLine: "underline" }}
+              style={{ color: "#145C7B", textDecorationLine: "underline", fontFamily:'Poppins' }}
               onPress={() => navigation.navigate("Login")}
             >
               {" "}

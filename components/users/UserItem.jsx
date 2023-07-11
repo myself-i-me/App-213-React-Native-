@@ -17,7 +17,7 @@ export default function UserItem({item}) {
         <View style={{flex:1, height:"100%", borderColor:'blue', borderWidth:1, borderRadius:8, marginRight:15}}></View>
         <View style={{flex:3, justifyContent:'space-between'}}>
             <View style={{flexDirection:'row', justifyContent:'space-between'}}>
-            <Text style={{fontSize:22, fontWeight:'bold'}}>{item?.id} {item?.lastName}</Text>
+            <Text style={{fontSize:22, fontWeight:'bold'}}>{item?.firstName} {item?.lastName}</Text>
             <Switch  trackColor={{false:'red', true:'green'}} style={styles.switch} onValueChange={() => setActive(previousState => !previousState)} value={active}/>
             </View>
             <View style={{flexDirection:'row', justifyContent:'space-between',}}>

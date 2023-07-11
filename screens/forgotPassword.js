@@ -1,10 +1,18 @@
 import { AuthContext } from "../store/auth-context";
-import { useContext, useState } from "react";
+import { useEffect, useState } from "react";
 import { Alert, Dimensions, StyleSheet, View, Image, Text, TextInput } from "react-native";
 import { forgotPasswordFunction } from '../util/auth';
 import LoadingOverlay from "../components/ui/LoadingOverlay";
 import Button from "../components/ui/Button";
 import Input from "../components/ui/Input";
+
+import * as Font from 'expo-font'
+import * as SplashScreen from 'expo-splash-screen';
+
+let customFonts = {
+  'Fraunces': require('../assets/fonts/Fraunces.ttf'),
+  'Poppins': require('../assets/fonts/Poppins.ttf')
+};
 
 function ForotPasswordScreen({navigation}) {
   const [credentialsInvalid, setCredentialsInvalid] = useState({
@@ -16,6 +24,22 @@ function ForotPasswordScreen({navigation}) {
   const leaf = require('../assets/leaf.png');
   const elephant_cropped = require('../assets/elephant-cropped.png');
   const {width, height} = Dimensions.get('window');
+
+  const [isFontsLoaded, setIsFontsLoaded] = useState(false);
+
+  useEffect(() =>{
+    async function  loadFontsAsync() {
+      await Font.loadAsync(customFonts);
+      setIsFontsLoaded(true);
+      SplashScreen.hideAsync()
+    }
+    loadFontsAsync()
+  },[])
+  
+  if(!isFontsLoaded){
+    SplashScreen.preventAutoHideAsync();
+    return null
+  }
 
   async function forgotPasswordHandler(email) {
     try {
@@ -68,8 +92,8 @@ function ForotPasswordScreen({navigation}) {
         source={leaf}
         style={{height:100, width:100, borderWidth:1, alignSelf:'center'}}
         />
-        <Text style={{fontSize:35, fontWeight:'500', color:'#1a475c', textAlign:'center', marginBottom:10}}>Welcome back</Text>
-        <Text style={{textAlign:'center', color:"#207398", marginBottom:10}}>Login into your account</Text>
+        <Text style={{fontSize:35, fontWeight:'700', color:'#1a475c', textAlign:'center', marginBottom:10, fontFamily:'Poppins'}}>Welcome back</Text>
+        <Text style={{textAlign:'center', color:"#145C7B", marginBottom:10, fontFamily:'Poppins'}}>Login into your account</Text>
         <Input
           onUpdateValue={updateInputValueHandler.bind(this, "email")}
           value={enteredEmail}
@@ -77,9 +101,9 @@ function ForotPasswordScreen({navigation}) {
           isInvalid={emailIsInvalid}
           placeHolder= 'Email Address'
         />
-        <Button title='Send otp' backgroundColor="#207398" color="white" onPress={onSubmit}/>
-        <Text style={{marginVertical:10, textAlign:'center', color:'grey'}}>Don't have an account?
-            <Text style={{color:'#207398', textDecorationLine:'underline'}} onPress={()=>navigation.navigate('SignUp')}>Sign up</Text>
+        <Button title='Send otp' backgroundColor="#145C7B" color="white" onPress={onSubmit}/>
+        <Text style={{marginVertical:10, textAlign:'center', color:'grey', fontFamily:'Poppins'}}>Don't have an account?
+            <Text style={{color:'#145C7B', textDecorationLine:'underline', fontFamily:'Poppins'}} onPress={()=>navigation.navigate('SignUp')}>Sign up</Text>
         </Text>
       </View>
     </View>

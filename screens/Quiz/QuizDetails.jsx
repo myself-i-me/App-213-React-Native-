@@ -6,13 +6,22 @@ import {
     View,
   } from "react-native";
   import React from "react";
-  import { useContext } from "react";
+  import { useContext, useState,useEffect } from "react";
   import { useNavigation, useRoute } from "@react-navigation/native";
   import { AuthContext } from '../../store/auth-context';
   
   
   const { width, height } = Dimensions.get("window");
-  
+  import * as Font from "expo-font";
+  import * as SplashScreen from "expo-splash-screen";
+
+  let customFonts = {
+    'Fraunces': require('../../assets/fonts/Fraunces.ttf'),
+    'Poppins': require('../../assets/fonts/Poppins.ttf'),
+    'Fraunces-regular': require('../../assets/fonts/FrauncesRegular.ttf'),
+    'Fraunces-semibold': require('../../assets/fonts/Fraunces_72pt-SemiBold.ttf')
+  };
+
   const Dot = () => {
     return <View style={styles.dot}></View>;
   };
@@ -29,14 +38,31 @@ import {
   
     const route = useRoute();
     const item = route.params.item;
+
+    const [isFontsLoaded, setIsFontsLoaded] = useState(false);
+
+    useEffect(() =>{
+        async function  loadFontsAsync() {
+        await Font.loadAsync(customFonts);
+        setIsFontsLoaded(true);
+        SplashScreen.hideAsync()
+        }
+        loadFontsAsync()
+    },[])
+    
+    if(!isFontsLoaded){
+        SplashScreen.preventAutoHideAsync();
+        return null
+    }
+
   
     return (
       <View style={styles.container}>
         <Text
           style={{
             fontSize: 25,
-            fontWeight: "bold",
             marginBottom: height * 0.03,
+            fontFamily:'Fraunces-semibold'
           }}
         >
           {item.title}
@@ -52,21 +78,21 @@ import {
           }}
         >
           <View style={styles.inline}>
-            <Text style={{ fontSize: 17 }}>No. of Questions</Text>
-            <Text style={{ fontSize: 17, fontWeight:'bold' }}>{item.questions}</Text>
+            <Text style={{ fontSize: 17,fontFamily:'Poppins' }}>No. of Questions</Text>
+            <Text style={{ fontSize: 17, fontWeight:'bold',fontFamily:'Poppins'  }}>{item.questions}</Text>
           </View>
           <View style={styles.inline}>
-            <Text style={{ fontSize: 17 }}>Durations (in min)</Text>
-            <Text style={{ fontSize: 17, fontWeight:'bold' }}>{item.duration}</Text>
+            <Text style={{ fontSize: 17,fontFamily:'Poppins'  }}>Durations (in min)</Text>
+            <Text style={{ fontSize: 17, fontWeight:'bold',fontFamily:'Poppins'  }}>{item.duration}</Text>
           </View>
           <View style={styles.inline}>
-            <Text style={{ fontSize: 17 }}>Qualify percentage</Text>
-            <Text style={{ fontSize: 17, fontWeight:'bold' }}>{item.qualify}</Text>
+            <Text style={{ fontSize: 17,fontFamily:'Poppins'  }}>Qualify percentage</Text>
+            <Text style={{ fontSize: 17, fontWeight:'bold',fontFamily:'Poppins'  }}>{item.qualify}</Text>
           </View>
-          <Text style={{ fontSize: 17, fontWeight: 600 }}>{item.level}</Text>
+          <Text style={{ fontSize: 17, fontWeight: 600,fontFamily:'Poppins'  }}>{item.level}</Text>
         </View>
         <View style={{ marginTop: height * 0.02, paddingLeft: width * 0.02 }}>
-          <Text style={{ fontWeight: "bold", fontSize: 22 }}>Instructions</Text>
+          <Text style={{ fontWeight: "bold", fontSize: 22,fontFamily:'Poppins'  }}>Instructions</Text>
           <View style={{ flexDirection: "row" }}>
             <Dot />
             <Text style={styles.instructions}>
@@ -89,7 +115,7 @@ import {
           </View>
         </View>
         <TouchableOpacity style={styles.button} onPress={()=>goToExam()}>
-          <Text style={{ textAlign: "center",color:'white', fontSize:20, fontWeight:'bold'}}>Start</Text>
+          <Text style={{ textAlign: "center",color:'white', fontSize:20, fontWeight:'bold',fontFamily:'Poppins'}}>Start</Text>
         </TouchableOpacity>
       </View>
     );
@@ -123,6 +149,7 @@ import {
     },
     instructions: {
       fontSize: 17,
-      marginVertical:5
+      marginVertical:5,
+      fontFamily:'Poppins'
     }
   });

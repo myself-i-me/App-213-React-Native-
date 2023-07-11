@@ -7,12 +7,23 @@ import {
   View,
   Alert
 } from "react-native";
-import React, { useState, useContext } from "react";
+import React, { useState, useContext, useEffect } from "react";
 import { AuthContext } from "../../store/auth-context";
 import {Image} from 'expo-image'
 const { width, height } = Dimensions.get("window");
 import { updateStatus } from "../../util/adminApis";
 import LoadingOverlay from "../ui/LoadingOverlay";
+
+import * as Font from 'expo-font'
+import * as SplashScreen from 'expo-splash-screen';
+
+let customFonts = {
+  'Fraunces': require('../../assets/fonts/Fraunces.ttf'),
+  'Poppins': require('../../assets/fonts/Poppins.ttf'),
+  'Fraunces-regular': require('../../assets/fonts/FrauncesRegular.ttf'),
+  'Fraunces-semibold': require('../../assets/fonts/Fraunces_72pt-SemiBold.ttf')
+};
+
 
 export default function DocListAdminItem({ item, navigation }) {
   
@@ -21,6 +32,22 @@ export default function DocListAdminItem({ item, navigation }) {
   const [isOffline, setIsOffline] = useState(item.offline);
 
   const [isChanging, setIsChanging] = useState(false);
+
+  const [isFontsLoaded, setIsFontsLoaded] = useState(false);
+
+  useEffect(() =>{
+    async function  loadFontsAsync() {
+      await Font.loadAsync(customFonts);
+      setIsFontsLoaded(true);
+      SplashScreen.hideAsync()
+    }
+    loadFontsAsync()
+  },[])
+  
+  if(!isFontsLoaded){
+    SplashScreen.preventAutoHideAsync();
+    return null
+  }
 
   const authctx = useContext(AuthContext);
 
@@ -99,7 +126,7 @@ export default function DocListAdminItem({ item, navigation }) {
           justifyContent: "space-between",
         }}
       >
-        <Text style={{ fontSize: 20, fontWeight: 500 }}>{item.title}</Text>
+        <Text style={{ fontSize: 20, fontFamily: 'Fraunces-semibold'}}>{item.title}</Text>
 
         <View style={{ flexDirection: "row" }}>
           <Switch
@@ -110,7 +137,7 @@ export default function DocListAdminItem({ item, navigation }) {
             }
             value={isAvailable}
           />
-          <Text>Available</Text>
+          <Text style = {styles.params}>Available</Text>
         </View>
         <View style={{ flexDirection: "row" }}>
           <Switch
@@ -121,7 +148,7 @@ export default function DocListAdminItem({ item, navigation }) {
             }
             value={isDownloadable}
           />
-          <Text>Downloadable</Text>
+          <Text style = {styles.params}>Downloadable</Text>
         </View>
         <View style={{ flexDirection: "row" }}>
           <Switch
@@ -132,7 +159,7 @@ export default function DocListAdminItem({ item, navigation }) {
             }
             value={isOffline}
           />
-          <Text>Offline Available</Text>
+          <Text style = {styles.params}>Offline Available</Text>
         </View>
         <View
           style={{
@@ -169,4 +196,7 @@ const styles = StyleSheet.create({
     margin: 0,
     height: 20,
   },
+  params:{
+    fontFamily:'Poppins'
+  }
 });

@@ -9,6 +9,13 @@ const docslist = doclist;
 import { AuthContext } from '../../store/auth-context';
 import { DocContext } from '../../store/doc-context';
 import LoadingOverlay from '../ui/LoadingOverlay';
+import * as Font from 'expo-font'
+import * as SplashScreen from 'expo-splash-screen';
+
+let customFonts = {
+  'Fraunces': require('../../assets/fonts/Fraunces.ttf'),
+  'Poppins': require('../../assets/fonts/Poppins.ttf')
+};
 
 export default function DocumentList({route,navigation}) {
 
@@ -19,11 +26,15 @@ export default function DocumentList({route,navigation}) {
     let countriesList =  [{name: 'All'},...docContext.countries];
 	let AllDocuments = docContext.docs;
 	let [documentsList, setDocumentsList] = useState(AllDocuments);
+	const [isFontsLoaded, setIsFontsLoaded] = useState(false);
 
 	useEffect(() =>{
 		async function fetchDocuments() {
 			setIsFetching(true)
 			try {
+				await Font.loadAsync(customFonts);
+				setIsFontsLoaded(true);
+				SplashScreen.hideAsync()
 				let documents = await getDocumentsByUserID(authctx.userId, authctx.token)
 				let countries = await getCountries();
 				// let flags =await getFlags(documents.map(doc => doc.flagPath), authctx.token);
@@ -40,6 +51,11 @@ export default function DocumentList({route,navigation}) {
 
 		fetchDocuments()
 	},[route,navigation])
+
+	if(!isFontsLoaded){
+		SplashScreen.preventAutoHideAsync();
+		return null
+	}
 
 	function onSelectCountry(country) {
 		let tempDocs = AllDocuments.filter(document =>{
@@ -94,7 +110,8 @@ const styles = StyleSheet.create({
         marginHorizontal:5,
         minWidth:50,
         textAlignVertical:'center',
-        textAlign:'center'
+        textAlign:'center',
+
         // paddingVertical:10,
         // paddingHorizontal:20,
     }

@@ -18,6 +18,15 @@ import LoadingOverlay from "../ui/LoadingOverlay";
 import { getAllDocuments } from "../../util/adminApis";
 const { width, height } = Dimensions.get("window");
 import { getCountries } from "../../util/documentApis";
+import * as Font from 'expo-font'
+import * as SplashScreen from 'expo-splash-screen';
+
+let customFonts = {
+  'Fraunces': require('../../assets/fonts/Fraunces.ttf'),
+  'Poppins': require('../../assets/fonts/Poppins.ttf'),
+  'Fraunces-regular': require('../../assets/fonts/FrauncesRegular.ttf'),
+  'Fraunces-semibold': require('../../assets/fonts/Fraunces_72pt-SemiBold.ttf')
+};
 
 export default function DocumentManagement({navigation}) {
   const authctx = useContext(AuthContext);
