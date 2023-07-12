@@ -18,24 +18,34 @@ export default function Users() {
     const [currentPage, setCurrentPage] = useState(0);
 
     const [noMoreUsers,setNoMoreUsers] = useState(false);
-
+    const [currentCountry, setCurrentCountry] = useState('All');
 
     useEffect(() =>{
         async function getUsers() {
             try{
-                let newUsers = await getUsersFunction(currentPage,5,authctx.token);
+                let newUsers = await getUsersFunction(currentPage,10,authctx.token);
                 if(newUsers.length ==0){
                     setNoMoreUsers(true);
                 }
-                console.log('new users are', newUsers)
-                setusers([...users, ...newUsers]);
-                console.log('set', users)
+                console.log('new users are', newUsers.length)
+                let tempUsers = newUsers.filter(user =>{
+                    return user.country == currentCountry
+                })
+                if(currentCountry == 'All'){
+                    tempUsers = newUsers
+                }
+                if(currentPage==0){
+                    setusers([...users, ...tempUsers])
+                } else {
+                    setusers((prevUsers) => [...prevUsers, ...tempUsers]);
+                }
+                console.log('set', users.length)
             } catch(error) {
                 console.log('error in getting users', error)
             }
         }
         getUsers()
-    },[currentPage])
+    },[currentPage,currentCountry])
 
     function renderLoader() {
         return !noMoreUsers && (
@@ -50,6 +60,12 @@ export default function Users() {
         setCurrentPage(currentPage + 1)
     }
 
+    function onSelectCountry(country) {
+        setCurrentCountry(country.name);
+        setCurrentPage(0);
+        setusers([]);
+	}
+
     return (
       <View style={styles.container}>
         <ScrollView style={{ marginBottom:12, paddingLeft:10}}
@@ -58,7 +74,7 @@ export default function Users() {
           {
               countriesList.map(country=>{
                   return (
-                      <TouchableOpacity style={styles.button} key={country.name}>
+                      <TouchableOpacity onPress={() =>{onSelectCountry(country)}} style={styles.button} key={country.name}>
                           <Text style={{fontWeight:500,color:'#2C160C', marginVertical:10, marginHorizontal:20 ,height:height*0.03 ,}}>{country.name}</Text>
                       </TouchableOpacity>
                   )

@@ -88,23 +88,35 @@ function SettingsScreen() {
     );
   };
 
-  const onRadioBtnClick = (item) => {
-    let updatedState = languages.map((isLikedItem) => {
-      if (isLikedItem.id === item.id) {
-        choosen(item.name);
-        return { ...isLikedItem, selected: true };
-      } else {
-        return { ...isLikedItem, selected: false };
-      }
-    });
-    setLanguages(updatedState);
+  const onRadioBtnClick = (item,element) => {
+    if(element == 'language') {
+      let updatedState = languages.map((isLikedItem) => {
+        if (isLikedItem.id === item.id) {
+          choosen(item.label);
+          return { ...isLikedItem, selected: true };
+        } else {
+          return { ...isLikedItem, selected: false };
+        }
+      });
+      setLanguages(updatedState);
+    } else {
+      let updatedState = themes.map((isLikedItem) => {
+        if (isLikedItem.id === item.id) {
+          choosen(item.label);
+          return { ...isLikedItem, selected: true };
+        } else {
+          return { ...isLikedItem, selected: false };
+        }
+      });
+      setThemes(updatedState);
+    }
   };
 
   function Options({items}) {
     return items.map((item) => {
         return (
           <RadioButton
-            onPress={() => onRadioBtnClick(item)}
+            onPress={() => onRadioBtnClick(item,'language')}
             selected={item.selected}
             key={item.id}
             children={item.label}
@@ -118,7 +130,7 @@ function SettingsScreen() {
     return items.map((item) => {
       return (
         <RadioButton
-          onPress={() => onRadioBtnClick(item)}
+          onPress={() => onRadioBtnClick(item,'theme')}
           selected={item.selected}
           key={item.id}
         >
