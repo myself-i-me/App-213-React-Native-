@@ -1,4 +1,4 @@
-import React from 'react';
+import React from "react";
 import {
   SafeAreaView,
   View,
@@ -6,75 +6,80 @@ import {
   Image,
   Text,
   Linking,
-} from 'react-native';
+  Dimensions,
+} from "react-native";
 
 import {
   DrawerContentScrollView,
   DrawerItemList,
   DrawerItem,
-} from '@react-navigation/drawer';
+} from "@react-navigation/drawer";
 
-const profileImage = require('./assets/profile.jpg')
+const { width, height } = Dimensions.get("window");
+
+const profileImage = require("./assets/profile.png");
 const CustomSidebarMenu = (props) => {
   const BASE_PATH =
-    'https://raw.githubusercontent.com/AboutReact/sampleresource/master/';
-  const proileImage = 'react_logo.png';
+    "https://raw.githubusercontent.com/AboutReact/sampleresource/master/";
+  const proileImage = "react_logo.png";
+  const name = "John Doe";
 
   return (
-    <SafeAreaView style={{flex: 1}}>
-      {/*Top Large Image */}
-      <Image
-        source={profileImage}
-        style={styles.sideMenuProfileIcon}
-      />
+    <SafeAreaView style={{ flex: 1 }}>
+      <View style={{height:height*0.2, paddingLeft:15}}>
+        <View
+          style={{
+            flexDirection: "row",
+            backgroundColor: "white",
+            alignItems: "center",
+            // flexWrap: "wrap",
+            paddingTop: 20,
+            height:height*0.18,
+            justifyContent:'space-between'
+          }}
+        >
+          <Image source={profileImage} style={styles.sideMenuProfileIcon} />
+          <Text
+            style={{
+              backgroundColor: "transparent",
+              flex: 2,
+              fontSize: 23,
+              fontWeight: "bold",
+              paddingLeft:15
+            }}
+          >
+            {name}
+          </Text>
+        </View>
+        <Text style={{  backgroundColor: "transparent", fontSize:20, paddingLeft:15 }}>john.doe@gmail.com</Text>
+      </View>
       <DrawerContentScrollView {...props}>
         <DrawerItemList {...props} />
-        <DrawerItem
-          label="Visit Us"
-          onPress={() => Linking.openURL('https://aboutreact.com/')}
-        />
-        <View style={styles.customItem}>
-          <Text
-            onPress={() => {
-              Linking.openURL('https://aboutreact.com/');
-            }}>
-            Rate Us
-          </Text>
-          <Image
-            source={{uri: BASE_PATH + 'star_filled.png'}}
-            style={styles.iconStyle}
-          />
-        </View>
       </DrawerContentScrollView>
-      <Text
-        style={{
-          fontSize: 16,
-          textAlign: 'center',
-          color: 'grey'
-        }}>
-        www.aboutreact.com
-      </Text>
     </SafeAreaView>
   );
 };
 
 const styles = StyleSheet.create({
   sideMenuProfileIcon: {
-    resizeMode: 'center',
-    width: 100,
-    height: 100,
+    resizeMode: "cover",
+    // width: width * 0.27,
+    height: width * 0.21,
     borderRadius: 100 / 2,
-    alignSelf: 'center',
-  },
-  iconStyle: {
-    width: 15,
-    height: 15,
-    marginHorizontal: 5,
+    alignSelf: "flex-start",
+    // padding:width*0.05,
+    marginLeft: width * 0.05,
+    marginTop: height * 0.04,
+    flex: 1,
+
+    // backgroundColor:'red',
+    borderWidth: 3,
+    borderColor:'blue'
   },
   customItem: {
     padding: 16,
-    flexDirection: 'row',
-    alignItems: 'center',
+    flexDirection: "row",
+    alignItems: "center",
   },
 });
 

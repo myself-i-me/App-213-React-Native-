@@ -4,11 +4,15 @@ import AsyncStorage from "@react-native-async-storage/async-storage";
 export const AuthContext = createContext({
     token: '',
     isAuthenticated: false,
-    authenticate: (token, refreshToken) =>{},
-    logout: () =>{},
+    authenticate: (token, refreshToken) =>new Promise((res,rej) =>{}),
+    logout: () =>new Promise((res,rej) =>{}),
     refreshToken: '',
     userId: '',
     role: '',
+    language:'',
+    storeLanguage:(lanuage) =>{},
+    theme:'',
+    storeTheme:(theme) =>{},
     setUserDetails:(userid, role) =>{},
     setHeaderTitles:(headr) =>{},
     setHeaderShowns:(bool)=>{},
@@ -24,7 +28,8 @@ function AuthcontextProvider({children}) {
     const [headerTitle, setHeaderTitle] = useState('Homes');
     const [headerColor, setHeaderColor] = useState('#145C7B');
     const [headerShown, setHeaderShown] = useState(true);
-
+    const [language,setLanguage] = useState('English');
+    const [theme,setTheme] = useState('Blue');
     function setHeaderTitles(headr){
         setHeaderTitle(headr)
     }
@@ -37,18 +42,25 @@ function AuthcontextProvider({children}) {
         setHeaderShown(bool)
     }
 
-    function authenticate(token, refreshToken) {
-        console.log('*********************')
+    function storeLanguage(language) {
+        setLanguage(language)
+    }
+
+    function storeTheme(theme) {
+        setTheme(theme)
+    }
+
+    async function authenticate(token, refreshToken) {
         setAuthToken(token);
         setrefreshToken(refreshToken);
-        AsyncStorage.setItem('quickref_token',token);
-        AsyncStorage.setItem('quickref_refresh_token',refreshToken);
-        AsyncStorage.getItem('quickref_userid').then(userId =>{
+        await AsyncStorage.setItem('quickref_token',token);
+        await AsyncStorage.setItem('quickref_refresh_token',refreshToken);
+        await AsyncStorage.getItem('quickref_userid').then(userId =>{
             setUserId(String(userId));
         }).catch(err =>{
             console.log(err,'--')
         })
-        AsyncStorage.getItem('quickref_role').then(role =>{
+        await AsyncStorage.getItem('quickref_role').then(role =>{
             setRole(role);
         })
     }
@@ -81,7 +93,11 @@ function AuthcontextProvider({children}) {
         headerShown:headerShown,
         setHeaderTitles:setHeaderTitles,
         setHeaderColors:setHeaderColors,
-        setHeaderShowns:setHeaderShowns
+        setHeaderShowns:setHeaderShowns,
+        language: language,
+        storeLanguage: storeLanguage,
+        theme: theme,
+        storeTheme: storeTheme
     }
     
     return <AuthContext.Provider value = {value}>{children}</AuthContext.Provider>

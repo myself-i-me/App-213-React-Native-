@@ -21,6 +21,10 @@ let customFonts = {
 const ExamScreen = () => {
     const authcontxt = useContext(AuthContext)
     authcontxt.setHeaderShowns(false)
+
+    const [currentQuestion, setCurrentQuestion] = useState(0);
+    const [answers, setAnswers] = useState([]);
+
     const [isFontsLoaded, setIsFontsLoaded] = useState(false);
 
     const navigation = useNavigation()
@@ -56,9 +60,9 @@ const ExamScreen = () => {
             // SplashScreen.hideAsync()
             console.log(isFontsLoaded)
         }
+        loadFontsAsync()
         BackHandler.addEventListener('hardwareBackPress', handleBackPress);
         return () => {
-            loadFontsAsync()
             BackHandler.removeEventListener('hardwareBackPress', handleBackPress);
         };
         
@@ -68,7 +72,6 @@ const ExamScreen = () => {
         SplashScreen.preventAutoHideAsync();
         return null
     }
-    const [answers, setAnswers] = useState([]);
     let selectedOption = '';
 
     function NextButton() {
@@ -133,13 +136,12 @@ const ExamScreen = () => {
     }
     
     
-    const [currentQuestion, setCurrentQuestion] = useState(0);
     const noOfQuestions = quiz.length;
 
     return (
       <SafeAreaView>
         <View style={styles.container}>
-        <Text style={{fontWeight:'bold', fontSize:24, marginBottom:height*0.01}}>Basic fundamentals of wild life in Kenya</Text>
+        <Text style={{fontFamily:'Fraunces-semibold', fontSize:24, marginBottom:height*0.01}}>Basic fundamentals of wild life in Kenya</Text>
         <View style={{flexDirection:'row', backgroundColor:'white', borderColor:'red', borderWidth:0}}>
          <Text style={{backgroundColor:'white', textAlignVertical:'center', color:'#AA2222', paddingBottom:height*0.024, fontSize:18}}>Time remaining is</Text>    
          {/* <CountDown size={18} style={styles.timer} digitTxtStyle={{color:'#AA2222', margin:0}} timeLabelStyle={{color:'transparent'}} until={90} onFinish={()=>{Alert.alert('Finished')}} digitStyle={{backgroundColor:'white'}} timeToShow={['M']}/>  */}

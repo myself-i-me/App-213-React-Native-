@@ -30,10 +30,13 @@ import { getDocumentsByUserID } from './util/documentApis';
 import QuizScreen from './screens/Quiz/QuizScreen';
 import Certificates from './screens/Certificates';
 import DashBoard from './screens/DashBoard';
+import SettingsScreen from './screens/Settings';
 
 
 function AuthStack() {
   const navigator = useNavigation();
+  console.log('in auths stack')
+
   return (
     <>
     <StatusBar  style='auto' />
@@ -64,7 +67,7 @@ function TempDocs() {
 
 function AuthenticatedStack() {
   const authctx = useContext(AuthContext)
-
+  console.log('in authenticated stack')
   return (
     <Drawer.Navigator
         screenOptions={{
@@ -97,11 +100,16 @@ function AuthenticatedStack() {
         options={{headerShown:true,headerTintColor:'white',unmountOnBlur:true, headerTitleAlign:'center' ,headerStyle:{backgroundColor:'#145C7B'}}}
         component={DashBoard}
         />
-         <Drawer.Screen
-          name="Logout"
+        <Drawer.Screen
+          name="Settings"
           options={{headerShown:true,headerTintColor:'white',unmountOnBlur:true, headerTitleAlign:'center' ,headerStyle:{backgroundColor:'#145C7B'}}}
-          component={WelcomeScreen}
+          component={SettingsScreen}
         />
+        <Drawer.Screen
+        name="Logout"
+        options={{headerShown:true,headerTintColor:'white',unmountOnBlur:true, headerTitleAlign:'center' ,headerStyle:{backgroundColor:'#145C7B'}}}
+        component={WelcomeScreen}
+      />
       </Drawer.Navigator>
   );
 }
@@ -135,15 +143,18 @@ function Root() {
         try {
 				  let documents = await getDocumentsByUserID(userId, storedToken)
           console.log('documents are fetched', storedToken);
-          authctx.authenticate(storedToken,refreshToken);
+          await authctx.authenticate(storedToken,refreshToken);
+          console.log('setting1')
           setIsTryinglogin(false);
         } catch (error) {
           try {
             let {newToken,newRefreshToken} = await refreshTokenFunction(refreshToken);
-            authctx.authenticate(newToken,newRefreshToken);
+            await authctx.authenticate(newToken,newRefreshToken);
+          console.log('setting2')
             setIsTryinglogin(false);
           } catch (error) {
-            authctx.logout()
+            await authctx.logout()
+          console.log('setting3')
             setIsTryinglogin(false);
           }
         }
@@ -155,12 +166,15 @@ function Root() {
     fetchToken();
   }, []);
 
+  SplashScreen.preventAutoHideAsync();
   if (isTryingLogin) {
-    SplashScreen.preventAutoHideAsync();
+    return null;
   } else {
+    console.log('over still')
     SplashScreen.hideAsync();
+    return <Navigation />;
   }
-  return <Navigation />;
+
 }
 
 export default function App() {

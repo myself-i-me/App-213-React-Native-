@@ -23,11 +23,13 @@ export default function Users() {
     useEffect(() =>{
         async function getUsers() {
             try{
-                let newUsers = await getUsersFunction(currentPage,10,authctx.token);
+                let newUsers = await getUsersFunction(currentPage,5,authctx.token);
                 if(newUsers.length ==0){
                     setNoMoreUsers(true);
                 }
+                console.log('new users are', newUsers)
                 setusers([...users, ...newUsers]);
+                console.log('set', users)
             } catch(error) {
                 console.log('error in getting users', error)
             }
