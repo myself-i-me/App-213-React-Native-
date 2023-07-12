@@ -25,7 +25,7 @@ const QuizScreen = ({navigation}) => {
     return (
         <Tab.Navigator>
             <Tab.Screen name= "Homes" component = {QuizHomeScreen} options={{headerShown: false}}/>
-            <Tab.Screen name= "Exam" component = {ExamScreen} options={{ headerShown: false}}/>
+            <Tab.Screen name= "Exam" component = {ExamScreen} options={{ headerShown:true,unmountOnBlur:true,headerTintColor:'white', headerTitleAlign:'center' ,headerStyle:{backgroundColor:'#145C7B'}, headerTitle:'Quiz', headerBackVisible:false}}/>
             <Tab.Screen name= "Result" component = {ResultScreen} options={{ headerShown: false}}/>
             <Tab.Screen name="Details" component={QuizDetails} options={{headerShown:false}} />
             

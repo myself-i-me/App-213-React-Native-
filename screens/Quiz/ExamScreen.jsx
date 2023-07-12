@@ -30,8 +30,8 @@ const ExamScreen = () => {
     function SubmitButton() {
         return (
             <View style={{width:'100%', borderTopColor:'#145C7BBA', borderTopWidth:1.5, paddingTop:height*0.1, position:'absolute', bottom:height*0.05, alignSelf:'center'}}>
-                <TouchableOpacity onPress={submitAnswers} style={{backgroundColor:'#207398', paddingHorizontal:width*0.13, paddingVertical:height*0.015, borderRadius:8, width:width*0.5, alignSelf:'center'}}>
-                <Text style={{color:'white',  fontWeight:'bold', alignSelf:'center'}}>Final Submit</Text>
+                <TouchableOpacity onPress={submitAnswers} style={{backgroundColor:'#207398', paddingHorizontal:width*0.11, paddingVertical:height*0.017, borderRadius:8, width:width*0.5, alignSelf:'center'}}>
+                <Text style={{color:'white',  fontWeight:'bold', alignSelf:'center', fontSize:16,}}>Final Submit</Text>
             </TouchableOpacity>
             </View>
         )
@@ -47,7 +47,7 @@ const ExamScreen = () => {
         navigation.dispatch(
             StackActions.replace('Result', {
                 score: 38,
-                result:'fail'
+                result:'pass'
             })
         )
     }
@@ -60,16 +60,16 @@ const ExamScreen = () => {
     const handleBackPress = () => {
         Alert.alert(
           'Confirmation',
-          'Are you sure you want to exit?',
+          'Are you sure you want to finish the exam?',
           [
             { text: 'Cancel', onPress: () => {}, style: 'cancel' },
             {
-              text: 'OK',
+              text: 'Finish',
               onPress: () => {
                 // Replace the current stack with the new stack
                 navigation.dispatch(StackActions.replace('Result',{
                     score: 38,
-                    result:'fail'
+                    result:'pass'
                 }));
               },
             },
@@ -136,9 +136,9 @@ const ExamScreen = () => {
         <Text style={{fontWeight:'bold', fontSize:24, marginBottom:height*0.01}}>Basic fundamentals of wild life in Kenya</Text>
         <View style={{flexDirection:'row', backgroundColor:'white', borderColor:'red', borderWidth:0}}>
          <Text style={{backgroundColor:'white', textAlignVertical:'center', color:'#AA2222', paddingBottom:height*0.024, fontSize:18}}>Time remaining is</Text>    
-         {/* <CountDown size={18} style={styles.timer} digitTxtStyle={{color:'#AA2222', margin:0}} timeLabelStyle={{color:'transparent'}} until={90} onFinish={()=>{Alert.alert('Finished')}} digitStyle={{backgroundColor:'white'}} timeToShow={['M']}/>  */}
+         <CountDown size={18} style={styles.timer} digitTxtStyle={{color:'#AA2222', margin:0}} timeLabelStyle={{color:'transparent'}} until={90} onFinish={()=>{Alert.alert('Finished')}} digitStyle={{backgroundColor:'white'}} timeToShow={['M']}/> 
          <Text style={{backgroundColor:'white', textAlignVertical:'center', color:'#AA2222', paddingBottom:height*0.024, fontSize:18}}>Min</Text>
-         {/* <CountDown size={18} style={styles.timer} digitTxtStyle={{color:'#AA2222'}} timeLabelStyle={{color:'transparent'}} until={90} onFinish={()=>{Alert.alert('Finished')}} digitStyle={{backgroundColor:'white'}} timeToShow={['S']}/> */}
+         <CountDown size={18} style={styles.timer} digitTxtStyle={{color:'#AA2222'}} timeLabelStyle={{color:'transparent'}} until={90} onFinish={()=>{Alert.alert('Finished')}} digitStyle={{backgroundColor:'white'}} timeToShow={['S']}/>
          <Text style={{backgroundColor:'white', textAlignVertical:'center', color:'#AA2222', paddingBottom:height*0.024, fontSize:18}}>Sec</Text>
         </View>
         <Text style={{ fontSize:20,marginBottom:height*0.02, borderBottomColor:'#145C7BBA', borderBottomWidth:1.8, paddingBottom:height*0.02 ,fontWeight:'600', width: '100%', textAlign:'center', color:'#156308'}}>Question {currentQuestion+1} of {noOfQuestions}</Text>
@@ -161,7 +161,7 @@ const styles = StyleSheet.create({
     container: {
         paddingHorizontal:width*0.1,
         backgroundColor:'white',
-        paddingTop:height*0.1,
+        paddingTop:height*0.03,
         height:'100%',
     } ,
     timer:{
