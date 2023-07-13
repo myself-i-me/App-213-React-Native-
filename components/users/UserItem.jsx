@@ -6,7 +6,7 @@ const { width, height } = Dimensions.get('window');
 
 
 export default function UserItem({item}) {
-    const [active, setActive] = useState(false);
+    const [active, setActive] = useState(item.approved);
     const authctx = useContext(AuthContext)
 
 
@@ -22,7 +22,7 @@ export default function UserItem({item}) {
             </View>
             <View style={{flexDirection:'row', justifyContent:'space-between',}}>
                 <Text>{item?.email}</Text>
-                <Text>Warden</Text>
+                <Text>{item.approved ? 'Active': 'Inactive'}</Text>
             </View>
             <View style={{flexDirection:'row'}}>
             <Image

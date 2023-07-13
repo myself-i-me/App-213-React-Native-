@@ -35,6 +35,8 @@ export default function DocumentManagement({navigation}) {
   let AllDocuments = docContext.docs;
   let [documentsList, setDocumentsList] = useState(AllDocuments);
 	const [isFetching, setIsFetching] = useState(false);
+	const [currentCountry, setCurrentCountry] = useState('All');
+
 
   useEffect(() => {
     async function fetchDocuments() {
@@ -58,6 +60,7 @@ export default function DocumentManagement({navigation}) {
   }, [navigation]);
 
   function onSelectCountry(country) {
+    setCurrentCountry(country.name)
 		let tempDocs = AllDocuments.filter(document =>{
 			return document.country == country.name
 		})
@@ -76,21 +79,19 @@ export default function DocumentManagement({navigation}) {
         showsHorizontalScrollIndicator={false}
       >
         {countriesList.map((country) => {
-          return (
-            <TouchableOpacity style={styles.button}  onPress={() =>{onSelectCountry(country)}}  key={country.name}>
-              <Text
-                style={{
-                  fontWeight: 500,
-                  color: "#2C160C",
-                  marginVertical: 10,
-                  marginHorizontal: 20,
-                  height: height * 0.03,
-                }}
-              >
-                {country.name}
-              </Text>
-            </TouchableOpacity>
-          );
+          if(country.name==currentCountry){
+						return (
+							<TouchableOpacity style={styles.selectedCountryButton} onPress={() =>{onSelectCountry(country)}} key={country.name}>
+								<Text style={{fontWeight:500,color:'white', marginVertical:10, marginHorizontal:20 ,height:20}}>{country.name}</Text>
+							</TouchableOpacity>
+						)
+					} else {
+						return (
+							<TouchableOpacity style={styles.button} onPress={() =>{onSelectCountry(country)}} key={country.name}>
+								<Text style={{fontWeight:500,color:'#2C160C', marginVertical:10, marginHorizontal:20 ,height:20}}>{country.name}</Text>
+							</TouchableOpacity>
+						)
+					}
         })}
       </ScrollView>
 
@@ -119,4 +120,12 @@ const styles = StyleSheet.create({
     // paddingVertical:10,
     // paddingHorizontal:20,
   },
+  selectedCountryButton:{
+		backgroundColor:'#145C7B',
+        borderRadius:20,
+        marginHorizontal:5,
+        minWidth:50,
+        textAlignVertical:'center',
+        textAlign:'center',
+	}
 });

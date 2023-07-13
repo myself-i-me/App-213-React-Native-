@@ -1,11 +1,9 @@
 import { ActivityIndicator, Dimensions, FlatList, ScrollView, StyleSheet, Text, TouchableOpacity, View } from 'react-native'
 import React, {useContext, useState, useEffect} from 'react'
-import { userlist } from '../Objects';
 import UserItem from './UserItem';
 import { DocContext } from '../../store/doc-context';
 import {getUsersFunction} from '../../util/adminApis'
 import { AuthContext } from '../../store/auth-context';
-import axios from 'axios';
 const { width, height } = Dimensions.get('window');
 
 
@@ -73,11 +71,19 @@ export default function Users() {
         showsHorizontalScrollIndicator={false}>
           {
               countriesList.map(country=>{
-                  return (
-                      <TouchableOpacity onPress={() =>{onSelectCountry(country)}} style={styles.button} key={country.name}>
-                          <Text style={{fontWeight:500,color:'#2C160C', marginVertical:10, marginHorizontal:20 ,height:height*0.03 ,}}>{country.name}</Text>
-                      </TouchableOpacity>
-                  )
+                if(country.name==currentCountry){
+                    return (
+                        <TouchableOpacity style={styles.selectedCountryButton} onPress={() =>{onSelectCountry(country)}} key={country.name}>
+                            <Text style={{fontWeight:500,color:'white', marginVertical:10, marginHorizontal:20 ,height:20}}>{country.name}</Text>
+                        </TouchableOpacity>
+                    )
+                } else {
+                    return (
+                        <TouchableOpacity style={styles.button} onPress={() =>{onSelectCountry(country)}} key={country.name}>
+                            <Text style={{fontWeight:500,color:'#2C160C', marginVertical:10, marginHorizontal:20 ,height:20}}>{country.name}</Text>
+                        </TouchableOpacity>
+                    )
+                }
               })
           }
         </ScrollView>
@@ -110,5 +116,13 @@ const styles = StyleSheet.create({
         textAlign:'center'
         // paddingVertical:10,
         // paddingHorizontal:20,
-    }
+    },
+    selectedCountryButton:{
+		backgroundColor:'#145C7B',
+        borderRadius:20,
+        marginHorizontal:5,
+        minWidth:50,
+        textAlignVertical:'center',
+        textAlign:'center',
+	}
 })

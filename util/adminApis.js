@@ -20,11 +20,11 @@ export async function getUsersFunction(pageNumber, pageSize, token) {
     },
   });
 
-  console.log(
-    "users are",
-    response?.data?.response?.currentPage,
-    response?.data?.response?.totalPages
-  );
+  // console.log(
+  //   "users are",
+  //   response?.data?.response?.currentPage,
+  //   response?.data?.response?.totalPages
+  // );
   return response?.data?.response?.users;
 }
 

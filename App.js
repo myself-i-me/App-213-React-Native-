@@ -13,7 +13,7 @@ import { NavigationContainer } from '@react-navigation/native';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { useNavigation } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
-import WelcomeScreen from './screens/WelcomeScreen'
+import Logout from './screens/Logout'
 import LandingPage from './screens/IntialScreen';
 import OtpScreen from './screens/otpScreen'
 import { refreshTokenFunction } from './util/auth';
@@ -35,8 +35,6 @@ import SettingsScreen from './screens/Settings';
 
 function AuthStack() {
   const navigator = useNavigation();
-  console.log('in auths stack')
-
   return (
     <>
     <StatusBar  style='auto' />
@@ -67,7 +65,6 @@ function TempDocs() {
 
 function AuthenticatedStack() {
   const authctx = useContext(AuthContext)
-  console.log('in authenticated stack')
   return (
     <Drawer.Navigator
         screenOptions={{
@@ -77,7 +74,7 @@ function AuthenticatedStack() {
         drawerContent={(props) => <CustomSidebarMenu {...props} />}>
         <Drawer.Screen
           name="Home"
-          options={{ headerShown:authctx.headerShown,unmountOnBlur:true,headerTintColor:'white', headerTitleAlign:'center' ,headerStyle:{backgroundColor:'#145C7B'}, headerTitle:authctx.headerTitle}}
+          options={{ headerShown:authctx.headerShown,unmountOnBlur:true,headerTintColor:'white', headerTitleAlign:'center' ,headerStyle:{backgroundColor:'#145C7B', fontFamily:'Fraunces', fontSize:60}, headerTitle:authctx.headerTitle, headerTitleStyle:{fontFamily:'Fraunces',fontSize:24}}}
           component={TempDocs}
         />
         <Drawer.Screen
@@ -108,7 +105,7 @@ function AuthenticatedStack() {
         <Drawer.Screen
         name="Logout"
         options={{headerShown:true,headerTintColor:'white',unmountOnBlur:true, headerTitleAlign:'center' ,headerStyle:{backgroundColor:'#145C7B'}}}
-        component={WelcomeScreen}
+        component={Logout}
       />
       </Drawer.Navigator>
   );
@@ -170,7 +167,6 @@ function Root() {
   if (isTryingLogin) {
     return null;
   } else {
-    console.log('over still')
     SplashScreen.hideAsync();
     return <Navigation />;
   }
