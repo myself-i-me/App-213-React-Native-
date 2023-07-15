@@ -1,10 +1,11 @@
-import { View, StyleSheet, Text, SafeAreaView, Pressable, TouchableOpacity, } from "react-native";
+import { View, StyleSheet, Text, SafeAreaView, Pressable, TouchableOpacity, Dimensions} from "react-native";
 
 import { useNavigation } from "@react-navigation/native";
 import React from "react";
 import { useEffect, useState } from "react";
 import * as Font from 'expo-font'
 import * as SplashScreen from 'expo-splash-screen';
+const { width, height } = Dimensions.get("window");
 
 
 let customFonts = {
@@ -40,23 +41,23 @@ const QuizCategory = ({item}) =>{
     }
     return (
         <View style = {styles.container}>         
-            <Text style={{fontSize:18,fontFamily:'Poppins',fontWeight:'bold'}}>{item.title}</Text>
+            <Text style={{fontSize:18,fontFamily:'Poppins',fontWeight:'bold'}}>{item.quizName}</Text>
             <View style={{flexDirection:'row', justifyContent:'space-between'}}>
                 <View style={{flexDirection:'row', marginVertical:5}}>
                     <Text style = {styles.subItems}>Questions    </Text>
-                    <Text style = {styles.subItems}>{item.questions}</Text>
+                    <Text style = {styles.subItems}>{item.noOfQuestions}</Text>
                 </View>
                 <View style={{flexDirection:'row'}}>
                     <Text style = {styles.subItems}>Duration    </Text>
-                    <Text style = {styles.subItems}>{item.duration}</Text>
+                    <Text style = {styles.subItems}>{item.timeInMins}</Text>
                 </View>
             </View>
             <View style={{flexDirection:'row', justifyContent:'space-between'}}>
                 <View style={{flexDirection:'row'}}>
-                    <Text style = {styles.subItems}>Qualify score</Text>
-                    <Text style = {styles.subItems}>{item.qualify}</Text>
+                    <Text style = {styles.subItems}>Qualify score  </Text>
+                    <Text style = {styles.subItems}>{item.qualifyScore}</Text>
                 </View>
-                <Text style={{marginRight:20,fontFamily:'Poppins'}}>{item.level}</Text>
+                <Text style={{marginRight:20,fontFamily:'Poppins'}}>{'Moderate'}</Text>
             </View>
             <TouchableOpacity style={styles.button} onPress={goToDetails}>
                 <Text style={{color:'white',fontFamily:'Poppins'}}>Attempt now</Text>
@@ -75,7 +76,8 @@ const styles = StyleSheet.create({
         marginVertical: 7,
         borderColor:'#145C7BBA',
         borderWidth:1,
-        backgroundColor:'#D9FFFF57'
+        backgroundColor:'#D9FFFF57',
+        width:width*0.92
     },
     button: {
         backgroundColor:'#145C7B',

@@ -99,12 +99,13 @@ const ExamScreen = () => {
     }
 
     function submitAnswers() {
-        setAnswers([...answers, {id:currentQuestion,value:selectedOption}])
-        console.log(answers,selectedOption)
+        // setAnswers([...answers, {id:currentQuestion,value:selectedOption}])
+        // console.log(answers,selectedOption)
         // navigation.navigate('Result',{
         //     score: 38,
         //     result:'fail'
         // })
+        console.log('clicked submit button')
         navigation.dispatch(
             StackActions.replace('Result', {
                 score: 38,
@@ -145,9 +146,9 @@ const ExamScreen = () => {
         <Text style={{fontFamily:'Fraunces-semibold', fontSize:24, marginBottom:height*0.01}}>Basic fundamentals of wild life in Kenya</Text>
         <View style={{flexDirection:'row', backgroundColor:'white', borderColor:'red', borderWidth:0}}>
          <Text style={{backgroundColor:'white', textAlignVertical:'center', color:'#AA2222', paddingBottom:height*0.024, fontSize:18}}>Time remaining is</Text>    
-         {/* <CountDown size={18} style={styles.timer} digitTxtStyle={{color:'#AA2222', margin:0}} timeLabelStyle={{color:'transparent'}} until={90} onFinish={()=>{Alert.alert('Finished')}} digitStyle={{backgroundColor:'white'}} timeToShow={['M']}/>  */}
+         {/* <CountDown size={18} style={styles.timer} digitTxtStyle={{color:'#AA2222', margin:0}} timeLabelStyle={{color:'transparent'}} until={90} onFinish={submitAnswers} digitStyle={{backgroundColor:'white'}} timeToShow={['M']}/>  */}
          <Text style={{backgroundColor:'white', textAlignVertical:'center', color:'#AA2222', paddingBottom:height*0.024, fontSize:18}}>Min</Text>
-         {/* <CountDown size={18} style={styles.timer} digitTxtStyle={{color:'#AA2222'}} timeLabelStyle={{color:'transparent'}} until={90} onFinish={()=>{Alert.alert('Finished')}} digitStyle={{backgroundColor:'white'}} timeToShow={['S']}/> */}
+         <CountDown size={18} style={styles.timer} digitTxtStyle={{color:'#AA2222'}} timeLabelStyle={{color:'transparent'}} until={90} onFinish={submitAnswers} digitStyle={{backgroundColor:'white'}} timeToShow={['S']}/>
          <Text style={{backgroundColor:'white', textAlignVertical:'center', color:'#AA2222', paddingBottom:height*0.024, fontSize:18}}>Sec</Text>
         </View>
         <Text style={{ fontSize:20,marginBottom:height*0.02, borderBottomColor:'#145C7BBA', borderBottomWidth:1.8, paddingBottom:height*0.02 ,fontWeight:'600', width: '100%', textAlign:'center', color:'#156308'}}>Question {currentQuestion+1} of {noOfQuestions}</Text>

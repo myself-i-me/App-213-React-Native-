@@ -104,7 +104,7 @@ export default function DocumentDetails({route, navigation}) {
                     <TouchableOpacity style={styles.button}>
                         <Text style={styles.buttonText}>Download pdf</Text>
                     </TouchableOpacity>
-                    <TouchableOpacity style={styles.button} onPress={() => navigation.navigate('Quiz')}>
+                    <TouchableOpacity style={styles.button} onPress={() => navigation.navigate('Quiz',{documentId: currentItem.id})}>
                         <Text style={styles.buttonText}>Quiz</Text>
                     </TouchableOpacity>
                     <TouchableOpacity style={styles.button}>

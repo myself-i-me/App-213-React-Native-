@@ -7,3 +7,9 @@ eas build -p android --profile preview
 Request Access pages
 App icon
 Peru document image has odd dimensions compared to others
+
+
+dropdown
+user management functionality
+admin quiz pages
+request access sent in docContext

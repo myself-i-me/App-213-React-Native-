@@ -31,7 +31,12 @@ import QuizScreen from './screens/Quiz/QuizScreen';
 import Certificates from './screens/Certificates';
 import DashBoard from './screens/DashBoard';
 import SettingsScreen from './screens/Settings';
+import * as Font from 'expo-font'
 
+let customFonts = {
+  'Fraunces': require('./assets/fonts/Fraunces.ttf'),
+  'Poppins': require('./assets/fonts/Poppins.ttf')
+};
 
 function AuthStack() {
   const navigator = useNavigation();
@@ -75,7 +80,7 @@ function AuthenticatedStack() {
         drawerContent={(props) => <CustomSidebarMenu {...props} />}>
         <Drawer.Screen
           name="Home"
-          options={{ headerShown:docctx.headerShown,unmountOnBlur:true,headerTintColor:'white', headerTitleAlign:'center' ,headerStyle:{backgroundColor:'#145C7B'}, headerTitle:docctx.headerTitle, headerTitleStyle:{fontFamily:'Fraunces',fontSize:24}}}
+          options={{ headerShown:docctx.headerShown,unmountOnBlur:true,headerTintColor:'white', headerTitleAlign:'center' ,headerStyle:{backgroundColor:'#145C7B', fontFamily:'Fraunces', fontSize:60}, headerTitle:docctx.headerTitle, headerTitleStyle:{fontFamily:'Fraunces',fontSize:24}}}
           component={TempDocs}
         />
         <Drawer.Screen
@@ -129,9 +134,13 @@ function Navigation() {
 
 function Root() {
   const [isTryingLogin, setIsTryinglogin] = useState(true);
+	const [isFontsLoaded, setIsFontsLoaded] = useState(false);
+
   const authctx = useContext(AuthContext);
   useEffect(() => {
     async function fetchToken() {
+      await Font.loadAsync(customFonts);
+			setIsFontsLoaded(true);
       const storedToken = await AsyncStorage.getItem("quickref_token");
       const refreshToken = await AsyncStorage.getItem("quickref_refresh_token");
       const userId = await AsyncStorage.getItem("quickref_userid");
@@ -165,7 +174,7 @@ function Root() {
   }, []);
 
   SplashScreen.preventAutoHideAsync();
-  if (isTryingLogin) {
+  if (isTryingLogin || !isFontsLoaded) {
     return null;
   } else {
     SplashScreen.hideAsync();
