@@ -11,3 +11,10 @@ export async function getAvailabaleQuizzessByDocumentId(documentId,token) {
     console.log('aavailable quizzes are', availableQuizzes);
     return availableQuizzes;
 }
+
+
+export async function generateQuiz(quizId,userId,token) {
+  let currentTime = new Date()
+  const url = `http://ihiapps.com:8080/wildbase/api/quiz/generate?quizmasterId=${quizId}&userId=${userId}&startTime=${currentTime}`
+  console.log(url)
+}

@@ -78,6 +78,6 @@ const styles = StyleSheet.create({
     fontFamily:'Poppins',
   },
   inputInvalid: {
-    backgroundColor: "#8be8a4",
+    backgroundColor: "red",
   },
 });

@@ -6,7 +6,7 @@ import { AuthContext } from '../../store/auth-context';
 import { sendRequestAccess } from '../../util/documentApis';
 import LoadingOverlay from '../ui/LoadingOverlay';
 import { Image } from 'expo-image';
-
+import { DocContext } from '../../store/doc-context';
 import * as Font from 'expo-font'
 import * as SplashScreen from 'expo-splash-screen';
 
@@ -23,10 +23,13 @@ export default function DocumentDetails({route, navigation}) {
     const { width, height } = Dimensions.get('window');
 
     const authctx = useContext(AuthContext);
-   
+    const docContext = useContext(DocContext);
+    const accessData = docContext.accessData;
     const currentItem = route.params.item;
-    // const accessable = currentItem.accessable;
-    const accessable = true
+    const currentItemAccessData = accessData.find((i) =>{
+        return currentItem.id == i.documentId
+    })
+    const accessable = currentItem.accessable;
     const [requestedAccess, setRequestedAccess] = useState(false);
     const [isSending, setIssending] = useState(false);
 
@@ -59,12 +62,12 @@ export default function DocumentDetails({route, navigation}) {
             if(!reason){
                 Alert.alert('Warning', 'Please enter a valid reason')
             } else{
-                console.log(reason, currentItem.id);
                 setIssending(true)
                 setRequestedAccess(false)
                 try {
-                    sendRequestAccess(authctx.userId, currentItem.id,reason,authctx.token)
-                    setIssending(false)
+                    sendRequestAccess(authctx.userId, currentItem.id,reason,authctx.token);
+                    setIssending(false);
+                    docContext.updateAccessData(currentItem.id)
                 } catch (error) {
                     console.log('error is', error);
                     setIssending(false)
@@ -138,8 +141,8 @@ export default function DocumentDetails({route, navigation}) {
 
                 { !accessable && 
                     <View style= {{alignSelf:'center'}}>
-                        <TouchableOpacity style={styles.button} onPress={() =>{!currentItem.isRequestAccessSent && requestAccess()}}>
-                        <Text style={styles.buttonText}>{currentItem.isRequestAccessSent ? 'Request Sent': 'Request Access' }</Text>
+                        <TouchableOpacity style={styles.button} onPress={() =>{!currentItemAccessData.isRequestAccessSent && requestAccess()}}>
+                        <Text style={styles.buttonText}>{currentItemAccessData.isRequestAccessSent ? 'Request Sent': 'Request Access' }</Text>
                         </TouchableOpacity>
                     </View>
                 }

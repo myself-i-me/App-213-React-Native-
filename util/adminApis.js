@@ -19,12 +19,6 @@ export async function getUsersFunction(pageNumber, pageSize, token) {
       Authorization: "Bearer " + token,
     },
   });
-
-  // console.log(
-  //   "users are",
-  //   response?.data?.response?.currentPage,
-  //   response?.data?.response?.totalPages
-  // );
   return response?.data?.response?.users;
 }
 
@@ -40,4 +34,16 @@ export async function updateStatus(type,documentId, status,token) {
 
   let message = response.data;
   return message
+}
+
+export async function getDashboardApiData(token) {
+  const url = `http://ihiapps.com:8080/wildbase/dashboard/admin`;
+  let response = await axios.get(url, {
+    headers: {
+      Authorization: "Bearer " + token,
+    },
+  });
+  const dashboardData = response.data.response;
+  console.log(dashboardData);
+  return dashboardData;
 }

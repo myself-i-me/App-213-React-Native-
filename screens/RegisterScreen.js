@@ -43,7 +43,7 @@ function RegisterScreen() {
   const [enteredEmail, setEnteredEmail] = useState("");
   const [enteredPassword, setEnteredPassword] = useState("");
   const [enteredConfirmPassword, setEnteredConfirmPassword] = useState("");
-  const [enteredAreaRegion, setEnteredAreaRegion] = useState("");
+  const [enteredAreaRegion, setEnteredAreaRegion] = useState(null);
   const [isChecked, setChecked] = useState(false);
   const [credentialsInvalid, setCredentialsInvalid] = useState({
     firstName: false,
@@ -66,7 +66,6 @@ function RegisterScreen() {
   const authctx = useContext(AuthContext);
   const [isFontsLoaded, setIsFontsLoaded] = useState(false);
 
-  const [value, setValue] = useState(null);
   const [isFocus, setIsFocus] = useState(false);
 
   useEffect(() => {
@@ -79,7 +78,13 @@ function RegisterScreen() {
     axios
       .get("http://ihiapps.com:8080/wildbase/countries/list")
       .then((resp) => {
-        let data = resp.data.response.data.map((item) => item?.name);
+        let data = resp.data.response.data.map(country => {
+          return {
+            value: country.id,
+            label: country.name
+          }
+        })
+        console.log('daacountr', data)
         setCountries(data);
       })
       .catch((err) => {
@@ -150,18 +155,16 @@ function RegisterScreen() {
     const passwordsAreEqual = password === confirmPassword;
     const countryValid = !!areaRegion;
 
-    if (
-      (!firstNameIsValid && !lastNameIsValid && !emailIsValid) ||
-      !passwordIsValid ||
-      (!passwordsAreEqual && !countryValid)
-    ) {
+    console.log(firstNameIsValid,lastNameIsValid,emailIsValid,passwordIsValid,passwordsAreEqual,countryValid)
+    if (!firstNameIsValid || !lastNameIsValid || !emailIsValid || !passwordIsValid || !passwordsAreEqual || !countryValid) {
       Alert.alert("Invalid input", "Please check your entered credentials.");
       setCredentialsInvalid({
         email: !emailIsValid,
         password: !passwordIsValid,
         confirmPassword: !passwordIsValid || !passwordsAreEqual,
-        firstName: !!firstName,
-        lastName: !!lastName,
+        firstName: !firstNameIsValid,
+        lastName: !lastNameIsValid,
+        areaRegion: !countryValid
       });
       return;
     }
@@ -213,16 +216,6 @@ function RegisterScreen() {
     return <LoadingOverlay />;
   }
 
-  const data = [
-    { label: 'Item 1', value: '1' },
-    { label: 'Item 2', value: '2' },
-    { label: 'Item 3', value: '3' },
-    { label: 'Item 4', value: '4' },
-    { label: 'Item 5', value: '5' },
-    { label: 'Item 6', value: '6' },
-    { label: 'Item 7', value: '7' },
-    { label: 'Item 8', value: '8' },
-  ]
 
  
 
@@ -295,16 +288,8 @@ function RegisterScreen() {
             isInvalid={passwordsDontMatch}
             placeHolder="Confirm Password"
           />
-          <Input
-            onUpdateValue={updateInputValueHandler.bind(this, "areaRegion")}
-            value={enteredAreaRegion}
-            isInvalid={areaRegionIsInvalid}
-            placeHolder="Area Region"
-          />
-          {/* {renderLabel()} */}
           <Dropdown 
-          data={data}
-
+          data={countries}
           style={styles.dropdown}
           placeholderStyle={styles.placeholderStyle}
           inputSearchStyle={styles.inputSearchStyle}
@@ -312,11 +297,12 @@ function RegisterScreen() {
           labelField="label"
           valueField="value"
           searchPlaceholder="Search..."
-          value={value}
+          placeholder="Area Region"
+          value={enteredAreaRegion}
           onFocus={() => setIsFocus(true)}
           onBlur={() => setIsFocus(false)}
           onChange={item => {
-            setValue(item.value);
+            setEnteredAreaRegion(item.value);
             setIsFocus(false);
           }}
           />

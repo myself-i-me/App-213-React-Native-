@@ -3,13 +3,40 @@ eas build:configure
 eas build -p android --profile preview
 
 
-
+my profile, change password
 Request Access pages
 App icon
-Peru document image has odd dimensions compared to others
-
-
-dropdown
 user management functionality
 admin quiz pages
-request access sent in docContext
+dashboard -> piechart 
+
+Ramesh :
+1.Quiz generate api failing(userAnswer)
+
+2. Forgot Password -> Otp is 6 but need 4
+
+3. Request Access
+
+4. Accept document approve request -> post api(admin) ->
+{
+    "userId": 5,
+    "documentId": 6,
+    "requestedDateTime": "2023-07-16T20:46:58.551Z",
+    "appoved": true,
+    "approvedBy": "admin 1",
+    "approvedon": "2023-07-16",
+    "status": "true",
+    "rejectReason": "no reason"
+}
+
+5. For statistics -> need api for count of users in each country
+
+6.api/quizmaster/get/all -> api need modification
+
+Neelesh:
+
+1. Admin side -> documents/status/update/{type}  -> pages are not ready  -> Neelesh
+
+2. App icons
+
+

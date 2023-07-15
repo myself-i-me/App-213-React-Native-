@@ -55,11 +55,17 @@ export default function DocumentList({ route, navigation }) {
           authctx.token
         );
         let countries = await getCountries();
-        // let flags =await getFlags(documents.map(doc => doc.flagPath), authctx.token);
-        // console.log(flags)
         docContext.storeCountries(countries);
         setDocumentsList(documents);
         docContext.storeDocs(documents);
+        let accessData = documents.map(doc =>{
+          return {
+            documentId: doc.id,
+            accessable: doc.accessable,
+            isRequestAccessSent: doc?.isRequestAccessSent
+          }
+        })
+        docContext.storeAccessData(accessData)
       } catch (error) {
         console.log("error is", error);
         Alert.alert("Error", "Unable to fetch documents");

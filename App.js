@@ -32,7 +32,7 @@ import Certificates from './screens/Certificates';
 import DashBoard from './screens/DashBoard';
 import SettingsScreen from './screens/Settings';
 import * as Font from 'expo-font'
-
+import Profile from './screens/Profile';
 let customFonts = {
   'Fraunces': require('./assets/fonts/Fraunces.ttf'),
   'Poppins': require('./assets/fonts/Poppins.ttf')
@@ -70,7 +70,8 @@ function TempDocs() {
 
 function AuthenticatedStack() {
   const authctx = useContext(AuthContext);
-  const docctx = useContext(DocContext)
+  const docctx = useContext(DocContext);
+  const role = authctx.role
   return (
     <Drawer.Navigator
         screenOptions={{
@@ -83,26 +84,26 @@ function AuthenticatedStack() {
           options={{ headerShown:docctx.headerShown,unmountOnBlur:true,headerTintColor:'white', headerTitleAlign:'center' ,headerStyle:{backgroundColor:'#145C7B', fontFamily:'Fraunces', fontSize:60}, headerTitle:docctx.headerTitle, headerTitleStyle:{fontFamily:'Fraunces',fontSize:24}}}
           component={TempDocs}
         />
-        <Drawer.Screen
-          name="Documents"
+        {role!= 'ROLE_USER' && <Drawer.Screen
+          name="Documents Management"
           options={{headerShown:true,headerTintColor:'white',unmountOnBlur:true, headerTitleAlign:'center' ,headerStyle:{backgroundColor:'#145C7B'}, headerTitleStyle:{fontFamily:'Fraunces',fontSize:24}}}
           component={DocumentManagement}
-        />
-        <Drawer.Screen
-          name="Users"
+        />}
+        {role!= 'ROLE_USER' && <Drawer.Screen
+          name="Users Management"
           options={{headerShown:true,headerTintColor:'white',unmountOnBlur:true, headerTitleAlign:'center' ,headerStyle:{backgroundColor:'#145C7B'}, headerTitleStyle:{fontFamily:'Fraunces',fontSize:24}}}
           component={Users}
-        />
+        />}
         <Drawer.Screen 
-          name='Certificates'
+          name='My Profile'
           options={{headerShown:true,headerTintColor:'white',unmountOnBlur:true, headerTitleAlign:'center' ,headerStyle:{backgroundColor:'#145C7B'}, headerTitleStyle:{fontFamily:'Fraunces',fontSize:24}}}
-          component={Certificates}
+          component={Profile}
         />
-        <Drawer.Screen
+        {role!= 'ROLE_USER' && <Drawer.Screen
         name='DashBoard'
         options={{headerShown:true,headerTintColor:'white',unmountOnBlur:true, headerTitleAlign:'center' ,headerStyle:{backgroundColor:'#145C7B'}, headerTitleStyle:{fontFamily:'Fraunces',fontSize:24}}}
         component={DashBoard}
-        />
+        />}
         <Drawer.Screen
           name="Settings"
           options={{headerShown:true,headerTintColor:'white',unmountOnBlur:true, headerTitleAlign:'center' ,headerStyle:{backgroundColor:'#145C7B'}}}

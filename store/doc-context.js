@@ -10,6 +10,9 @@ export const DocContext = createContext({
   setHeaderTitles: (headr) => {},
   setHeaderShowns: (bool) => {},
   setHeaderColors: (clr) => {},
+  accessData: [],
+  storeAccessData: (data) =>{},
+  updateAccessData:(id,docs) =>{},
 });
 
 function DocContextProvider({ children }) {
@@ -19,14 +22,13 @@ function DocContextProvider({ children }) {
   const [headerTitle, setHeaderTitle] = useState("Homes");
   const [headerColor, setHeaderColor] = useState("#145C7B");
   const [headerShown, setHeaderShown] = useState(true);
+  const [accessData,setAccessData] = useState([]);
 
   function storeDocs(docs) {
-    console.log("Storing Docs");
     setDocs(docs);
   }
 
   function storeCountries(countries) {
-    console.log("storing countries");
     setCountries(countries);
   }
 
@@ -42,6 +44,22 @@ function DocContextProvider({ children }) {
     setHeaderShown(bool);
   }
 
+  function storeAccessData(data) {
+    console.log('storing access data', data)
+    setAccessData(data)
+  }
+
+  function updateAccessData(id) {
+    let newAccessData = accessData.map(i =>{
+      if(i.documentId == id){
+         return { ...i, isRequestAccessSent: true }
+      } else {
+        return i;
+      }
+    })
+    setAccessData(newAccessData)
+  }
+
   const value = {
     docs: docs,
     currentDocId: currentDocId,
@@ -55,6 +73,9 @@ function DocContextProvider({ children }) {
     setHeaderTitles: setHeaderTitles,
     setHeaderColors: setHeaderColors,
     setHeaderShowns: setHeaderShowns,
+    accessData: accessData,
+    storeAccessData: storeAccessData,
+    updateAccessData: updateAccessData
   };
 
   return <DocContext.Provider value={value}>{children}</DocContext.Provider>;

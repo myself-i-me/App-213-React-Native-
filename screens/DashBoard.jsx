@@ -1,10 +1,51 @@
 import { Dimensions, ScrollView, StyleSheet, Text, View } from 'react-native'
-import React from 'react'
+import React, { useEffect, useState, useContext } from 'react'
 import { PieChart } from 'react-native-chart-kit'
 
 const {width, height} = Dimensions.get('window')
+import * as Font from "expo-font";
+import * as SplashScreen from "expo-splash-screen";
+import { AuthContext } from '../store/auth-context';
+import { getDashboardApiData } from '../util/adminApis';
+import LoadingOverlay from '../components/ui/LoadingOverlay';
+let customFonts = {
+  Fraunces: require("../assets/fonts/Fraunces.ttf"),
+  Poppins: require("../assets/fonts/Poppins.ttf"),
+  Poppins500: require("../assets/fonts/Poppins500.ttf"),
+};
 
 export default function DashBoard() {
+  const [isFontsLoaded, setIsFontsLoaded] = useState(false);
+  const [dashboardData, setDashboardData] = useState(null);
+  const [isFetching, setIsFetching] = useState(false);
+  const authctx = useContext(AuthContext);
+  useEffect(() =>{
+    async function getDashboardData() {
+      setIsFetching(true);
+      try {
+        await Font.loadAsync(customFonts);
+        setIsFontsLoaded(true);
+        SplashScreen.hideAsync();
+        let dashboardData = await getDashboardApiData(authctx.token);
+        console.log('dashboard data is', dashboardData)
+        setDashboardData(dashboardData);
+      } catch (error) {
+        console.log('error is', error)
+      }
+      setIsFetching(false)
+    }
+    getDashboardData();
+  },[])
+
+  if (!isFontsLoaded) {
+    SplashScreen.preventAutoHideAsync();
+    return null;
+  }
+
+  if(isFetching) {
+    return <LoadingOverlay />
+  }
+
   return (
     <View style={{backgroundColor:'white', flex:1}}>
       <View style={{ backgroundColor:'white', padding:20, paddingTop:'19%', paddingBottom:'19%'}}>
@@ -20,20 +61,20 @@ export default function DashBoard() {
 
 
       <View style={[styles.elevatedBox, {top:height*0.04, left:height*0.015, paddingBottom:width*0.05,paddingLeft:width*0.05, paddingTop:width*0.05}]}>
-      <Text style={{fontSize:27, fontWeight:'bold',}}>1234</Text>
-      <Text style={{fontSize:18, fontWeight:'bold',}}>Pending Approvals</Text>
+      <Text style={{fontSize:27, fontFamily:'Poppins'}}>{dashboardData.totalpendingapprovals}</Text>
+      <Text style={{fontSize:18, fontFamily:'Poppins'}}>Pending Approvals</Text>
       </View>
       <View style={[styles.elevatedBox, { top:height*0.04, right:height*0.015, padding:width*0.05}]}>
-        <Text style={{fontSize:27, fontWeight:'bold',}}>1234</Text>
-        <Text style={{fontSize:18, fontWeight:'bold',}}>RRG Access Request</Text>
+        <Text style={{fontSize:27,  fontFamily:'Poppins'}}>{dashboardData.totaldocumentaccessrequests}</Text>
+        <Text style={{fontSize:18, fontFamily:'Poppins'}}>RRG Access Request</Text>
       </View>
       <View style={[styles.elevatedBox, { top:height*0.25, left:height*0.015, padding:width*0.05,}]}>
-      <Text style={{fontSize:27, fontWeight:'bold',}}>1234</Text>
-      <Text style={{fontSize:18, fontWeight:'bold',}}>RRG Documents</Text>
+      <Text style={{fontSize:27,  fontFamily:'Poppins'}}>{dashboardData.totaldocuments}</Text>
+      <Text style={{fontSize:18, fontFamily:'Poppins'}}>RRG Documents</Text>
       </View>
       <View style={[styles.elevatedBox, { top:height*0.25, right:height*0.015, padding:width*0.05, }]}>
-      <Text style={{fontSize:27, fontWeight:'bold',}}>1234</Text>
-      <Text style={{fontSize:18, fontWeight:'bold',}}>Active Members</Text>
+      <Text style={{fontSize:27,  fontFamily:'Poppins'}}>{dashboardData.totalactiveusers}</Text>
+      <Text style={{fontSize:18,  fontFamily:'Poppins'}}>Active Members</Text>
       </View>
 
       <View style={{ backgroundColor:'white', width:width*0.9, borderTopColor:'black', borderTopWidth:1.5, alignSelf:'center'}}>
