@@ -31,7 +31,6 @@ import QuizScreen from './screens/Quiz/QuizScreen';
 import Certificates from './screens/Certificates';
 import DashBoard from './screens/DashBoard';
 import SettingsScreen from './screens/Settings';
-import { DocContext } from './store/doc-context';
 import * as Font from 'expo-font'
 
 let customFonts = {
