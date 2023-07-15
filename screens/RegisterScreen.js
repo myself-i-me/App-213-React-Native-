@@ -9,6 +9,8 @@ import {
   Image,
   SafeAreaView,
   ScrollView,
+  TouchableOpacity,
+  StatusBar
 } from "react-native";
 import { useNavigation } from "@react-navigation/native";
 import LoadingOverlay from "../components/ui/LoadingOverlay";
@@ -18,12 +20,14 @@ import { createUser, sendOtp } from "../util/auth";
 const { width, height } = Dimensions.get("window");
 import Checkbox from 'expo-checkbox';
 import axios from "axios";
+import { Dropdown } from 'react-native-element-dropdown'
 
 import * as Font from 'expo-font'
 import * as SplashScreen from 'expo-splash-screen';
 
 let customFonts = {
   'Fraunces': require('../assets/fonts/Fraunces.ttf'),
+  'Poppins-SemiBold': require('../assets/fonts/Poppins600.ttf'),
   'Poppins': require('../assets/fonts/Poppins.ttf')
 };
 
@@ -62,6 +66,8 @@ function RegisterScreen() {
   const authctx = useContext(AuthContext);
   const [isFontsLoaded, setIsFontsLoaded] = useState(false);
 
+  const [value, setValue] = useState(null);
+  const [isFocus, setIsFocus] = useState(false);
 
   useEffect(() => {
     async function  loadFontsAsync() {
@@ -207,32 +213,50 @@ function RegisterScreen() {
     return <LoadingOverlay />;
   }
 
+  const data = [
+    { label: 'Item 1', value: '1' },
+    { label: 'Item 2', value: '2' },
+    { label: 'Item 3', value: '3' },
+    { label: 'Item 4', value: '4' },
+    { label: 'Item 5', value: '5' },
+    { label: 'Item 6', value: '6' },
+    { label: 'Item 7', value: '7' },
+    { label: 'Item 8', value: '8' },
+  ]
+
+ 
+
   return (
-    <SafeAreaView>
-      <ScrollView style = {{}} keyboardShouldPersistTaps='handled'>
-      <View style={{ paddingTop: 230 }}>
+    <>
+    {/* <StatusBar hidden={true}/> */}
+    <SafeAreaView style={{flex:1}}>
+    <ScrollView style = {{backgroundColor:'white', flex:1}} keyboardShouldPersistTaps='handled'>
+      <View style={{ paddingTop: height*0.27, backgroundColor:'white', flex:1, height:height*1.5 }}>
         <Image
           source={elephant_cropped}
           style={{
             position: "absolute",
-            top: height * 0.047,
-            width: width * 1.05,
-            height: height * 0.25,
+            top: height * 0,
+            width: width*1.05, 
+            height:height*0.21,
+            resizeMode:'stretch',
+            backgroundColor:'white',
+            left:-5
           }}
         />
         <View style={{ width: width * 0.8, alignSelf: "center" }}>
           <Text
             style={{
-              fontSize: 35,
-              fontWeight: "700",
+              fontSize: 24,
+              fontWeight: "600",
               color: "#1a475c",
               textAlign: "center",
-              fontFamily:'Poppins'
+              fontFamily:'Poppins-SemiBold'
             }}
           >
             Register
           </Text>
-          <Text style={{ textAlign: "center", color: "grey", fontFamily:'Poppins' }}>
+          <Text style={{ textAlign: "center", color: "#513D3D", fontFamily:'Poppins', fontSize:12 }}>
             Create your new account
           </Text>
           <Input
@@ -252,7 +276,7 @@ function RegisterScreen() {
             value={enteredEmail}
             keyboardType="email-address"
             isInvalid={emailIsInvalid}
-            placeHolder="Email"
+            placeHolder="Email address"
           />
           <Input
             onUpdateValue={updateInputValueHandler.bind(this, "password")}
@@ -277,29 +301,48 @@ function RegisterScreen() {
             isInvalid={areaRegionIsInvalid}
             placeHolder="Area Region"
           />
-          <View style={{flexDirection:'row', alignItems:'center', justifyContent:'center'}}>
+          {/* {renderLabel()} */}
+          <Dropdown 
+          data={data}
+
+          style={styles.dropdown}
+          placeholderStyle={styles.placeholderStyle}
+          inputSearchStyle={styles.inputSearchStyle}
+          maxHeight={300}
+          labelField="label"
+          valueField="value"
+          searchPlaceholder="Search..."
+          value={value}
+          onFocus={() => setIsFocus(true)}
+          onBlur={() => setIsFocus(false)}
+          onChange={item => {
+            setValue(item.value);
+            setIsFocus(false);
+          }}
+          />
+          <View style={{flexDirection:'row', alignItems:'center', justifyContent:'center' ,marginTop: 30}}>
           <Checkbox value={isChecked} onValueChange={setChecked} />
           <Text
             style={{
               textAlign: "center",
-              marginVertical: 10,
-              color: "#145C7B",
+              color: "black",
               marginLeft:10,
-              fontFamily:'Poppins'
+              fontFamily:'Poppins',
+              fontSize:12,
+              fontWeight:400,
+              
             }}
           >
             Agreed terms and conditions
           </Text>
           </View>
-          <Button
-            title="Sign up"
-            backgroundColor="#145C7B"
-            onPress={onSubmit}
-          />
-          <Text style={{ marginVertical: 10, textAlign: "center",fontFamily:'Poppins' }}>
+          <TouchableOpacity style={styles.button} onPress={onSubmit}>
+          <Text style={{color:'white', fontSize:18, fontFamily:'Poppins-SemiBold', fontWeight:600, width:width*0.75, height:30,textAlign:'center',textAlignVertical:'center'}}>Sign up</Text>
+          </TouchableOpacity>
+          <Text style={{ marginTop: 6, textAlign: "center",fontFamily:'Poppins', color:'#828080', fontSize:12 }}>
             Already have and account?
             <Text
-              style={{ color: "#145C7B", textDecorationLine: "underline", fontFamily:'Poppins' }}
+              style={{ color: "black", textDecorationLine: "underline", fontFamily:'Poppins-SemiBold',fontWeight:600 }}
               onPress={() => navigation.navigate("Login")}
             >
               {" "}
@@ -309,17 +352,59 @@ function RegisterScreen() {
         </View>
       </View>
       </ScrollView>
-    </SafeAreaView>
+      </SafeAreaView>
+    </>
   );
 }
 
 export default RegisterScreen;
 
 const styles = StyleSheet.create({
-  buttons: {
-    marginTop: 12,
+  button: {
+    borderRadius: 11,
+    backgroundColor: "#145C7B",
+    padding: 10,
+    marginTop:26,
+    // width:236,
+    alignSelf:'center'
   },
   contaier: {
     paddingHorizontal: width * 0.05,
   },
+
+  dropdown: {
+    height: 50,
+    borderColor: '#207398',
+    borderWidth: 1,
+    borderRadius: 8,
+    paddingHorizontal: 8,
+  },
+  icon: {
+    marginRight: 5,
+  },
+  label: {
+    position: 'absolute',
+    backgroundColor: 'white',
+    left: 22,
+    top: 8,
+    zIndex: 999,
+    paddingHorizontal: 8,
+    fontSize: 14,
+  },
+  placeholderStyle: {
+    fontSize: 16,
+    color:'grey'
+  },
+  selectedTextStyle: {
+    fontSize: 16,
+  },
+  iconStyle: {
+    width: 20,
+    height: 20,
+  },
+  inputSearchStyle: {
+    height: 40,
+    fontSize: 16,
+  },
+
 });

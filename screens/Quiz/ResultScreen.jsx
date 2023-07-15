@@ -7,6 +7,7 @@ import { AuthContext } from "../../store/auth-context";
 const {width, height} = Dimensions.get('window')
 import * as Font from 'expo-font'
 import * as SplashScreen from 'expo-splash-screen';
+import { DocContext } from "../../store/doc-context";
 
 let customFonts = {
   'Fraunces': require('../../assets/fonts/Fraunces.ttf'),
@@ -98,8 +99,8 @@ function FailScreen({score, goToHome}) {
 
 
 function ResultScreen (props) {
-    const authcontxt = useContext(AuthContext)
-    authcontxt.setHeaderShowns(true)
+    const docctx = useContext(DocContext)
+    docctx.setHeaderShowns(true)
     
     const navigation = useNavigation();
     const route = useRoute();

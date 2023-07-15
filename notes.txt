@@ -3,8 +3,10 @@ eas build:configure
 eas build -p android --profile preview
 
 
+
 Request Access pages
-App icons
+App icon
+Peru document image has odd dimensions compared to others
 
 
 dropdown

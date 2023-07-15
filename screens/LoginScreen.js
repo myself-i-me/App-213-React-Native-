@@ -1,6 +1,6 @@
 import { AuthContext } from "../store/auth-context";
 import { useContext, useState, useEffect } from "react";
-import { Alert, Dimensions, StyleSheet, View, Image, Text, TextInput, ScrollView } from "react-native";
+import { Alert, Dimensions, StyleSheet, View, Image, Text, TextInput, ScrollView, TouchableOpacity } from "react-native";
 import { login } from '../util/auth';
 import LoadingOverlay from "../components/ui/LoadingOverlay";
 import Button from "../components/ui/Button";
@@ -116,15 +116,16 @@ function LoginScreen({navigation}) {
 
   return (
     <ScrollView style = {{backgroundColor: 'white'}} keyboardShouldPersistTaps='handled'>
-      <View style={{alignItems:'center',backgroundColor: 'white',flex:1,paddingTop:height*0.27}}>
+      <View style={{backgroundColor: 'white',flex:1,paddingTop:height*0.23}}>
       <Image
       source={elephant_cropped}
-      style={{position:'absolute', top: height*0.047, width: width*1.05, height:height*0.25}}
+      style={{position:'absolute', top: height*0, width: width*1.05, height:height*0.21, left:-5}}
+      resizeMode="stretch"
       />
-      <View style={{width:width*0.8}} >
+      <View style={{width:width*0.8, alignSelf:'center'}} >
         <Image 
         source={leaf}
-        style={{height:100, width:100, borderWidth:1, alignSelf:'center'}}
+        style={{height:100, width:100, alignSelf:'center'}}
         />
         <Text style={{fontSize:35, fontWeight:'700', color:'#1a475c', textAlign:'center', marginBottom:10, fontFamily:'Poppins'}}>Welcome back</Text>
         <Text style={{textAlign:'center', color:"#207398", marginBottom:10,fontFamily:'Poppins'}}>Login into your account</Text>
@@ -142,10 +143,12 @@ function LoginScreen({navigation}) {
           isInvalid={passwordIsInvalid}
           placeHolder='password'
         />
-        <Text style={{textAlign:'right', marginTop:10, marginBottom:150, color:'#207398', textDecorationLine:'underline',fontFamily:'Poppins'}} onPress={()=>navigation.navigate('ForgotPassword')}>Forgot password?</Text>
-        <Button title='Login' backgroundColor="#207398" color="white" onPress={onSubmit}/>
-        <Text style={{marginVertical:10, textAlign:'center', color:'grey',fontFamily:'Poppins'}}>Don't have an account?
-            <Text style={{color:'#207398', textDecorationLine:'underline', fontFamily:'Poppins'}} onPress={()=>navigation.navigate('SignUp')}>Sign up</Text>
+        <Text style={{textAlign:'right', marginTop:12, marginBottom:70, color:'#207398', textDecorationLine:'underline',fontFamily:'Poppins'}} onPress={()=>navigation.navigate('ForgotPassword')}>Forgot password?</Text>
+        <TouchableOpacity style={styles.loginButton} onPress={onSubmit}>
+                <Text style={{marginTop:6, color:'white', fontSize:16, fontFamily:'Poppins-SemiBold', fontWeight:600, width:width*0.75, height:30,textAlign:'center', alignSelf:'center', textAlignVertical:'center', backgroundColor:'transparent'}}>Login</Text>
+            </TouchableOpacity>
+        <Text style={{marginVertical:10, textAlign:'center', color:'#828080',fontFamily:'Poppins'}}>Don't have an account? 
+            <Text style={{color:'#207398', textDecorationLine:'underline', fontFamily:'Poppins-SemiBold'}} onPress={()=>navigation.navigate('SignUp')}> Sign up</Text>
         </Text>
       </View>
     </View>
@@ -159,4 +162,17 @@ const styles = StyleSheet.create({
   buttons: {
     marginTop: 12,
   },
+  loginButton:{
+    borderRadius: 11,
+    backgroundColor: "#145C7B",
+    alignSelf:'center',
+    padding: 10,
+    elevation: 4,
+    shadowColor: "#000",
+    shadowOffset: { width: 0, height: 4 },
+    shadowOpacity: 0.25,
+    shadowRadius: 4,
+    marginTop:19,
+    // width:270
+  }
 });
