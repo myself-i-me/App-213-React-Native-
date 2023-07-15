@@ -75,7 +75,7 @@ const styles = StyleSheet.create({
     borderColor: "#207398",
     borderWidth: 1,
     color: "grey",
-    fontFamily:'Poppins'
+    fontFamily:'Poppins',
   },
   inputInvalid: {
     backgroundColor: "#8be8a4",

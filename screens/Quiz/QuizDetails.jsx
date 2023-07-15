@@ -14,6 +14,7 @@ import {
   const { width, height } = Dimensions.get("window");
   import * as Font from "expo-font";
   import * as SplashScreen from "expo-splash-screen";
+import { DocContext } from "../../store/doc-context";
 
   let customFonts = {
     'Fraunces': require('../../assets/fonts/Fraunces.ttf'),
@@ -27,8 +28,8 @@ import {
   };
   
   export default function QuizDetails({ }) {
-    const authctx = useContext(AuthContext);
-    authctx.setHeaderTitles('');
+    const docctx = useContext(DocContext);
+    docctx.setHeaderTitles('');
     const navigation = useNavigation()
       const goToExam = () =>{
           navigation.navigate('Exam',{

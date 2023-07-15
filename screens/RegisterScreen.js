@@ -20,6 +20,7 @@ import { createUser, sendOtp } from "../util/auth";
 const { width, height } = Dimensions.get("window");
 import Checkbox from 'expo-checkbox';
 import axios from "axios";
+import { Dropdown } from 'react-native-element-dropdown'
 
 import * as Font from 'expo-font'
 import * as SplashScreen from 'expo-splash-screen';
@@ -65,6 +66,8 @@ function RegisterScreen() {
   const authctx = useContext(AuthContext);
   const [isFontsLoaded, setIsFontsLoaded] = useState(false);
 
+  const [value, setValue] = useState(null);
+  const [isFocus, setIsFocus] = useState(false);
 
   useEffect(() => {
     async function  loadFontsAsync() {
@@ -210,12 +213,25 @@ function RegisterScreen() {
     return <LoadingOverlay />;
   }
 
+  const data = [
+    { label: 'Item 1', value: '1' },
+    { label: 'Item 2', value: '2' },
+    { label: 'Item 3', value: '3' },
+    { label: 'Item 4', value: '4' },
+    { label: 'Item 5', value: '5' },
+    { label: 'Item 6', value: '6' },
+    { label: 'Item 7', value: '7' },
+    { label: 'Item 8', value: '8' },
+  ]
+
+ 
+
   return (
     <>
     {/* <StatusBar hidden={true}/> */}
     <SafeAreaView style={{flex:1}}>
     <ScrollView style = {{backgroundColor:'white', flex:1}} keyboardShouldPersistTaps='handled'>
-      <View style={{ paddingTop: height*0.27, backgroundColor:'white', flex:1 }}>
+      <View style={{ paddingTop: height*0.27, backgroundColor:'white', flex:1, height:height*1.5 }}>
         <Image
           source={elephant_cropped}
           style={{
@@ -285,6 +301,25 @@ function RegisterScreen() {
             isInvalid={areaRegionIsInvalid}
             placeHolder="Area Region"
           />
+          {/* {renderLabel()} */}
+          <Dropdown 
+          data={data}
+
+          style={styles.dropdown}
+          placeholderStyle={styles.placeholderStyle}
+          inputSearchStyle={styles.inputSearchStyle}
+          maxHeight={300}
+          labelField="label"
+          valueField="value"
+          searchPlaceholder="Search..."
+          value={value}
+          onFocus={() => setIsFocus(true)}
+          onBlur={() => setIsFocus(false)}
+          onChange={item => {
+            setValue(item.value);
+            setIsFocus(false);
+          }}
+          />
           <View style={{flexDirection:'row', alignItems:'center', justifyContent:'center' ,marginTop: 30}}>
           <Checkbox value={isChecked} onValueChange={setChecked} />
           <Text
@@ -336,4 +371,40 @@ const styles = StyleSheet.create({
   contaier: {
     paddingHorizontal: width * 0.05,
   },
+
+  dropdown: {
+    height: 50,
+    borderColor: '#207398',
+    borderWidth: 1,
+    borderRadius: 8,
+    paddingHorizontal: 8,
+  },
+  icon: {
+    marginRight: 5,
+  },
+  label: {
+    position: 'absolute',
+    backgroundColor: 'white',
+    left: 22,
+    top: 8,
+    zIndex: 999,
+    paddingHorizontal: 8,
+    fontSize: 14,
+  },
+  placeholderStyle: {
+    fontSize: 16,
+    color:'grey'
+  },
+  selectedTextStyle: {
+    fontSize: 16,
+  },
+  iconStyle: {
+    width: 20,
+    height: 20,
+  },
+  inputSearchStyle: {
+    height: 40,
+    fontSize: 16,
+  },
+
 });

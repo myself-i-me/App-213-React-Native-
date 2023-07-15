@@ -25,7 +25,7 @@ import DocumentManagement from './components/Doccuments/Doc-management-list';
 import DocumentItem from './components/Doccuments/DocumentItem';
 import Users from './components/users/users'
 import DocumentDetails from './components/Doccuments/Document-details';
-import DocContextProvider from './store/doc-context';
+import DocContextProvider, { DocContext } from './store/doc-context';
 import { getDocumentsByUserID } from './util/documentApis';
 import QuizScreen from './screens/Quiz/QuizScreen';
 import Certificates from './screens/Certificates';
@@ -52,8 +52,8 @@ function AuthStack() {
 }
 
 function TempDocs() {
-  const authctx = useContext(AuthContext)
-  authctx.setHeaderTitles('Home')
+  const docctx = useContext(DocContext)
+  docctx.setHeaderTitles('Home')
   return (
     <Stack.Navigator>
       <Stack.Screen name= "Documents" component={DocumentList} options={{headerShown: false}}/>
@@ -64,7 +64,8 @@ function TempDocs() {
 }
 
 function AuthenticatedStack() {
-  const authctx = useContext(AuthContext)
+  const authctx = useContext(AuthContext);
+  const docctx = useContext(DocContext)
   return (
     <Drawer.Navigator
         screenOptions={{
@@ -74,7 +75,7 @@ function AuthenticatedStack() {
         drawerContent={(props) => <CustomSidebarMenu {...props} />}>
         <Drawer.Screen
           name="Home"
-          options={{ headerShown:authctx.headerShown,unmountOnBlur:true,headerTintColor:'white', headerTitleAlign:'center' ,headerStyle:{backgroundColor:'#145C7B'}, headerTitle:authctx.headerTitle, headerTitleStyle:{fontFamily:'Fraunces',fontSize:24}}}
+          options={{ headerShown:docctx.headerShown,unmountOnBlur:true,headerTintColor:'white', headerTitleAlign:'center' ,headerStyle:{backgroundColor:'#145C7B'}, headerTitle:docctx.headerTitle, headerTitleStyle:{fontFamily:'Fraunces',fontSize:24}}}
           component={TempDocs}
         />
         <Drawer.Screen

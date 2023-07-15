@@ -14,7 +14,8 @@ import * as SplashScreen from 'expo-splash-screen';
 
 let customFonts = {
   'Fraunces': require('../../assets/fonts/Fraunces.ttf'),
-  'Poppins': require('../../assets/fonts/Poppins.ttf')
+  'Poppins': require('../../assets/fonts/Poppins.ttf'),
+  'Poppins500': require('../../assets/fonts/Poppins500.ttf')
 };
 
 export default function DocumentList({route,navigation}) {
@@ -83,13 +84,13 @@ export default function DocumentList({route,navigation}) {
 					if(country.name==currentCountry){
 						return (
 							<TouchableOpacity style={styles.selectedCountryButton} onPress={() =>{onSelectCountry(country)}} key={country.name}>
-								<Text style={{fontWeight:500,color:'white', marginVertical:10, marginHorizontal:20}}>{country.name}</Text>
+								<Text style={{fontFamily:'Poppins500',color:'white', marginVertical:10, marginHorizontal:20, backgroundColor:'transparent'}}>{country.name}</Text>
 							</TouchableOpacity>
 						)
 					} else {
 						return (
 							<TouchableOpacity style={styles.button} onPress={() =>{onSelectCountry(country)}} key={country.name}>
-								<Text style={{fontWeight:500,color:'#2C160C', marginVertical:10, marginHorizontal:20, alignSelf:'center', height:20}}>{country.name}</Text>
+								<Text style={{fontFamily:'Poppins500' ,color:'#2C160C', marginVertical:10, marginHorizontal:20, backgroundColor:'transparent'}}>{country.name}</Text>
 							</TouchableOpacity>
 						)
 					}
@@ -116,10 +117,10 @@ const styles = StyleSheet.create({
     },
     button: {
         backgroundColor:'#2C9CCC99',
-        borderRadius:16,
+        borderRadius:20,
         marginHorizontal:5,
         minWidth:50,
-        textAlignVertical:'center',
+        // textAlignVertical:'center',
         textAlign:'center',
 		
         // paddingVertical:10,
@@ -127,10 +128,9 @@ const styles = StyleSheet.create({
     },
 	selectedCountryButton:{
 		backgroundColor:'#145C7B',
-        borderRadius:16,
+        borderRadius:20,
         marginHorizontal:5,
         minWidth:50,
-        textAlignVertical:'center',
         textAlign:'center',
 	}
 })

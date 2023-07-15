@@ -11,6 +11,7 @@ import { AuthContext } from "../../store/auth-context";
 const {width, height} = Dimensions.get('window')
 import * as Font from 'expo-font'
 import * as SplashScreen from 'expo-splash-screen';
+import { DocContext } from "../../store/doc-context";
 
 let customFonts = {
   'Fraunces': require('../../assets/fonts/Fraunces.ttf'),
@@ -19,8 +20,8 @@ let customFonts = {
 
 
 const ExamScreen = () => {
-    const authcontxt = useContext(AuthContext)
-    authcontxt.setHeaderShowns(false)
+    const docctx = useContext(DocContext)
+    docctx.setHeaderShowns(false)
 
     const [currentQuestion, setCurrentQuestion] = useState(0);
     const [answers, setAnswers] = useState([]);
