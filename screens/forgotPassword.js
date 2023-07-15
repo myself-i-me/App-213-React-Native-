@@ -1,6 +1,6 @@
 import { AuthContext } from "../store/auth-context";
 import { useEffect, useState } from "react";
-import { Alert, Dimensions, StyleSheet, View, Image, Text, TextInput } from "react-native";
+import { Alert, Dimensions, StyleSheet, View, Image, Text, TextInput, TouchableOpacity } from "react-native";
 import { forgotPasswordFunction } from '../util/auth';
 import LoadingOverlay from "../components/ui/LoadingOverlay";
 import Button from "../components/ui/Button";
@@ -8,7 +8,7 @@ import Input from "../components/ui/Input";
 
 import * as Font from 'expo-font'
 import * as SplashScreen from 'expo-splash-screen';
-import { TouchableOpacity } from "react-native-web";
+
 
 let customFonts = {
   'Fraunces': require('../assets/fonts/Fraunces.ttf'),
@@ -83,10 +83,10 @@ function ForotPasswordScreen({navigation}) {
 
 
   return (
-    <View style={{alignItems:'center',backgroundColor: 'white',flex:1,paddingTop:height*0.27}}>
+    <View style={{alignItems:'center',backgroundColor: 'white',flex:1,paddingTop:height*0.27, flex:1}}>
       <Image
       source={elephant_cropped}
-      style={{position:'absolute', top: height*0.027, width: width*1.05, height:height*0.25}}
+      style={{position:'absolute', top: height*0, width: width*1.05, height:height*0.25}}
       resizeMode="stretch"
       />
       <View style={{width:width*0.8}} >
@@ -105,7 +105,7 @@ function ForotPasswordScreen({navigation}) {
         />
         {/* <Button title='Send otp' backgroundColor="#145C7B" color="white" onPress={onSubmit}/> */}
         <TouchableOpacity style={styles.button} onPress={onSubmit}>
-          <Text style={{color:'white', fontSize:18, fontFamily:'Poppins-SemiBold', fontWeight:600, width:width*0.75, height:30,textAlign:'center',textAlignVertical:'center'}}>Sign up</Text>
+          <Text style={{color:'white', fontSize:18, fontFamily:'Poppins-SemiBold', fontWeight:600, width:width*0.75, height:30,textAlign:'center',textAlignVertical:'center'}}>Send OTP</Text>
           </TouchableOpacity>
         <Text style={{marginVertical:10, textAlign:'center', color:'grey', fontFamily:'Poppins'}}>Don't have an account?
             <Text style={{color:'#145C7B', textDecorationLine:'underline', fontFamily:'Poppins'}} onPress={()=>navigation.navigate('SignUp')}>Sign up</Text>

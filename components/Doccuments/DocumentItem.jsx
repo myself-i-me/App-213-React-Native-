@@ -1,4 +1,4 @@
-import {Dimensions,StyleSheet,Switch,Text,TouchableOpacity,View} from "react-native";
+import {Dimensions,StyleSheet,Text,TouchableOpacity,View} from "react-native";
 import React, { useState, useContext, useEffect } from "react";
 import { AuthContext } from "../../store/auth-context";
 import {Image} from 'expo-image'
@@ -34,20 +34,21 @@ export default function DocumentItem({ item, navigation }) {
 
   return (
     <TouchableOpacity
-      style={{ overflow: "hidden", height: height * 0.25, }}
+      style={{ overflow: "hidden", height: height * 0.23, backgroundColor:'white', marginVertical:5, padding:0 }}
       onPress={() => navigation.navigate("docdetails", { item: item })}
     >
       <View
         style={{
-          height: 128,
+          height: height * 0.25,
           borderColor: "blue",
           borderWidth: 0,
           // flex: 1,
           flexDirection: "row",
-          marginVertical: height * 0.01,
+          // marginVertical: height * 0.01,
+          overflow:'hidden',
         }}
       >
-        <View style={{  overflow: "hidden", width:120, height: height * 0.25, }}>
+        <View style={{  overflow: "hidden", width:120, height: height * 0.225}}>
           <Image
             onError={(err) =>{console.log('err is', err)}}
             source={{
@@ -60,14 +61,13 @@ export default function DocumentItem({ item, navigation }) {
             style={{
               flex: 1,
               borderWidth: 1,
-              resizeMode: "stetch",
+              resizeMode: "stretch",
               width: 120,
               // height:128,
               alignSelf: "center",
               borderRadius: 6,
               borderColor: "#145C7B",
-              borderWidth: 1,
-              height: height * 0.23,
+              height: height * 0.24,
             }}
           />
         </View>
@@ -78,7 +78,8 @@ export default function DocumentItem({ item, navigation }) {
             flex: 2,
             flexDirection: "column",
             justifyContent: "space-between",
-            height: height * 0.23,
+            height: height * 0.225,
+            // backgroundColor:'#a2b1c3'
           }}
         >
           <Text style={{ fontSize: 18, fontFamily: 'Fraunces-semibold', marginBottom:18 }}>{item.title}</Text>
@@ -111,13 +112,4 @@ export default function DocumentItem({ item, navigation }) {
   );
 }
 
-const styles = StyleSheet.create({
-  switch: {
-    alignSelf: "flex-start",
-    paddingVertical: -5,
-    borderColor: "green",
-    borderWidth: 1,
-    margin: 0,
-    height: 20,
-  },
-});
+const styles = StyleSheet.create({});

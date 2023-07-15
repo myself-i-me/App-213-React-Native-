@@ -116,10 +116,10 @@ function LoginScreen({navigation}) {
 
   return (
     <ScrollView style = {{backgroundColor: 'white'}} keyboardShouldPersistTaps='handled'>
-      <View style={{backgroundColor: 'white',flex:1,paddingTop:height*0.27}}>
+      <View style={{backgroundColor: 'white',flex:1,paddingTop:height*0.23}}>
       <Image
       source={elephant_cropped}
-      style={{position:'absolute', top: height*0.027, width: width*1.05, height:height*0.25}}
+      style={{position:'absolute', top: height*0, width: width*1.05, height:height*0.21, left:-5}}
       resizeMode="stretch"
       />
       <View style={{width:width*0.8, alignSelf:'center'}} >
@@ -145,7 +145,7 @@ function LoginScreen({navigation}) {
         />
         <Text style={{textAlign:'right', marginTop:12, marginBottom:70, color:'#207398', textDecorationLine:'underline',fontFamily:'Poppins'}} onPress={()=>navigation.navigate('ForgotPassword')}>Forgot password?</Text>
         <TouchableOpacity style={styles.loginButton} onPress={onSubmit}>
-                <Text style={{marginTop:6, color:'white', fontSize:16, fontFamily:'Poppins-SemiBold', fontWeight:600, width:260, height:30,textAlign:'center', alignSelf:'center', textAlignVertical:'center', backgroundColor:'transparent'}}>Login</Text>
+                <Text style={{marginTop:6, color:'white', fontSize:16, fontFamily:'Poppins-SemiBold', fontWeight:600, width:width*0.75, height:30,textAlign:'center', alignSelf:'center', textAlignVertical:'center', backgroundColor:'transparent'}}>Login</Text>
             </TouchableOpacity>
         <Text style={{marginVertical:10, textAlign:'center', color:'#828080',fontFamily:'Poppins'}}>Don't have an account? 
             <Text style={{color:'#207398', textDecorationLine:'underline', fontFamily:'Poppins-SemiBold'}} onPress={()=>navigation.navigate('SignUp')}> Sign up</Text>
@@ -173,6 +173,6 @@ const styles = StyleSheet.create({
     shadowOpacity: 0.25,
     shadowRadius: 4,
     marginTop:19,
-    width:270
+    // width:270
   }
 });

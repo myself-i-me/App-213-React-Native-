@@ -9,7 +9,8 @@ import {
   Image,
   SafeAreaView,
   ScrollView,
-  TouchableOpacity
+  TouchableOpacity,
+  StatusBar
 } from "react-native";
 import { useNavigation } from "@react-navigation/native";
 import LoadingOverlay from "../components/ui/LoadingOverlay";
@@ -210,18 +211,21 @@ function RegisterScreen() {
   }
 
   return (
-    <SafeAreaView>
-      <ScrollView style = {{backgroundColor:'white'}} keyboardShouldPersistTaps='handled'>
-      <View style={{ paddingTop: height*0.27, backgroundColor:'white', height:height }}>
+    <>
+    {/* <StatusBar hidden={true}/> */}
+    <SafeAreaView style={{flex:1}}>
+    <ScrollView style = {{backgroundColor:'white', flex:1}} keyboardShouldPersistTaps='handled'>
+      <View style={{ paddingTop: height*0.27, backgroundColor:'white', flex:1 }}>
         <Image
           source={elephant_cropped}
           style={{
             position: "absolute",
-            top: height * 0.027,
+            top: height * 0,
             width: width*1.05, 
-            height:height*0.25,
+            height:height*0.21,
             resizeMode:'stretch',
-            backgroundColor:'white'
+            backgroundColor:'white',
+            left:-5
           }}
         />
         <View style={{ width: width * 0.8, alignSelf: "center" }}>
@@ -298,12 +302,12 @@ function RegisterScreen() {
           </Text>
           </View>
           <TouchableOpacity style={styles.button} onPress={onSubmit}>
-          <Text style={{color:'white', fontSize:18, fontFamily:'Poppins-SemiBold', fontWeight:600, width:260, height:30,textAlign:'center',textAlignVertical:'center'}}>Sign up</Text>
+          <Text style={{color:'white', fontSize:18, fontFamily:'Poppins-SemiBold', fontWeight:600, width:width*0.75, height:30,textAlign:'center',textAlignVertical:'center'}}>Sign up</Text>
           </TouchableOpacity>
           <Text style={{ marginTop: 6, textAlign: "center",fontFamily:'Poppins', color:'#828080', fontSize:12 }}>
             Already have and account?
             <Text
-              style={{ color: "black", textDecorationLine: "underline", fontFamily:'Poppins',fontWeight:600 }}
+              style={{ color: "black", textDecorationLine: "underline", fontFamily:'Poppins-SemiBold',fontWeight:600 }}
               onPress={() => navigation.navigate("Login")}
             >
               {" "}
@@ -313,7 +317,8 @@ function RegisterScreen() {
         </View>
       </View>
       </ScrollView>
-    </SafeAreaView>
+      </SafeAreaView>
+    </>
   );
 }
 

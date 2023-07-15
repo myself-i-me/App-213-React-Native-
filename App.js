@@ -37,7 +37,7 @@ function AuthStack() {
   const navigator = useNavigation();
   return (
     <>
-    <StatusBar  style='auto' />
+    {/* <StatusBar  hidden /> */}
     <Stack.Navigator
       initialRouteName='Landing'
     >
