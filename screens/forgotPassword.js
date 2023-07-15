@@ -8,6 +8,7 @@ import Input from "../components/ui/Input";
 
 import * as Font from 'expo-font'
 import * as SplashScreen from 'expo-splash-screen';
+import { TouchableOpacity } from "react-native-web";
 
 let customFonts = {
   'Fraunces': require('../assets/fonts/Fraunces.ttf'),
@@ -85,12 +86,13 @@ function ForotPasswordScreen({navigation}) {
     <View style={{alignItems:'center',backgroundColor: 'white',flex:1,paddingTop:height*0.27}}>
       <Image
       source={elephant_cropped}
-      style={{position:'absolute', top: height*0.047, width: width*1.05, height:height*0.25}}
+      style={{position:'absolute', top: height*0.027, width: width*1.05, height:height*0.25}}
+      resizeMode="stretch"
       />
       <View style={{width:width*0.8}} >
         <Image 
         source={leaf}
-        style={{height:100, width:100, borderWidth:1, alignSelf:'center'}}
+        style={{height:100, width:100, borderWidth:0, alignSelf:'center'}}
         />
         <Text style={{fontSize:35, fontWeight:'700', color:'#1a475c', textAlign:'center', marginBottom:10, fontFamily:'Poppins'}}>Welcome back</Text>
         <Text style={{textAlign:'center', color:"#145C7B", marginBottom:10, fontFamily:'Poppins'}}>Login into your account</Text>
@@ -101,7 +103,10 @@ function ForotPasswordScreen({navigation}) {
           isInvalid={emailIsInvalid}
           placeHolder= 'Email Address'
         />
-        <Button title='Send otp' backgroundColor="#145C7B" color="white" onPress={onSubmit}/>
+        {/* <Button title='Send otp' backgroundColor="#145C7B" color="white" onPress={onSubmit}/> */}
+        <TouchableOpacity style={styles.button} onPress={onSubmit}>
+          <Text style={{color:'white', fontSize:18, fontFamily:'Poppins-SemiBold', fontWeight:600, width:width*0.75, height:30,textAlign:'center',textAlignVertical:'center'}}>Sign up</Text>
+          </TouchableOpacity>
         <Text style={{marginVertical:10, textAlign:'center', color:'grey', fontFamily:'Poppins'}}>Don't have an account?
             <Text style={{color:'#145C7B', textDecorationLine:'underline', fontFamily:'Poppins'}} onPress={()=>navigation.navigate('SignUp')}>Sign up</Text>
         </Text>
@@ -112,3 +117,13 @@ function ForotPasswordScreen({navigation}) {
 
 export default ForotPasswordScreen;
 
+const styles = StyleSheet.create({
+  button:{
+    borderRadius: 11,
+    backgroundColor: "#145C7B",
+    padding: 10,
+    marginTop:26,
+    // width:236,
+    alignSelf:'center'
+  }
+})

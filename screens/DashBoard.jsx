@@ -105,7 +105,7 @@ const styles = StyleSheet.create({
   elevatedBox:{
     shadowColor:'black',
     shadowOpacity:0.5,
-    shadowRadius:1,
+    shadowRadius:0.5,
     elevation:11,
     width:height*0.19,
     height:height*0.19,
@@ -113,6 +113,6 @@ const styles = StyleSheet.create({
     backgroundColor:'white',
     position:'absolute',
     justifyContent:'space-between',
-    backgroundColor:'#f0f5c1',
+    backgroundColor:'#FBFAFA',
   }
 })

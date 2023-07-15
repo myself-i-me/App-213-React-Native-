@@ -34,20 +34,20 @@ export default function DocumentItem({ item, navigation }) {
 
   return (
     <TouchableOpacity
-      style={{ overflow: "hidden" }}
+      style={{ overflow: "hidden", height: height * 0.25, }}
       onPress={() => navigation.navigate("docdetails", { item: item })}
     >
       <View
         style={{
-          height: height * 0.25,
+          height: 128,
           borderColor: "blue",
           borderWidth: 0,
-          flex: 1,
+          // flex: 1,
           flexDirection: "row",
           marginVertical: height * 0.01,
         }}
       >
-        <View style={{ flex: 1.1, overflow: "hidden" }}>
+        <View style={{  overflow: "hidden", width:120, height: height * 0.25, }}>
           <Image
             onError={(err) =>{console.log('err is', err)}}
             source={{
@@ -60,37 +60,39 @@ export default function DocumentItem({ item, navigation }) {
             style={{
               flex: 1,
               borderWidth: 1,
-              resizeMode: "cover",
-              width: width * 0.32,
+              resizeMode: "stetch",
+              width: 120,
+              // height:128,
               alignSelf: "center",
-              borderRadius: 10,
+              borderRadius: 6,
               borderColor: "#145C7B",
-              borderWidth: 2,
-              height: height * 0.25,
+              borderWidth: 1,
+              height: height * 0.23,
             }}
           />
         </View>
         <View
           style={{
-            paddingTop: height * 0.02,
-            paddingLeft: width * 0.03,
+            paddingTop: 0,
+            paddingLeft: 12,
             flex: 2,
             flexDirection: "column",
             justifyContent: "space-between",
+            height: height * 0.23,
           }}
         >
-          <Text style={{ fontSize: 20, fontFamily: 'Fraunces-semibold' }}>{item.title}</Text>
+          <Text style={{ fontSize: 18, fontFamily: 'Fraunces-semibold', marginBottom:18 }}>{item.title}</Text>
 
           <View
             style={{
-              paddingBottom: height * 0.02,
+              paddingBottom: 9,
               flexDirection: "row",
               justifyContent: "space-between",
-              borderBottomWidth: 2,
+              borderBottomWidth: 1,
               borderColor: "#145C7B",
             }}
           >
-            <Text style={{ fontSize: 20, fontFamily:'Poppins' }}>{item.country}</Text>
+            <Text style={{ fontSize: 14, fontFamily:'Poppins' }}>{item.country}</Text>
             <Image
               onError={(err) =>{console.log('err is', err)}}
               source={{
@@ -100,7 +102,7 @@ export default function DocumentItem({ item, navigation }) {
                   Authorization: "Bearer " + authctx.token,
                 },
               }}
-              style={{ height: 25, width: 40, contentFit: "cover" }}
+              style={{ height: 20, width: 34, contentFit: "cover", borderWidth:1, borderColor:'red', resizeMode:'contain' }}
             />
           </View>
         </View>

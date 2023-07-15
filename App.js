@@ -74,27 +74,27 @@ function AuthenticatedStack() {
         drawerContent={(props) => <CustomSidebarMenu {...props} />}>
         <Drawer.Screen
           name="Home"
-          options={{ headerShown:authctx.headerShown,unmountOnBlur:true,headerTintColor:'white', headerTitleAlign:'center' ,headerStyle:{backgroundColor:'#145C7B', fontFamily:'Fraunces', fontSize:60}, headerTitle:authctx.headerTitle, headerTitleStyle:{fontFamily:'Fraunces',fontSize:24}}}
+          options={{ headerShown:authctx.headerShown,unmountOnBlur:true,headerTintColor:'white', headerTitleAlign:'center' ,headerStyle:{backgroundColor:'#145C7B'}, headerTitle:authctx.headerTitle, headerTitleStyle:{fontFamily:'Fraunces',fontSize:24}}}
           component={TempDocs}
         />
         <Drawer.Screen
           name="Documents"
-          options={{headerShown:true,headerTintColor:'white',unmountOnBlur:true, headerTitleAlign:'center' ,headerStyle:{backgroundColor:'#145C7B'}}}
+          options={{headerShown:true,headerTintColor:'white',unmountOnBlur:true, headerTitleAlign:'center' ,headerStyle:{backgroundColor:'#145C7B'}, headerTitleStyle:{fontFamily:'Fraunces',fontSize:24}}}
           component={DocumentManagement}
         />
         <Drawer.Screen
-          name="User Management"
-          options={{headerShown:true,headerTintColor:'white',unmountOnBlur:true, headerTitleAlign:'center' ,headerStyle:{backgroundColor:'#145C7B'}}}
+          name="Users"
+          options={{headerShown:true,headerTintColor:'white',unmountOnBlur:true, headerTitleAlign:'center' ,headerStyle:{backgroundColor:'#145C7B'}, headerTitleStyle:{fontFamily:'Fraunces',fontSize:24}}}
           component={Users}
         />
         <Drawer.Screen 
           name='Certificates'
-          options={{headerShown:true,headerTintColor:'white',unmountOnBlur:true, headerTitleAlign:'center' ,headerStyle:{backgroundColor:'#145C7B'}}}
+          options={{headerShown:true,headerTintColor:'white',unmountOnBlur:true, headerTitleAlign:'center' ,headerStyle:{backgroundColor:'#145C7B'}, headerTitleStyle:{fontFamily:'Fraunces',fontSize:24}}}
           component={Certificates}
         />
         <Drawer.Screen
         name='DashBoard'
-        options={{headerShown:true,headerTintColor:'white',unmountOnBlur:true, headerTitleAlign:'center' ,headerStyle:{backgroundColor:'#145C7B'}}}
+        options={{headerShown:true,headerTintColor:'white',unmountOnBlur:true, headerTitleAlign:'center' ,headerStyle:{backgroundColor:'#145C7B'}, headerTitleStyle:{fontFamily:'Fraunces',fontSize:24}}}
         component={DashBoard}
         />
         <Drawer.Screen
@@ -176,7 +176,7 @@ function Root() {
 export default function App() {
   return (
     <>
-      <StatusBar style="light" />
+      <StatusBar style="auto" />
       <AuthcontextProvider>
         <Root />
       </AuthcontextProvider>

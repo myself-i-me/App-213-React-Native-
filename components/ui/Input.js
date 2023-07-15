@@ -1,4 +1,13 @@
 import { View, Text, TextInput, StyleSheet } from "react-native";
+import * as Font from 'expo-font'
+import * as SplashScreen from 'expo-splash-screen';
+import { useEffect, useState } from "react";
+
+let customFonts = {
+  'Fraunces': require('../../assets/fonts/Fraunces.ttf'),
+  'Poppins': require('../../assets/fonts/Poppins.ttf')
+};
+
 
 function Input({
   label,
@@ -9,6 +18,22 @@ function Input({
   isInvalid,
   placeHolder,
 }) {
+  const [isFontsLoaded, setIsFontsLoaded] = useState(false);
+
+  useEffect(()=>{
+    async function  loadFontsAsync() {
+      await Font.loadAsync(customFonts);
+      setIsFontsLoaded(true);
+      SplashScreen.hideAsync()
+    }
+    loadFontsAsync()
+  })
+  
+  if(!isFontsLoaded){
+    SplashScreen.preventAutoHideAsync();
+    return null
+  }
+
   return (
     <View style={styles.inputContainer}>
       {label ? (
@@ -35,7 +60,7 @@ export default Input;
 
 const styles = StyleSheet.create({
   inputContainer: {
-    marginVertical: 8,
+    marginVertical: 4.5,
   },
   label: {
     color: "white",
@@ -50,6 +75,7 @@ const styles = StyleSheet.create({
     borderColor: "#207398",
     borderWidth: 1,
     color: "grey",
+    fontFamily:'Poppins'
   },
   inputInvalid: {
     backgroundColor: "#8be8a4",

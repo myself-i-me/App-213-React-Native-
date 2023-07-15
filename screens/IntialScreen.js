@@ -62,10 +62,10 @@ export default function LandingPage({navigation}) {
 
             <View style={{position:'absolute', bottom:45, alignSelf:'center'}}>
               <TouchableOpacity style={styles.signupButton} onPress={()=>navigation.navigate('SignUp')}>
-                <Text style={{color:'#207398', fontSize:18, fontFamily:'Poppins-SemiBold', fontWeight:600, width:width*0.7, height:width*0.08,textAlign:'center',textAlignVertical:'center'}} >Sign up</Text>
+                <Text style={{color:'#207398', fontSize:18, fontFamily:'Poppins-SemiBold', fontWeight:600, width:width*0.7, height:30,textAlign:'center',textAlignVertical:'center',backgroundColor:'transparent'}} >Sign up</Text>
               </TouchableOpacity>
               <TouchableOpacity style={styles.loginButton} onPress={()=>navigation.navigate('Login')}>
-                <Text style={{color:'white', fontSize:18, fontFamily:'Poppins-SemiBold', fontWeight:600, width:width*0.7, height:width*0.08,textAlign:'center', textAlignVertical:'center',  alignSelf:'center'}}>Login</Text>
+                <Text style={{color:'white', fontSize:18, fontFamily:'Poppins-SemiBold', fontWeight:600, width:width*0.7, height:30,textAlign:'center', textAlignVertical:'center',}}>Login</Text>
               </TouchableOpacity>
             </View>
         </ImageBackground>

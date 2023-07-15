@@ -26,7 +26,7 @@ const CustomSidebarMenu = (props) => {
 
   return (
     <SafeAreaView style={{ flex: 1 }}>
-      <View style={{height:height*0.2, paddingLeft:15}}>
+      <View style={{height:height*0.24}}>
         <View
           style={{
             flexDirection: "row",
@@ -34,8 +34,9 @@ const CustomSidebarMenu = (props) => {
             alignItems: "center",
             // flexWrap: "wrap",
             paddingTop: 20,
-            height:height*0.18,
-            justifyContent:'space-between'
+            height:height*0.2,
+            justifyContent:'space-between',
+            backgroundColor:'white'
           }}
         >
           <Image source={profileImage} style={styles.sideMenuProfileIcon} />
@@ -63,14 +64,14 @@ const CustomSidebarMenu = (props) => {
 const styles = StyleSheet.create({
   sideMenuProfileIcon: {
     resizeMode: "cover",
-    // width: width * 0.27,
-    height: width * 0.21,
-    borderRadius: 100 / 2,
+    width: 105,
+    height: 105,
+    borderRadius: 105,
     alignSelf: "flex-start",
     // padding:width*0.05,
     marginLeft: width * 0.05,
     marginTop: height * 0.04,
-    flex: 1,
+    // flex: 1,
 
     // backgroundColor:'red',
     borderWidth: 3,

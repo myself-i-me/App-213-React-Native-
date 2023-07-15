@@ -75,7 +75,7 @@ export default function DocumentList({route,navigation}) {
 
 	return (
 		<View style={styles.container}>
-		<ScrollView style={{ marginBottom:12, paddingLeft:10}}
+		<ScrollView style={{ paddingBottom:12, paddingLeft:10, backgroundColor:'transparent'}}
 		horizontal={true}
 		showsHorizontalScrollIndicator={false}>
 			{
@@ -83,13 +83,13 @@ export default function DocumentList({route,navigation}) {
 					if(country.name==currentCountry){
 						return (
 							<TouchableOpacity style={styles.selectedCountryButton} onPress={() =>{onSelectCountry(country)}} key={country.name}>
-								<Text style={{fontWeight:500,color:'white', marginVertical:10, marginHorizontal:20 ,height:20}}>{country.name}</Text>
+								<Text style={{fontWeight:500,color:'white', marginVertical:10, marginHorizontal:20}}>{country.name}</Text>
 							</TouchableOpacity>
 						)
 					} else {
 						return (
 							<TouchableOpacity style={styles.button} onPress={() =>{onSelectCountry(country)}} key={country.name}>
-								<Text style={{fontWeight:500,color:'#2C160C', marginVertical:10, marginHorizontal:20 ,height:20}}>{country.name}</Text>
+								<Text style={{fontWeight:500,color:'#2C160C', marginVertical:10, marginHorizontal:20, alignSelf:'center', height:20}}>{country.name}</Text>
 							</TouchableOpacity>
 						)
 					}
@@ -111,22 +111,23 @@ export default function DocumentList({route,navigation}) {
 const styles = StyleSheet.create({
     container: {
         paddingTop:20,
-        paddingBottom:height*0.07
+        paddingBottom:height*0.07,
+		backgroundColor:'white',
     },
     button: {
         backgroundColor:'#2C9CCC99',
-        borderRadius:20,
+        borderRadius:16,
         marginHorizontal:5,
         minWidth:50,
         textAlignVertical:'center',
         textAlign:'center',
-
+		
         // paddingVertical:10,
         // paddingHorizontal:20,
     },
 	selectedCountryButton:{
 		backgroundColor:'#145C7B',
-        borderRadius:20,
+        borderRadius:16,
         marginHorizontal:5,
         minWidth:50,
         textAlignVertical:'center',
