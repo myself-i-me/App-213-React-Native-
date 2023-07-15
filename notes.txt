@@ -2,7 +2,8 @@ eas build:configure
 
 eas build -p android --profile preview
 
-statusbar in registration page
+
 
 Request Access pages
 App icon
+Peru document image has odd dimensions compared to others
