@@ -52,27 +52,32 @@ export default function DocListAdminItem({ item, navigation }) {
   const authctx = useContext(AuthContext);
 
   async function changeStatus(type,status) { 
-    console.log('status is', status)
+    console.log('status is', isAvailable)
     setIsChanging(true)
+    if(type == 'available') {
+      setisAvailable(!isAvailable)
+    } else if(type == 'downloadable') {
+      setisDownloadable(!isDownloadable)
+    } else if(type == 'offline') {
+      setIsOffline(!isOffline)
+    }
+    console.log('status2 is', isAvailable)
     try {
       let response = await updateStatus(type,item.id,!status,authctx.token);
-      if(type == 'available') {
-        setisAvailable(!isAvailable)
-      } else if(type == 'downloadable') {
-        setisDownloadable(!isDownloadable)
-      } else if(type == 'offline') {
-        setIsOffline(!isOffline)
-      }
+      console.log('')
     } catch (error) {
-      Alert.alert('Error', 'Unable to update status')
       console.log('error in updating status',error)
+      console.log('isavailabelmis3', isAvailable)
+      Alert.alert('Error', 'Unable to update status')
       if(type == 'available') {
-        setisAvailable(!isAvailable)
+        setisAvailable((isa) => !isa)
       } else if(type == 'downloadable') {
-        setisDownloadable(!isDownloadable)
+        setisDownloadable((isd) => !isd)
       } else if(type == 'offline') {
-        setIsOffline(!isOffline)
+        setIsOffline((iso) => !iso)
       }
+      console.log('isavailabelmis4', isAvailable)
+
     }
     
     setIsChanging(false)

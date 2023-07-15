@@ -14,9 +14,6 @@ export const AuthContext = createContext({
     theme:'',
     storeTheme:(theme) =>{},
     setUserDetails:(userid, role) =>{},
-    setHeaderTitles:(headr) =>{},
-    setHeaderShowns:(bool)=>{},
-    setHeaderColors:(clr)=>{}
 });
 
 function AuthcontextProvider({children}) {
@@ -25,22 +22,8 @@ function AuthcontextProvider({children}) {
 
     const [userId, setUserId] = useState('');
     const [role,setRole] = useState('ROLE_USER');
-    const [headerTitle, setHeaderTitle] = useState('Homes');
-    const [headerColor, setHeaderColor] = useState('#145C7B');
-    const [headerShown, setHeaderShown] = useState(true);
     const [language,setLanguage] = useState('English');
     const [theme,setTheme] = useState('Blue');
-    function setHeaderTitles(headr){
-        setHeaderTitle(headr)
-    }
-
-    function setHeaderColors(clr){
-        setHeaderColor(clr);
-    }
-
-    function setHeaderShowns(bool){
-        setHeaderShown(bool)
-    }
 
     function storeLanguage(language) {
         setLanguage(language)
@@ -88,12 +71,6 @@ function AuthcontextProvider({children}) {
         setUserDetails: setUserDetails,
         userId: userId,
         role:role,
-        headerTitle:headerTitle,
-        headerColor:headerColor,
-        headerShown:headerShown,
-        setHeaderTitles:setHeaderTitles,
-        setHeaderColors:setHeaderColors,
-        setHeaderShowns:setHeaderShowns,
         language: language,
         storeLanguage: storeLanguage,
         theme: theme,

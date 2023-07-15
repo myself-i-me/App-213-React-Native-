@@ -89,7 +89,7 @@ export default function DocumentList({route,navigation}) {
 					} else {
 						return (
 							<TouchableOpacity style={styles.button} onPress={() =>{onSelectCountry(country)}} key={country.name}>
-								<Text style={{fontWeight:500,color:'#2C160C', marginVertical:10, marginHorizontal:20 ,height:20}}>{country.name}</Text>
+								<Text style={{fontWeight:500,color:'#2C160C', marginVertical:10, marginHorizontal:20 ,height:20,alignSelf:'center'}}>{country.name}</Text>
 							</TouchableOpacity>
 						)
 					}

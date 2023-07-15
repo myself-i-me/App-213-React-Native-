@@ -10,6 +10,7 @@ import AuthcontextProvider, { AuthContext } from '../../store/auth-context';
 
 import * as Font from 'expo-font'
 import * as SplashScreen from 'expo-splash-screen';
+import { DocContext } from "../../store/doc-context";
 
 let customFonts = {
   'Fraunces': require('../../assets/fonts/Fraunces.ttf'),
@@ -18,13 +19,13 @@ let customFonts = {
 
 
 const Tab = createNativeStackNavigator();
-const QuizScreen = ({navigation}) => {
-  const authctx = useContext(AuthContext);
-  authctx.setHeaderTitles('Quiz')
-
+const QuizScreen = ({navigation, route}) => {
+  const docctx = useContext(DocContext);
+  docctx.setHeaderTitles('Quiz')
+  console.log('documentId is', route.params.documentId)
     return (
         <Tab.Navigator>
-            <Tab.Screen name= "Homes" component = {QuizHomeScreen} options={{headerShown: false}}/>
+            <Tab.Screen name= "Homes" component = {QuizHomeScreen} options={{headerShown: false}} initialParams={{documentId: route.params.documentId}} />
             <Tab.Screen name= "Exam" component = {ExamScreen} options={{ headerShown: false}}/>
             <Tab.Screen name= "Result" component = {ResultScreen} options={{ headerShown: false}}/>
             <Tab.Screen name="Details" component={QuizDetails} options={{headerShown:false}} />

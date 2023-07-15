@@ -14,6 +14,7 @@ import {
   const { width, height } = Dimensions.get("window");
   import * as Font from "expo-font";
   import * as SplashScreen from "expo-splash-screen";
+  import { DocContext } from "../../store/doc-context";
 
   let customFonts = {
     'Fraunces': require('../../assets/fonts/Fraunces.ttf'),
@@ -26,9 +27,9 @@ import {
     return <View style={styles.dot}></View>;
   };
   
-  export default function QuizDetails({ }) {
-    const authctx = useContext(AuthContext);
-    authctx.setHeaderTitles('');
+  export default function QuizDetails({}) {
+    const docctx  = useContext(DocContext);
+    docctx.setHeaderTitles('');
     const navigation = useNavigation()
       const goToExam = () =>{
           navigation.navigate('Exam',{
@@ -38,14 +39,14 @@ import {
   
     const route = useRoute();
     const item = route.params.item;
-
+    console.log('itemmm  is', route.params)
     const [isFontsLoaded, setIsFontsLoaded] = useState(false);
 
     useEffect(() =>{
         async function  loadFontsAsync() {
-        await Font.loadAsync(customFonts);
-        setIsFontsLoaded(true);
-        SplashScreen.hideAsync()
+          await Font.loadAsync(customFonts);
+          setIsFontsLoaded(true);
+          SplashScreen.hideAsync()
         }
         loadFontsAsync()
     },[])
@@ -65,7 +66,7 @@ import {
             fontFamily:'Fraunces-semibold'
           }}
         >
-          {item.title}
+          {item.quizName}
         </Text>
         <View
           style={{
@@ -79,17 +80,17 @@ import {
         >
           <View style={styles.inline}>
             <Text style={{ fontSize: 17,fontFamily:'Poppins' }}>No. of Questions</Text>
-            <Text style={{ fontSize: 17, fontWeight:'bold',fontFamily:'Poppins'  }}>{item.questions}</Text>
+            <Text style={{ fontSize: 17, fontWeight:'bold',fontFamily:'Poppins'  }}>{item.noOfQuestions}</Text>
           </View>
           <View style={styles.inline}>
             <Text style={{ fontSize: 17,fontFamily:'Poppins'  }}>Durations (in min)</Text>
-            <Text style={{ fontSize: 17, fontWeight:'bold',fontFamily:'Poppins'  }}>{item.duration}</Text>
+            <Text style={{ fontSize: 17, fontWeight:'bold',fontFamily:'Poppins'  }}>{item.timeInMins}</Text>
           </View>
           <View style={styles.inline}>
             <Text style={{ fontSize: 17,fontFamily:'Poppins'  }}>Qualify percentage</Text>
-            <Text style={{ fontSize: 17, fontWeight:'bold',fontFamily:'Poppins'  }}>{item.qualify}</Text>
+            <Text style={{ fontSize: 17, fontWeight:'bold',fontFamily:'Poppins'  }}>{item.qualifyScore}</Text>
           </View>
-          <Text style={{ fontSize: 17, fontWeight: 600,fontFamily:'Poppins'  }}>{item.level}</Text>
+          <Text style={{ fontSize: 17, fontWeight: 600,fontFamily:'Poppins'  }}>{'Moderate'}</Text>
         </View>
         <View style={{ marginTop: height * 0.02, paddingLeft: width * 0.02 }}>
           <Text style={{ fontWeight: "bold", fontSize: 22,fontFamily:'Poppins'  }}>Instructions</Text>
