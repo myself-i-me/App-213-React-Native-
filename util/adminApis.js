@@ -47,3 +47,24 @@ export async function getDashboardApiData(token) {
   console.log(dashboardData);
   return dashboardData;
 }
+
+
+
+export async function approveDocumentRequest(token) {
+  const url = `http://ihiapps.com:8080/wildbase/documents/approve/request`;
+  let response = await axios.post(url,{
+    "createdBy": "string",
+    "createdDate": "2023-07-16T06:14:24.137Z",
+    "lastModifiedBy": "string",
+    "lastModifiedDate": "2023-07-16T06:14:24.137Z",
+    "id": 16,
+    "userId": 1,
+    "documentId": 0,
+    "requestedDateTime": "2023-07-16T06:14:24.137Z",
+    "requestReason": "string",
+    "appoved": true,
+    "approvedBy": "string",
+    "approvedon": "2023-07-16T06:14:24.137Z",
+    "status": "string",
+  })
+}

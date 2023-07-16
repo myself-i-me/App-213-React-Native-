@@ -28,7 +28,7 @@ const Dot = () => {
 
 export default function QuizDetails({}) {
   const docctx = useContext(DocContext);
-  docctx.setHeaderTitles("");
+ 
   const navigation = useNavigation();
   const goToExam = () => {
     navigation.navigate("Exam", {
@@ -38,11 +38,11 @@ export default function QuizDetails({}) {
 
   const route = useRoute();
   const item = route.params.item;
-  console.log("itemmm  is", route.params);
   const [isFontsLoaded, setIsFontsLoaded] = useState(false);
 
   useEffect(() => {
     async function loadFontsAsync() {
+      docctx.setHeaderTitles("");
       await Font.loadAsync(customFonts);
       setIsFontsLoaded(true);
       SplashScreen.hideAsync();

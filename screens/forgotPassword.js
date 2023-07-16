@@ -45,8 +45,8 @@ function ForotPasswordScreen({navigation}) {
   async function forgotPasswordHandler(email) {
     try {
       console.log('..')
-      let response = await forgotPasswordFunction(email, password);
-      navigation.navigate('Login')
+      let response = await forgotPasswordFunction(email);
+      navigation.navigate('ResetPassword')
     } catch (error) {
       console.log("error is", error);
       Alert.alert(

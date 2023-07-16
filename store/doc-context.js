@@ -45,7 +45,6 @@ function DocContextProvider({ children }) {
   }
 
   function storeAccessData(data) {
-    console.log('storing access data', data)
     setAccessData(data)
   }
 

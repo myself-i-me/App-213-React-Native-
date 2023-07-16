@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect, useState, useContext } from "react";
 import {
   SafeAreaView,
   View,
@@ -14,15 +14,43 @@ import {
   DrawerItemList,
   DrawerItem,
 } from "@react-navigation/drawer";
+import * as Font from "expo-font";
+import * as SplashScreen from "expo-splash-screen";
+import { DocContext } from "./store/doc-context";
+import { useRoute } from "@react-navigation/native";
+import { AuthContext } from "./store/auth-context";
+
+let customFonts = {
+  Fraunces: require("./assets/fonts/Fraunces.ttf"),
+  Poppins: require("./assets/fonts/Poppins.ttf"),
+  "Fraunces-regular": require("./assets/fonts/FrauncesRegular.ttf"),
+  "Fraunces-semibold": require("./assets/fonts/Fraunces_72pt-SemiBold.ttf"),
+};
 
 const { width, height } = Dimensions.get("window");
 
 const profileImage = require("./assets/profile.png");
 const CustomSidebarMenu = (props) => {
-  const BASE_PATH =
-    "https://raw.githubusercontent.com/AboutReact/sampleresource/master/";
-  const proileImage = "react_logo.png";
+
+  const authctx = useContext(AuthContext);
+  console.log('authctx is',authctx.userId)
   const name = "John Doe";
+  const [isFontsLoaded, setIsFontsLoaded] = useState(false);
+  useEffect(() => {
+    // console.log('routes are', route.params)
+    console.log('in custom side bar menu', props)
+    async function loadFontsAsync() {
+      await Font.loadAsync(customFonts);
+      setIsFontsLoaded(true);
+      SplashScreen.hideAsync();
+    }
+    loadFontsAsync();
+  }, []);
+
+  if (!isFontsLoaded) {
+    SplashScreen.preventAutoHideAsync();
+    return null;
+  }
 
   return (
     <SafeAreaView style={{ flex: 1 }}>
@@ -45,14 +73,14 @@ const CustomSidebarMenu = (props) => {
               backgroundColor: "transparent",
               flex: 2,
               fontSize: 23,
-              fontWeight: "bold",
+              fontFamily: 'Poppins',
               paddingLeft:15
             }}
           >
             {name}
           </Text>
         </View>
-        <Text style={{  backgroundColor: "transparent", fontSize:20, paddingLeft:15 }}>john.doe@gmail.com</Text>
+        <Text style={{ fontFamily:'Poppins', backgroundColor: "transparent", fontSize:20, paddingLeft:15 }}>john.doe@gmail.com</Text>
       </View>
       <DrawerContentScrollView {...props}>
         <DrawerItemList {...props} />

@@ -3,11 +3,12 @@ import { View, Text,StyleSheet , Alert, BackHandler, Image, Dimensions, Touchabl
 import { StackActions, useNavigation, useRoute } from "@react-navigation/native";
 import Button from "../../components/ui/Button";
 import { AuthContext } from "../../store/auth-context";
-
+import LoadingOverlay from '../../components/ui/LoadingOverlay'
 const {width, height} = Dimensions.get('window')
 import * as Font from 'expo-font'
 import * as SplashScreen from 'expo-splash-screen';
 import { DocContext } from "../../store/doc-context";
+import { FinalSubmit } from "../../util/quizApis";
 
 let customFonts = {
   'Fraunces': require('../../assets/fonts/Fraunces.ttf'),
@@ -100,13 +101,37 @@ function FailScreen({score, goToHome}) {
 
 function ResultScreen (props) {
     const docctx = useContext(DocContext)
-    docctx.setHeaderShowns(true)
-    
+    docctx.setHeaderShowns(true);
+    const authctx = useContext(AuthContext);
+    const [resultLoading, setResultLoading] = useState(false);
+    const [result,setResult] = useState('')
+    const [score, setScore] = useState('')
     const navigation = useNavigation();
     const route = useRoute();
-    const score = route.params.score
-    const result = route.params.result;
-    console.log('in result screen',score)
+    const questions = route.params.questions;
+    let answersData = questions.map(q =>{
+        return {
+            id: q.id,
+            quizId: q.quizId,
+            questionId: q.questionId,
+            userAnswer: q.useranswer
+        }
+    })
+    
+    useEffect(() =>{
+        async function getresult() {
+            setResultLoading(true);
+            try {
+                let response = await FinalSubmit(route.params.quizId,answersData,authctx.token);
+                setResult(response.result)
+                setScore(response.percentScore);
+            } catch (error) {
+                console.log('error in getting result request', error.request)
+            }
+            setResultLoading(false)
+        }
+        getresult()
+    },[])
 
     function goToHome() {
         console.log('cam eher to go home')
@@ -114,10 +139,14 @@ function ResultScreen (props) {
         console.log('not went')
     }
    
+    if(resultLoading) {
+        return <LoadingOverlay />
+    }
+
     return (
         <View style= {styles.container}>
            {
-            result === 'pass' ? <SuccessScreen  score={score}/> : <FailScreen score={score} goToHome={goToHome}/>
+            result !== 'Fail' ? <SuccessScreen  score={score}/> : <FailScreen score={score} goToHome={goToHome}/>
            }
         </View>
     )

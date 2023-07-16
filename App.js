@@ -32,6 +32,7 @@ import ProfileStack from './screens/profileStack/profileHome';
 import DashBoard from './screens/DashBoard';
 import SettingsScreen from './screens/Settings';
 import * as Font from 'expo-font'
+import ResetPassword from './screens/ResetPassword';
 let customFonts = {
   'Fraunces': require('./assets/fonts/Fraunces.ttf'),
   'Poppins': require('./assets/fonts/Poppins.ttf')
@@ -50,6 +51,7 @@ function AuthStack() {
       <Stack.Screen name="SignUp" component={RegisterScreen} options={{ headerShown: false}} />
       <Stack.Screen name = "Otp" component={OtpScreen} options={{ headerShown: false}}/>
       <Stack.Screen name = "ForgotPassword" component={ForotPasswordScreen} options={{ headerShown: false}}/>
+      <Stack.Screen name = "ResetPassword" component={ResetPassword} options={{ headerShown: false}}/>
     </Stack.Navigator>
     </>
   );
@@ -57,7 +59,9 @@ function AuthStack() {
 
 function TempDocs() {
   const docctx = useContext(DocContext)
-  docctx.setHeaderTitles('Home')
+  useEffect(()=>{
+    docctx.setHeaderTitles('Home')
+  },[])
   return (
     <Stack.Navigator>
       <Stack.Screen name= "Documents" component={DocumentList} options={{headerShown: false}}/>
@@ -77,10 +81,10 @@ function AuthenticatedStack() {
           activeTintColor: '#e91e63',
           itemStyle: { marginVertical: 5 },
         }}
-        drawerContent={(props) => <CustomSidebarMenu {...props} />}>
+        drawerContent={(props) => <CustomSidebarMenu {...props}  />}>
         <Drawer.Screen
           name="Home"
-          options={{ headerShown:docctx.headerShown,unmountOnBlur:true,headerTintColor:'white', headerTitleAlign:'center' ,headerStyle:{backgroundColor:'#145C7B', fontFamily:'Fraunces', fontSize:60}, headerTitle:docctx.headerTitle, headerTitleStyle:{fontFamily:'Fraunces',fontSize:24}}}
+          options={{ headerShown:docctx.headerShown,unmountOnBlur:true,headerTintColor:'white', headerTitleAlign:'center' ,headerStyle:{backgroundColor:'#145C7B'}, headerTitle:docctx.headerTitle, headerTitleStyle:{fontFamily:'Fraunces',fontSize:24}}}
           component={TempDocs}
         />
         {role!= 'ROLE_USER' && <Drawer.Screen
@@ -113,7 +117,7 @@ function AuthenticatedStack() {
         options={{headerShown:true,headerTintColor:'white',unmountOnBlur:true, headerTitleAlign:'center' ,headerStyle:{backgroundColor:'#145C7B'}}}
         component={Logout}
       />
-      </Drawer.Navigator>
+    </Drawer.Navigator>
   );
 }
 
@@ -157,7 +161,7 @@ function Root() {
           try {
             let {newToken,newRefreshToken} = await refreshTokenFunction(refreshToken);
             await authctx.authenticate(newToken,newRefreshToken);
-          console.log('setting2')
+            console.log('setting2')
             setIsTryinglogin(false);
           } catch (error) {
             await authctx.logout()

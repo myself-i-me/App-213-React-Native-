@@ -66,7 +66,8 @@ export async function validateOtpFunction(otp,usernName) {
 
 export async function forgotPasswordFunction(userName) {
   const url = `http://ihiapps.com:8080/wildbase/auth/forgot-password?email=${userName}`;
-  return true;
+  let response = await axios.post(url)
+  return response;
 }
 
 export async function changePasswordApi(userId, oldPassword, newPassword, confirmPassword, token) {
@@ -82,4 +83,11 @@ export async function changePasswordApi(userId, oldPassword, newPassword, confir
     }
   })
   return response.data
+}
+
+export async function resetPasswordApi(otp,password) {
+  const url = `http://ihiapps.com:8080/wildbase/auth/reset-password?OTP=${otp}&password=${password}`;
+  const response = await axios.put(url);
+  let msg = response.data.message;
+  console.log('msg is', msg)
 }

@@ -6,7 +6,6 @@ import ChangePassword from "./ChangePassword";
 const ProfileTab = createNativeStackNavigator();
 
 export default function ProfileStack({navigation, route}) {
-    console.log('profileeeeeeeeeeeeeeeeeeeeeeeee')
     return (
         <ProfileTab.Navigator>
             <ProfileTab.Screen name="Profile" component={Profile} options={{headerShown: false}}/>

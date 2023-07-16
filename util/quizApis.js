@@ -8,13 +8,41 @@ export async function getAvailabaleQuizzessByDocumentId(documentId,token) {
         },
     });
     let availableQuizzes = response.data.response.data;
-    console.log('aavailable quizzes are', availableQuizzes);
     return availableQuizzes;
 }
 
 
 export async function generateQuiz(quizId,userId,token) {
-  let currentTime = new Date()
-  const url = `http://ihiapps.com:8080/wildbase/api/quiz/generate?quizmasterId=${quizId}&userId=${userId}&startTime=${currentTime}`
-  console.log(url)
+  let currentTime = new Date();
+  const url = `http://ihiapps.com:8080/wildbase/api/quiz/generate`
+  const response = await axios.post(url,{
+    userId: userId,
+    quizMasterId: quizId,
+    startTime: currentTime
+  },{
+    headers: {
+      Authorization: "Bearer " + token,
+    }
+  })
+  let questions = response.data.response.data;
+  return questions
+}
+
+
+export async function FinalSubmit(quizId,questions,token) {
+  console.log('before api!>>>>>>>>>>>>>>', quizId,questions,token)
+  let currentTime = new Date();
+  const url = `http://ihiapps.com:8080/wildbase/api/quiz/final/submit`;
+  const response = await axios.post(url,{
+    endTime: currentTime,
+    quizId: quizId,
+    questions:questions,
+  },{
+    headers: {
+      Authorization: "Bearer " + token,
+    }
+  })
+
+  console.log('final submit response is', response.data.response.data);
+  return response.data.response.data;
 }

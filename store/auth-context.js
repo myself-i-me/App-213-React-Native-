@@ -8,6 +8,8 @@ export const AuthContext = createContext({
   logout: () => new Promise((res, rej) => {}),
   refreshToken: "",
   userId: "",
+  userName: '',
+  userEmail:'',
   role: "",
   language: "",
   storeLanguage: (lanuage) => {},
@@ -21,6 +23,9 @@ function AuthcontextProvider({ children }) {
   const [refreshToken, setrefreshToken] = useState();
 
   const [userId, setUserId] = useState("");
+  const [userName, setUserName] = useState("");
+  const [userEmail, setUserEmail] = useState("");
+
   const [role, setRole] = useState("ROLE_USER");
   const [language, setLanguage] = useState("English");
   const [theme, setTheme] = useState("Blue");
@@ -50,10 +55,12 @@ function AuthcontextProvider({ children }) {
     });
   }
 
-  function setUserDetails(userId, role) {
+  function setUserDetails(userId,userName, userEmail, role) {
     setUserId(String(userId));
     setRole(role);
     AsyncStorage.setItem("quickref_userid", userId);
+    AsyncStorage.setItem("quickref_userName", userName);
+    AsyncStorage.setItem("quickref_userEmail", userEmail);
     AsyncStorage.setItem("quickref_role", role);
   }
 
@@ -72,6 +79,8 @@ function AuthcontextProvider({ children }) {
     refreshToken: refreshToken,
     setUserDetails: setUserDetails,
     userId: userId,
+    userName: userName,
+    userEmail: userEmail,
     role: role,
     language: language,
     storeLanguage: storeLanguage,

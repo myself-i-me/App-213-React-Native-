@@ -20,7 +20,11 @@ let customFonts = {
 const Tab = createNativeStackNavigator();
 const QuizScreen = ({ navigation, route }) => {
   const docctx = useContext(DocContext);
-  docctx.setHeaderTitles("Quiz");
+  
+  useEffect(()=>{
+    docctx.setHeaderTitles("Quiz");
+  },[])
+
   console.log("documentId is", route.params.documentId);
   return (
     <Tab.Navigator>
@@ -33,7 +37,7 @@ const QuizScreen = ({ navigation, route }) => {
       <Tab.Screen
         name="Exam"
         component={ExamScreen}
-        options={{ headerShown: false }}
+        options={{ headerShown: true, headerTintColor:'white', headerTitleAlign:'center' ,headerStyle:{backgroundColor:'#145C7B'}, headerTitle:'',headerTitleStyle:{fontFamily:'Fraunces',fontSize:24}, headerBackVisible:false  }}
       />
       <Tab.Screen
         name="Result"
