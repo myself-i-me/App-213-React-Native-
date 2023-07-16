@@ -32,7 +32,5 @@ export async function sendRequestAccess(userId,documentId,requestReason, token) 
       Authorization: "Bearer " + token
     }
   })
-
-  console.log('response is ', response?.data.message)
   return response.data.message
 }

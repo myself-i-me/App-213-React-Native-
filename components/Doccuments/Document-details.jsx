@@ -1,6 +1,5 @@
 import { Dimensions, StyleSheet, Text, View, ScrollView, TouchableOpacity, Alert } from 'react-native'
 import React,{useContext, useEffect, useState} from 'react'
-import { doclist } from '../Objects';
 import { TextInput } from 'react-native-gesture-handler';
 import { AuthContext } from '../../store/auth-context';
 import { sendRequestAccess } from '../../util/documentApis';

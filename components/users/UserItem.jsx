@@ -13,7 +13,7 @@ export default function UserItem({item}) {
   return (
     <TouchableOpacity>
         <View style={styles.container}>
-      <View style={{ flex:1, flexDirection:'row', padding:10,}}>
+        <View style={{ flex:1, flexDirection:'row', padding:10,}}>
         <View style={{flex:1, height:"100%", borderColor:'blue', borderWidth:1, borderRadius:8, marginRight:15}}></View>
         <View style={{flex:3, justifyContent:'space-between'}}>
             <View style={{flexDirection:'row', justifyContent:'space-between'}}>

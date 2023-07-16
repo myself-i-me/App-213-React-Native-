@@ -68,3 +68,18 @@ export async function forgotPasswordFunction(userName) {
   const url = `http://ihiapps.com:8080/wildbase/auth/forgot-password?email=${userName}`;
   return true;
 }
+
+export async function changePasswordApi(userId, oldPassword, newPassword, confirmPassword, token) {
+  const url = `http://ihiapps.com:8080/wildbase/auth/user/change-password`;
+  let response = await axios.post(url,{
+    userId:userId,
+    oldPassword: oldPassword,
+    password: newPassword,
+    confirmPassword: confirmPassword
+  },{
+    headers:{
+      Authorization: "Bearer " + token
+    }
+  })
+  return response.data
+}

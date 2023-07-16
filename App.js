@@ -28,11 +28,10 @@ import DocumentDetails from './components/Doccuments/Document-details';
 import DocContextProvider, { DocContext } from './store/doc-context';
 import { getDocumentsByUserID } from './util/documentApis';
 import QuizScreen from './screens/Quiz/QuizScreen';
-import Certificates from './screens/Certificates';
+import ProfileStack from './screens/profileStack/profileHome';
 import DashBoard from './screens/DashBoard';
 import SettingsScreen from './screens/Settings';
 import * as Font from 'expo-font'
-import Profile from './screens/Profile';
 let customFonts = {
   'Fraunces': require('./assets/fonts/Fraunces.ttf'),
   'Poppins': require('./assets/fonts/Poppins.ttf')
@@ -97,7 +96,7 @@ function AuthenticatedStack() {
         <Drawer.Screen 
           name='My Profile'
           options={{headerShown:true,headerTintColor:'white',unmountOnBlur:true, headerTitleAlign:'center' ,headerStyle:{backgroundColor:'#145C7B'}, headerTitleStyle:{fontFamily:'Fraunces',fontSize:24}}}
-          component={Profile}
+          component={ProfileStack}
         />
         {role!= 'ROLE_USER' && <Drawer.Screen
         name='DashBoard'

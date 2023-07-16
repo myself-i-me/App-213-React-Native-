@@ -3,12 +3,14 @@ eas build:configure
 eas build -p android --profile preview
 
 
-my profile, change password
+my profile-> dynamic styling
+change password page 
 Request Access pages
 App icon
-user management functionality
 admin quiz pages
 dashboard -> piechart 
+certificates page -> heading
+register page -> checkbox validation
 
 Ramesh :
 1.Quiz generate api failing(userAnswer)
@@ -32,6 +34,12 @@ Ramesh :
 5. For statistics -> need api for count of users in each country
 
 6.api/quizmaster/get/all -> api need modification
+
+7. change password -> {
+  "success": false,
+  "message": "Your Password updated successfully",
+  "response": {}
+}
 
 Neelesh:
 
