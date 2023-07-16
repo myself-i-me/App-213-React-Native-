@@ -6,6 +6,7 @@ import {
   TouchableOpacity,
   Image,
   SafeAreaView,
+  Dimensions
 } from "react-native";
 import { useNavigation } from "@react-navigation/core";
 import { MaterialIcons } from "@expo/vector-icons";
@@ -19,6 +20,8 @@ let customFonts = {
   "Fraunces-regular": require("../../assets/fonts/FrauncesRegular.ttf"),
   "Fraunces-semibold": require("../../assets/fonts/Fraunces_72pt-SemiBold.ttf"),
 };
+
+const { width, height} = Dimensions.get('window');
 
 export default function Profile() {
   const [isFontsLoaded, setIsFontsLoaded] = useState(false);
@@ -42,27 +45,27 @@ export default function Profile() {
       <SafeAreaView style={styles.container}>
       <View style={styles.cardContainer}>
           <View style={styles.logoContainer}>
-          <Image style={styles.profileImage} source={require('../../assets/profile.png')} />
-          <TouchableOpacity style={styles.editIconContainer}>
-                  <Feather name="edit" size={24} color="black" />
-          </TouchableOpacity>
+              <Image style={styles.profileImage} source={require('../../assets/profile.png')} />
+              <TouchableOpacity style={styles.editIconContainer}>
+                      <Feather name="edit" size={24} color="black" />
+              </TouchableOpacity>
           </View>
           <View style={styles.personInfoContainer}>
-          <Text style={styles.personName}>Person Doe</Text>
-          <Text style={styles.personOccupation}>Warden</Text>
-          <Text style={styles.personEmail}>person.doe@gamil.com</Text>
+              <Text style={styles.personName}>Person Doe</Text>
+              <Text style={styles.personOccupation}>Warden</Text>
+              <Text style={styles.personEmail}>person.doe@gamil.com</Text>
           </View>
           <View style={styles.section}>
-          <Text style={styles.sectionLabel}>Organization</Text>
-          <Text style={styles.sectionValue}>kenya Wildlife Service</Text>
+              <Text style={styles.sectionLabel}>Organization</Text>
+              <Text style={styles.sectionValue}>kenya Wildlife Service</Text>
           </View>
           <View style={styles.section}>
-          <Text style={styles.sectionLabel}>Position</Text>
-          <Text style={styles.sectionValue}>Warden lll</Text>
+              <Text style={styles.sectionLabel}>Position</Text>
+              <Text style={styles.sectionValue}>Warden lll</Text>
           </View>
           <View style={styles.section}>
-          <Text style={styles.sectionLabel}>Country</Text>
-          <Text style={styles.sectionValue}>Kenya</Text>
+              <Text style={styles.sectionLabel}>Country</Text>
+              <Text style={styles.sectionValue}>Kenya</Text>
           </View>
           <View style={styles.section2}>
           <TouchableOpacity onPress= {() => navigation.navigate('Certificates')} style={styles.sectionRow}>
@@ -91,6 +94,8 @@ const styles = StyleSheet.create({
     justifyContent: "center",
     marginBottom: 20,
     marginTop: 16,
+    borderWidth:0,
+    borderColor:'red'
   },
   profileImage: {
     borderRadius: 12,
@@ -141,7 +146,7 @@ const styles = StyleSheet.create({
     backgroundColor: "white",
     padding: 20,
     borderRadius: 5,
-    marginBottom: 60,
+    marginBottom: height*0.05,
     marginLeft: 40,
     marginRight: 40,
     shadowColor: "#000",
@@ -149,7 +154,10 @@ const styles = StyleSheet.create({
     shadowRadius: 4,
     elevation: 5,
     shadowOffset: { width: 0, height: 2 },
-    alignItems: "center", // Add this line
+    alignItems: "center", // Add this line,
+
+    borderWidth:1,
+    borderColor:'green'
   },
 
   personName: {
@@ -170,7 +178,7 @@ const styles = StyleSheet.create({
   },
 
   section: {
-    marginBottom: 20,
+    marginBottom: 10,
   },
   section2: {
     borderWidth: 1,

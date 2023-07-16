@@ -34,6 +34,8 @@ export default function DocListAdminItem({ item, navigation }) {
   const [isChanging, setIsChanging] = useState(false);
 
   const [isFontsLoaded, setIsFontsLoaded] = useState(false);
+  
+  const authctx = useContext(AuthContext);
 
   useEffect(() =>{
     async function  loadFontsAsync() {
@@ -49,7 +51,6 @@ export default function DocListAdminItem({ item, navigation }) {
     return null
   }
 
-  const authctx = useContext(AuthContext);
 
   async function changeStatus(type,status) { 
     console.log('status is', isAvailable)
@@ -97,7 +98,8 @@ export default function DocListAdminItem({ item, navigation }) {
         borderWidth: 0,
         flex: 1,
         flexDirection: "row",
-        marginVertical: height * 0.01,
+        marginVertical: 8,
+        // overflow:'hidden'
       }}
     >
       <View style={{ flex: 1.1, overflow: "hidden" }}>
@@ -117,7 +119,6 @@ export default function DocListAdminItem({ item, navigation }) {
             alignSelf: "center",
             borderRadius: 10,
             borderColor: "#145C7B",
-            borderWidth: 2,
             height: height * 0.25,
           }}
         />
@@ -131,7 +132,9 @@ export default function DocListAdminItem({ item, navigation }) {
           justifyContent: "space-between",
         }}
       >
-        <Text style={{ fontSize: 20, fontFamily: 'Fraunces-semibold'}}>{item.title}</Text>
+        <Text style={{ fontSize: 20, fontFamily: 'Fraunces-semibold'}}>{
+          item.title.length < 25 ? item.title : item.title.slice(0,25) + '...'
+        }</Text>
 
         <View style={{ flexDirection: "row" }}>
           <Switch
@@ -141,6 +144,7 @@ export default function DocListAdminItem({ item, navigation }) {
               changeStatus('available',isAvailable)
             }
             value={isAvailable}
+            thumbColor={'white'}
           />
           <Text style = {styles.params}>Available</Text>
         </View>
@@ -152,6 +156,7 @@ export default function DocListAdminItem({ item, navigation }) {
               changeStatus('downloadable',isDownloadable)
             }
             value={isDownloadable}
+            thumbColor={'white'}
           />
           <Text style = {styles.params}>Downloadable</Text>
         </View>
@@ -163,19 +168,21 @@ export default function DocListAdminItem({ item, navigation }) {
               changeStatus('offline',isOffline)
             }
             value={isOffline}
+            thumbColor={'white'}
           />
           <Text style = {styles.params}>Offline Available</Text>
         </View>
         <View
           style={{
             paddingBottom: height * 0.02,
+            // paddingHorizontal:10,
             flexDirection: "row",
             justifyContent: "space-between",
-            borderBottomWidth: 2,
+            borderBottomWidth: 1,
             borderColor: "#145C7B",
           }}
         >
-          <Text style={{ fontSize: 20 }}>{item.country}</Text>
+          <Text style={{ fontSize: 14 }}>{item.country}</Text>
           <Image
             source={{
               uri: "http://ihiapps.com:8080/wildbase/downloadFile/flags/" + item.flagPath,
@@ -184,7 +191,7 @@ export default function DocListAdminItem({ item, navigation }) {
                 Authorization: "Bearer " + authctx.token,
               },
             }}
-            style={{ height: 25, width: 40, resizeMode: "cover" }}
+            style={{ height: 20, width: 34, resizeMode: "cover" }}
           />
         </View>
       </View>

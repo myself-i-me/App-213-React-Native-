@@ -9,6 +9,7 @@ import {
   Text,
   TouchableOpacity,
   View,
+  SafeAreaView
 } from "react-native";
 import React, { useState, useContext, useEffect } from "react";
 import { doclist } from "../Objects";
@@ -98,7 +99,8 @@ export default function DocumentList({ route, navigation }) {
   }
 
   return (
-    <View style={styles.container}>
+    <SafeAreaView style={{flex:1}}>
+      <View style={styles.container}>
       <ScrollView
         style={{
           paddingBottom: 12,
@@ -167,6 +169,7 @@ export default function DocumentList({ route, navigation }) {
         )}
       />
     </View>
+    </SafeAreaView>
   );
 }
 

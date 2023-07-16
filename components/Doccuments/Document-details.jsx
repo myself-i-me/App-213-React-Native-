@@ -1,4 +1,4 @@
-import { Dimensions, StyleSheet, Text, View, ScrollView, TouchableOpacity, Alert } from 'react-native'
+import { Dimensions, StyleSheet, Text, View, ScrollView, TouchableOpacity, Alert, SafeAreaView } from 'react-native'
 import React,{useContext, useEffect, useState} from 'react'
 import { TextInput } from 'react-native-gesture-handler';
 import { AuthContext } from '../../store/auth-context';
@@ -19,12 +19,12 @@ let customFonts = {
 const { width, height } = Dimensions.get('window');
 
 export default function DocumentDetails({route, navigation}) {
-    const { width, height } = Dimensions.get('window');
 
     const authctx = useContext(AuthContext);
     const docContext = useContext(DocContext);
     const accessData = docContext.accessData;
     const currentItem = route.params.item;
+    const role = authctx.role;
     const currentItemAccessData = accessData.find((i) =>{
         return currentItem.id == i.documentId
     })
@@ -82,7 +82,8 @@ export default function DocumentDetails({route, navigation}) {
     
 
     return (
-        <View style={{paddingHorizontal:width*0.0,marginHorizontal:0 ,flex:1,alignItems:'center' , justifyContent:'center', paddingTop:10}}>
+       <SafeAreaView style={{flex:1}}>
+         <View style={{paddingHorizontal:width*0.0,marginHorizontal:0 ,flex:1,alignItems:'center' , justifyContent:'center', paddingTop:10}}>
         <ScrollView style={{}} keyboardShouldPersistTaps='handled'>
                 <View style={{ flex:1 ,justifyContent:'center', alignItems:'flex-start' ,paddingHorizontal:width*0.05}}>
                 <Text style={{fontSize:22, alignSelf:'center',fontFamily:'Fraunces-semibold'}}>{currentItem.title}</Text>
@@ -94,19 +95,21 @@ export default function DocumentDetails({route, navigation}) {
                       Authorization: "Bearer " + authctx.token,
                     },
                   }}
-                style={{height:height*0.4,width:'60%' , resizeMode:'stretch', alignSelf:'center', borderColor:'#145C7B',marginVertical:10, borderRadius:8 ,borderWidth:1.3}}
+                style={{height:height*0.6,width:'100%' , resizeMode:'stretch', alignSelf:'center', borderColor:'#145C7B',marginVertical:10, borderRadius:8 ,borderWidth:1.3}}
                 />
-                <Text style={{color:'grey', alignSelf:'center', fontSize:15, lineHeight:20, fontFamily:'Poppins'}}>{currentItem.description}</Text>
+                <Text style={{color:'grey', alignSelf:'center', fontSize:15, lineHeight:20, fontFamily:'Poppins', marginBottom:5}}>{currentItem.description}</Text>
                 {!requestAccess && <Text style={{fontSize:18, fontWeight:600, marginVertical:15}}>Foreword Acknowledgement</Text>}
                 { accessable && 
-                    <View style={{flexDirection:'row', flexWrap:'wrap', marginTop:height*0.05, alignSelf:'center',justifyContent:'center'}}>
+                    <View style={{flexDirection:'row', flexWrap:'wrap', marginTop:10, alignSelf:'center',justifyContent:'center'}}>
                     <TouchableOpacity style={styles.button}>
                         <Text style={styles.buttonText}>Explore</Text>
                     </TouchableOpacity>
                     <TouchableOpacity style={styles.button}>
                         <Text style={styles.buttonText}>Download pdf</Text>
                     </TouchableOpacity>
-                    <TouchableOpacity style={styles.button} onPress={() => navigation.navigate('Quiz',{documentId: currentItem.id})}>
+                    <TouchableOpacity style={styles.button} onPress={() => {
+                        role !== 'ROLE_USER' ? navigation.navigate('Quiz',{documentId: currentItem.id, documentTitle:currentItem.title}) : navigation.navigate('Quiz Management', {})
+                    }}>
                         <Text style={styles.buttonText}>Quiz</Text>
                     </TouchableOpacity>
                     <TouchableOpacity style={styles.button}>
@@ -123,10 +126,11 @@ export default function DocumentDetails({route, navigation}) {
                             borderWidth: 1,
                             borderColor: '#145C7B',
                             borderRadius: 8,
-                            paddingBottom:120,
+                            paddingBottom:10,
                             paddingLeft:10,
-                            flex:1,
-                            fontFamily:'Poppins'
+                            // flex:1,
+                            fontFamily:'Poppins',
+                            backgroundColor:'white',
                             }}
                             value={reason}
                             placeholder='Please provide the reason for the access'
@@ -149,6 +153,7 @@ export default function DocumentDetails({route, navigation}) {
                 </View>
         </ScrollView>
         </View>
+       </SafeAreaView>
     )
 }
 

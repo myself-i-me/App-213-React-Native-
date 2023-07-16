@@ -27,6 +27,8 @@ function LoginScreen({navigation}) {
   const elephant_cropped = require('../assets/elephant-cropped.png');
   const {width, height} = Dimensions.get('window');
   const [isFontsLoaded, setIsFontsLoaded] = useState(false);
+  const authCtx = useContext(AuthContext);
+  
 
   useEffect(() =>{
     async function  loadFontsAsync() {
@@ -43,7 +45,6 @@ function LoginScreen({navigation}) {
   }
 
 
-  const authCtx = useContext(AuthContext);
 
   async function loginHandler({ email, password }) {
     setisAuthenticating(true);

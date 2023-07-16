@@ -2,6 +2,7 @@ import { StyleSheet, Text, View, TextInput, TouchableOpacity, Dimensions } from 
 import React, {useState, useEffect} from 'react'
 import * as Font from 'expo-font'
 import * as SplashScreen from 'expo-splash-screen';
+import { Dropdown } from 'react-native-element-dropdown'
 
 const {width, height} = Dimensions.get('window');
 
@@ -15,6 +16,8 @@ let customFonts = {
 
 export default function AddNewQuiz({ }) {
   const [isFontsLoaded, setIsFontsLoaded] = useState(false);
+  const [isActive, setIsActive] = useState('Active')
+  const [isFocus, setIsFocus] = useState(false);
 
   useEffect(() =>{
     async function  loadFontsAsync() {
@@ -30,27 +33,50 @@ if(!isFontsLoaded){
   return null
 }
 
+  const data = [
+    {value: 'Active', label:'Active'},
+    {value:'Inactive', label:'Inactive'}
+  ]
+
   return (
     <View style={styles.container}>
       <Text style={styles.header}>Basic fundamentals of wildlife in Kenya</Text>
       <View style={styles.container2}>
         <Text style={{ fontFamily:'Poppins', fontSize:15,}}>Name</Text>
-        <TextInput style={[styles.input, {height:50}]} />
+        <TextInput style={[styles.input, {height:100}]} placeholder='Please enter the quiz name' multiline />
         <View style={styles.jcRow}>
           <Text style={styles.rowInline}>No. of Questions</Text>
           <Text style={styles.rowInline}>Duration (in min)</Text>
         </View>
         <View style={styles.jcRow}>
-          <TextInput style={[styles.input, styles.rowInline,]} />
-          <TextInput style={[styles.input, styles.rowInline]} />
+          <TextInput style={[styles.input, styles.rowInline,]} placeholder='No of Questions'/>
+          <TextInput style={[styles.input, styles.rowInline]} placeholder='Duration'/>
         </View>
         <View style={styles.jcRow}>
           <Text style={styles.rowInline}>Qualifying score %</Text>
           <Text style={styles.rowInline}>Active/Inactive</Text>
         </View>
         <View style={styles.jcRow}>
-          <TextInput style={[styles.input, styles.rowInline]} />
-          <TextInput style={[styles.input, styles.rowInline]} />
+          <TextInput style={[styles.input, styles.rowInline]} placeholder='percentage'/>
+          {/* <TextInput style={[styles.input, styles.rowInline]} /> */}
+          <Dropdown
+            data={data}
+            style={styles.dropdown}
+            placeholderStyle={styles.placeholderStyle}
+            inputSearchStyle={styles.inputSearchStyle}
+            maxHeight={300}
+            labelField="label"
+            valueField="value"
+            searchPlaceholder="Search..."
+            placeholder='select'
+            value={isActive}
+            onFocus={() => setIsFocus(true)}
+            onBlur={() => setIsFocus(false)}
+            onChange={item => {
+              setIsActive(item.value);
+              setIsFocus(false);
+            }}
+          />
         </View>
         <TouchableOpacity style={{backgroundColor:'#145C7B', width:'50%', alignSelf:'center', borderRadius:10, marginTop:50}}>
           <Text style={{alignSelf:'center', color:'white', marginVertical:10, fontFamily:'Poppins-semibold',  fontSize:16}}>Submit</Text>
@@ -67,8 +93,8 @@ const styles = StyleSheet.create({
     // placeholder:'placeholder',
     borderRadius: 8,
     height:40,
-    fontSize:20,
-    paddingLeft:8,
+    fontSize:18,
+    paddingLeft:10,
     marginBottom:20,
     marginTop:0
   },
@@ -106,5 +132,21 @@ const styles = StyleSheet.create({
     width: "45%",
     fontSize:15,
     fontFamily:'Poppins'
+  },
+
+  dropdown: {
+    height: 50,
+    borderColor: '#207398',
+    borderWidth: 1,
+    borderRadius: 8,
+    paddingHorizontal: 8,
+    width:'45%'
+  },
+  placeholderStyle: {
+    fontSize: 16,
+    color:'grey'
+  },
+  selectedTextStyle: {
+    fontSize: 16,
   },
 });

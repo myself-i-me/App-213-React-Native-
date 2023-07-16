@@ -1,4 +1,4 @@
-import { View, StyleSheet, SafeAreaView, FlatList, Alert, Text, Dimensions, TouchableOpacity, BackHandler } from "react-native";
+import { View, StyleSheet, SafeAreaView, FlatList, Alert, Text, Dimensions, TouchableOpacity, BackHandler, ScrollView } from "react-native";
 import QuestionScreen from "../../components/Quiz/Question";
 import Options from "../../components/Quiz/Options";
 import { useState, useEffect, useContext , useRef} from "react";
@@ -17,7 +17,8 @@ import LoadingOverlay from "../../components/ui/LoadingOverlay";
 
 let customFonts = {
   'Fraunces': require('../../assets/fonts/Fraunces.ttf'),
-  'Poppins': require('../../assets/fonts/Poppins.ttf')
+  'Poppins': require('../../assets/fonts/Poppins.ttf'),
+  'Fraunces700' : require('../../assets/fonts/Fraunces_9pt_Soft-Bold.ttf')
 };
 
 
@@ -40,6 +41,7 @@ const ExamScreen = () => {
     const navigation = useNavigation()
     const route = useRoute();
     const examItem = route.params.item;
+    const documentTitle = route.params.documentTitle;
 
     useEffect(() => {
         docctx.setHeaderShowns(false)
@@ -103,7 +105,7 @@ const ExamScreen = () => {
 
     function NextButton() {
         return (
-            <View style={{flexDirection:'row', backgroundColor:'white', position:'absolute', bottom:height*0.05, alignSelf:'center'}}>
+            <View style={{flexDirection:'row', backgroundColor:'white', position:'absolute', bottom:0, alignSelf:'center', width:'100%', justifyContent:'center',paddingVertical:10 }}>
                 <TouchableOpacity style={{backgroundColor:'#B7B4B1FC', paddingHorizontal:width*0.13, paddingVertical:height*0.015, borderRadius:8, marginRight:width*0.15}} onPress={incrementQuestion}>
                     <Text style={{fontWeight:'bold'}}>Skip</Text>
                 </TouchableOpacity>
@@ -116,7 +118,7 @@ const ExamScreen = () => {
     
     function SubmitButton() {
         return (
-            <View style={{width:'100%', borderTopColor:'#145C7BBA', borderTopWidth:1.5, paddingTop:height*0.1, position:'absolute', bottom:height*0.05, alignSelf:'center'}}>
+            <View style={{ width:'100%' ,borderTopColor:'#145C7BBA', borderTopWidth:1.5, paddingVertical:10, position:'absolute', bottom:0, alignSelf:'center', backgroundColor:'white'}}>
                 <TouchableOpacity onPress={submitAnswers} style={{backgroundColor:'#207398', paddingHorizontal:width*0.13, paddingVertical:height*0.015, borderRadius:8, width:width*0.5, alignSelf:'center'}}>
                 <Text style={{color:'white',  fontWeight:'bold', alignSelf:'center'}}>Final Submit</Text>
             </TouchableOpacity>
@@ -138,7 +140,8 @@ const ExamScreen = () => {
         navigation.dispatch(
             StackActions.replace('Result', {
                 questions: quizQuestions,
-                quizId: quizId
+                quizId: quizId,
+                documentTitle:documentTitle
             })
         )
     }
@@ -172,7 +175,9 @@ const ExamScreen = () => {
     }
 
     return (
-      <SafeAreaView>
+      <SafeAreaView style={{flex:1, backgroundColor:'white'}}>
+        <Text style={{backgroundColor:'#145c7b0d', fontFamily:'Fraunces700', fontSize:18, textAlign:'center', height:51, borderTopWidth:0.5, borderBottomWidth:0.5, borderTopColor:'#145C7B', borderBottomColor:'#145C7B', textAlignVertical:'center'}}>{documentTitle}</Text>
+        <ScrollView>
         <View style={styles.container}>
         <Text style={{fontFamily:'Fraunces-semibold', fontSize:24, marginBottom:height*0.01}}>{quizTitle}</Text>
         <View style={{flexDirection:'row', backgroundColor:'white', borderColor:'red', borderWidth:0}}>
@@ -188,10 +193,12 @@ const ExamScreen = () => {
             {quizQuestions[currentQuestion] && <QuestionScreen question = {quizQuestions[currentQuestion].questionname} />}
             {quizQuestions[currentQuestion] && <Options ops = {[quizQuestions[currentQuestion].option1,quizQuestions[currentQuestion].option2,quizQuestions[currentQuestion].option3,quizQuestions[currentQuestion].option4]} choosen={selected}/>}
         </View>
+        
+        </View>
+        </ScrollView>
         {
             currentQuestion+1 < noOfQuestions ? <NextButton /> : <SubmitButton />
         }
-        </View>
       </SafeAreaView>
     );
 }
@@ -202,8 +209,9 @@ const styles = StyleSheet.create({
     container: {
         paddingHorizontal:width*0.1,
         backgroundColor:'white',
-        paddingTop:height*0.1,
-        height:'100%',
+        paddingTop:15,
+        paddingBottom:100
+        
     } ,
     timer:{
         fontSize:19,

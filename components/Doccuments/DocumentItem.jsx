@@ -82,7 +82,9 @@ export default function DocumentItem({ item, navigation }) {
             // backgroundColor:'#a2b1c3'
           }}
         >
-          <Text style={{ fontSize: 18, fontFamily: 'Fraunces-semibold', marginBottom:18 }}>{item.title}</Text>
+          <Text style={{ fontSize: 18, fontFamily: 'Fraunces-semibold', marginBottom:18 }}>{
+            item.title.length < 50 ? item.title : item.title.slice(0,50) + '...'
+          }</Text>
 
           <View
             style={{
@@ -103,7 +105,7 @@ export default function DocumentItem({ item, navigation }) {
                   Authorization: "Bearer " + authctx.token,
                 },
               }}
-              style={{ height: 20, width: 34, contentFit: "cover", borderWidth:1, borderColor:'red', resizeMode:'contain' }}
+              style={{ height: 20, width: 34, contentFit: "cover", borderWidth:0, borderColor:'red', resizeMode:'contain' }}
             />
           </View>
         </View>

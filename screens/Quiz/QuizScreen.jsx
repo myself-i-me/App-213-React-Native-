@@ -25,19 +25,19 @@ const QuizScreen = ({ navigation, route }) => {
     docctx.setHeaderTitles("Quiz");
   },[])
 
-  console.log("documentId is", route.params.documentId);
+  console.log("document is", route.params);
   return (
     <Tab.Navigator>
       <Tab.Screen
         name="Homes"
         component={QuizHomeScreen}
         options={{ headerShown: false }}
-        initialParams={{ documentId: route.params.documentId }}
+        initialParams={{ documentId: route.params.documentId, documentTitle:route.params.documentTitle }}
       />
       <Tab.Screen
         name="Exam"
         component={ExamScreen}
-        options={{ headerShown: true, headerTintColor:'white', headerTitleAlign:'center' ,headerStyle:{backgroundColor:'#145C7B'}, headerTitle:'',headerTitleStyle:{fontFamily:'Fraunces',fontSize:24}, headerBackVisible:false  }}
+        options={{ headerShown: true, headerTintColor:'white', headerTitleAlign:'center' ,headerStyle:{backgroundColor:'#145C7B'}, headerTitle:'Quiz',headerTitleStyle:{fontFamily:'Fraunces',fontSize:24}, headerBackVisible:false  }}
       />
       <Tab.Screen
         name="Result"

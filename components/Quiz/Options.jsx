@@ -1,11 +1,22 @@
 import { StyleSheet, View , Text, Dimensions,} from "react-native";
-import React, { useEffect } from "react";
-import { useState } from "react";
 import { TouchableOpacity } from "react-native";
+import * as Font from 'expo-font'
+import * as SplashScreen from 'expo-splash-screen';
+import React, {useState, useEffect} from 'react'
 
-const { width, height} = Dimensions.get('window')
+const {width, height} = Dimensions.get('window')
+
+let customFonts = {
+  'Fraunces': require('../../assets/fonts/Fraunces.ttf'),
+  'Poppins': require('../../assets/fonts/Poppins.ttf'),
+  'Fraunces-regular': require('../../assets/fonts/FrauncesRegular.ttf'),
+  'Fraunces-semibold': require('../../assets/fonts/Fraunces_72pt-SemiBold.ttf')
+};
+
 
 const Options = (props) =>{
+
+    
 
     let answerOptions = props.ops;
     let choosen = props.choosen;
@@ -30,6 +41,21 @@ const Options = (props) =>{
 
 
     const RadioButton = ({ onPress, selected, children }) => {
+      const [isFontsLoaded, setIsFontsLoaded] = useState(false);
+
+    useEffect(() =>{
+        async function  loadFontsAsync() {
+        await Font.loadAsync(customFonts);
+        setIsFontsLoaded(true);
+        SplashScreen.hideAsync()
+        }
+        loadFontsAsync()
+    },[])
+    
+    if(!isFontsLoaded){
+        SplashScreen.preventAutoHideAsync();
+        return null
+    }
         return (
           <TouchableOpacity onPress={onPress} style={styles.radioButtonContainer}>
             <TouchableOpacity onPress={onPress} style={styles.radioButton}>
@@ -95,6 +121,7 @@ const styles = StyleSheet.create({
   radioButtonText: {
     fontSize: 16,
     marginLeft: 16,
+    fontFamily:'Poppins'
   },
 });
 

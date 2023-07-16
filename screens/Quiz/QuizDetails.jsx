@@ -4,6 +4,8 @@ import {
   Text,
   TouchableOpacity,
   View,
+  SafeAreaView,
+  ScrollView
 } from "react-native";
 import React from "react";
 import { useContext, useState, useEffect } from "react";
@@ -33,11 +35,13 @@ export default function QuizDetails({}) {
   const goToExam = () => {
     navigation.navigate("Exam", {
       item: item,
+      documentTitle:documentTitle
     });
   };
 
   const route = useRoute();
   const item = route.params.item;
+  const documentTitle = route.params.documentTitle
   const [isFontsLoaded, setIsFontsLoaded] = useState(false);
 
   useEffect(() => {
@@ -56,12 +60,16 @@ export default function QuizDetails({}) {
   }
 
   return (
+    <SafeAreaView style={{flex:1}}>
+    <Text style={{backgroundColor:'#145c7b0d', fontFamily:'Fraunces700', fontSize:18, textAlign:'center', height:51, borderTopWidth:0.5, borderBottomWidth:0.5, borderTopColor:'#145C7B', borderBottomColor:'#145C7B', textAlignVertical:'center'}}>{documentTitle}</Text>
+    <ScrollView>
     <View style={styles.container}>
       <Text
         style={{
-          fontSize: 25,
-          marginBottom: height * 0.03,
+          fontSize: 23,
+          marginBottom: 15,
           fontFamily: "Fraunces-semibold",
+          textAlign:'center'
         }}
       >
         {item.quizName}
@@ -155,6 +163,8 @@ export default function QuizDetails({}) {
         </Text>
       </TouchableOpacity>
     </View>
+    </ScrollView>
+    </SafeAreaView>
   );
 }
 
@@ -166,7 +176,7 @@ const styles = StyleSheet.create({
   },
   container: {
     paddingHorizontal: width * 0.08,
-    paddingTop: height * 0.04,
+    paddingTop: 10,
   },
   dot: {
     width: 6,

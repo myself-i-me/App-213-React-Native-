@@ -1,5 +1,5 @@
 import { useContext, useEffect, useState } from "react";
-import { View, Text,StyleSheet , Alert, BackHandler, Image, Dimensions, TouchableOpacity} from "react-native";
+import { View, Text,StyleSheet , Alert, BackHandler, Image, Dimensions, TouchableOpacity, SafeAreaView, ScrollView} from "react-native";
 import { StackActions, useNavigation, useRoute } from "@react-navigation/native";
 import Button from "../../components/ui/Button";
 import { AuthContext } from "../../store/auth-context";
@@ -9,17 +9,19 @@ import * as Font from 'expo-font'
 import * as SplashScreen from 'expo-splash-screen';
 import { DocContext } from "../../store/doc-context";
 import { FinalSubmit } from "../../util/quizApis";
+import { Entypo } from '@expo/vector-icons';
 
 let customFonts = {
   'Fraunces': require('../../assets/fonts/Fraunces.ttf'),
   'Poppins': require('../../assets/fonts/Poppins.ttf'),
   'Fraunces-regular': require('../../assets/fonts/FrauncesRegular.ttf'),
-  'Fraunces-semibold': require('../../assets/fonts/Fraunces_72pt-SemiBold.ttf')
+  'Fraunces-semibold': require('../../assets/fonts/Fraunces_72pt-SemiBold.ttf'),
+  'Fraunces700' : require('../../assets/fonts/Fraunces_9pt_Soft-Bold.ttf')
 };
 
 
 
-function SuccessScreen({score}) {
+function SuccessScreen({score, documentTitle}) {
     const certiFicateIcon = require('../../assets/certificate-icon_1.png');
     const [isFontsLoaded, setIsFontsLoaded] = useState(false);
 
@@ -63,7 +65,7 @@ function SuccessScreen({score}) {
 }
 
 
-function FailScreen({score, goToHome}) {
+function FailScreen({score, goToHome, documentTitle}) {
     const [isFontsLoaded, setIsFontsLoaded] = useState(false);
 
     useEffect(() =>{
@@ -81,7 +83,10 @@ function FailScreen({score, goToHome}) {
     }
     const sadIcon = require('../../assets/sad-icon_1.png')
     return(
-    <View style={styles.failScreenCnotainer}>
+    <SafeAreaView style={{flex:1, backgroundColor:'white'}}>
+        <Text style={{backgroundColor:'#145c7b0d', width:width ,fontFamily:'Fraunces700', fontSize:18, textAlign:'center', height:51, borderTopWidth:0.5, borderBottomWidth:0.5, borderTopColor:'#145C7B', borderBottomColor:'#145C7B', textAlignVertical:'center'}}>{documentTitle}</Text>
+        <ScrollView>
+        <View style={styles.failScreenContainer}>
         <Text style={{fontFamily:'Fraunces-semibold', fontSize:28, alignSelf:'center'}}>Basic fundamentals of wildlife of Kenya</Text>
         <Text style={{marginTop:height*0.05, fontSize:26,color:'#B41616' ,textAlign:'center', fontWeight:'bold'}}>Better luck next time</Text>
         <Image
@@ -95,13 +100,15 @@ function FailScreen({score, goToHome}) {
                     <Text style={{color:'white',fontWeight:'bold', fontSize:19}}>Go back</Text>
         </TouchableOpacity>
     </View>
+        </ScrollView>
+    </SafeAreaView>
     )
 }
 
 
 function ResultScreen (props) {
     const docctx = useContext(DocContext)
-    docctx.setHeaderShowns(true);
+    
     const authctx = useContext(AuthContext);
     const [resultLoading, setResultLoading] = useState(false);
     const [result,setResult] = useState('')
@@ -109,6 +116,7 @@ function ResultScreen (props) {
     const navigation = useNavigation();
     const route = useRoute();
     const questions = route.params.questions;
+    const documentTitle = route.params.documentTitle
     let answersData = questions.map(q =>{
         return {
             id: q.id,
@@ -119,6 +127,7 @@ function ResultScreen (props) {
     })
     
     useEffect(() =>{
+        docctx.setHeaderShowns(true);
         async function getresult() {
             setResultLoading(true);
             try {
@@ -144,11 +153,15 @@ function ResultScreen (props) {
     }
 
     return (
-        <View style= {styles.container}>
+        <SafeAreaView style={{flex:1}}>
+            <ScrollView>
+            <View style= {styles.container}>
            {
-            result !== 'Fail' ? <SuccessScreen  score={score}/> : <FailScreen score={score} goToHome={goToHome}/>
+            result !== 'Fail' ? <SuccessScreen  score={score} documentTitle={documentTitle}/> : <FailScreen score={score} goToHome={goToHome} documentTitle={documentTitle}/>
            }
         </View>
+            </ScrollView>
+        </SafeAreaView>
     )
 }
 
@@ -159,13 +172,13 @@ const styles = StyleSheet.create({
         flex:1,
         alignItems:'center',
         justifyContent:'center',
-        paddingHorizontal:width*0.05,
         backgroundColor:'white'
     },
-    failScreenCnotainer:{
+    failScreenContainer:{
         width:'100%',
         flex:1,
-        backgroundColor:'white'
+        backgroundColor:'white',
+        paddingHorizontal:width*0.05,
     },
     successContainer: {
         width:'100%',

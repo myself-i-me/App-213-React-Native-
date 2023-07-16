@@ -14,7 +14,7 @@ let customFonts = {
     'Fraunces-regular': require('../../assets/fonts/FrauncesRegular.ttf'),
     'Fraunces-semibold': require('../../assets/fonts/Fraunces_72pt-SemiBold.ttf')
   };
-const QuizCategory = ({item}) =>{
+const QuizCategory = ({item, documentTitle}) =>{
 
     const navigation = useNavigation();
 
@@ -36,7 +36,8 @@ const QuizCategory = ({item}) =>{
 
     const goToDetails = () =>{
         navigation.navigate('Details',{
-            item:item
+            item:item,
+            documentTitle:documentTitle
         })
     }
     return (

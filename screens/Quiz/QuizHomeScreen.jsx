@@ -11,13 +11,14 @@ import { AuthContext } from "../../store/auth-context";
 import { getAvailabaleQuizzessByDocumentId } from "../../util/quizApis";
 let customFonts = {
   'Fraunces': require('../../assets/fonts/Fraunces.ttf'),
-  'Poppins': require('../../assets/fonts/Poppins.ttf')
+  'Poppins': require('../../assets/fonts/Poppins.ttf'),
+  'Fraunces700': require('../../assets/fonts/Fraunces_9pt_Soft-Bold.ttf'),
 };
 
 
 const QuizHomeScreen = ({navigation, route}) => {
 
-    
+  console.log("document is", route.params);
     const authctx = useContext(AuthContext)
 
     const [isLoading,setIsLoading] = useState(false);
@@ -53,11 +54,12 @@ const QuizHomeScreen = ({navigation, route}) => {
 
     if(quizData.length){
       return (
-        <SafeAreaView style= {{paddingTop:10, paddingHorizontal:width*0}}>
+        <SafeAreaView style= {{ paddingHorizontal:width*0, flex:1}}>
+          <Text style={{backgroundColor:'#145c7b0d', fontFamily:'Fraunces700', fontSize:18, textAlign:'center', height:51, borderTopWidth:0.5, borderBottomWidth:0.5, borderTopColor:'#145C7B', borderBottomColor:'#145C7B', textAlignVertical:'center'}}>{route.params.documentTitle}</Text>
           <FlatList
             data={quizData}
             renderItem={({ item }) => (
-              <QuizCategory item={item} navigation={navigation}/>
+              <QuizCategory item={item} navigation={navigation} documentTitle={route.params.documentTitle} />
             )}
             keyExtractor={(item) => item.id}
             scrollb

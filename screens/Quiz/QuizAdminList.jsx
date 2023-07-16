@@ -1,7 +1,8 @@
-import { StyleSheet, Text, View, Switch, FlatList, Dimensions } from 'react-native'
+import { StyleSheet, Text, View, Switch, FlatList, Dimensions, TouchableOpacity } from 'react-native'
 import React, {useContext, useEffect, useState} from 'react'
 import { DocContext } from '../../store/doc-context';
 import { FontAwesome5 } from '@expo/vector-icons';
+import { AntDesign } from '@expo/vector-icons';
 import * as Font from 'expo-font'
 import * as SplashScreen from 'expo-splash-screen';
 
@@ -49,10 +50,11 @@ function QuizByDocument({title, quizes}) {
     )
 }
 
-export default function QuizAdminList() {
+export default function QuizAdminList({navigation}) {
     const docContext = useContext(DocContext);
     const [isFontsLoaded, setIsFontsLoaded] = useState(false);
     useEffect(() => {
+      docContext.setHeaderTitles('Quiz')
         async function  loadFontsAsync() {
             await Font.loadAsync(customFonts);
             setIsFontsLoaded(true);
@@ -68,203 +70,106 @@ export default function QuizAdminList() {
     
 
     const data = [
-        {
-            "title":'Wildlife offenses in Kenya',
-            "data" : [{
-                "createdBy": "jhonmiller@mailinator.com",
-                "createdDate": "2023-07-15 14:08:49",
-                "lastModifiedBy": "jhonmiller@mailinator.com",
-                "lastModifiedDate": "2023-07-15 14:08:49",
-                "id": 1,
-                "documentId": 1,
-                "quizName": "Wild life quiz(Kenya)",
-                "noOfQuestions": 8,
-                "timeInMins": 20,
-                "qualifyScore": 65,
-                "instructions": "",
-                "deleted": false,
-                "documentName": "Wildlife offenses in Kenya"
-              },
-              {
-                "createdBy": "jhonmiller@mailinator.com",
-                "createdDate": "2023-07-15 14:09:47",
-                "lastModifiedBy": "jhonmiller@mailinator.com",
-                "lastModifiedDate": "2023-07-15 14:09:47",
-                "id": 2,
-                "documentId": 1,
-                "quizName": "Quiz Master of wild life",
-                "noOfQuestions": 6,
-                "timeInMins": 25,
-                "qualifyScore": 70,
-                "instructions": "The quizzes consists of questions carefully designed to help you self-assess your comprehension of the information presented on the topics covered in the module. No data will be collected on the website regarding your responses or how many times you take the quiz",
-                "deleted": false,
-                "documentName": "Wildlife offenses in Kenya"
-              }]
-        },
-        {
-            "title":'Wildlife offenses in Kenya',
-            "data" : [{
-                "createdBy": "jhonmiller@mailinator.com",
-                "createdDate": "2023-07-15 14:08:49",
-                "lastModifiedBy": "jhonmiller@mailinator.com",
-                "lastModifiedDate": "2023-07-15 14:08:49",
-                "id": 1,
-                "documentId": 1,
-                "quizName": "Wild life quiz(Kenya)",
-                "noOfQuestions": 8,
-                "timeInMins": 20,
-                "qualifyScore": 65,
-                "instructions": "",
-                "deleted": false,
-                "documentName": "Wildlife offenses in Kenya"
-              },
-              {
-                "createdBy": "jhonmiller@mailinator.com",
-                "createdDate": "2023-07-15 14:09:47",
-                "lastModifiedBy": "jhonmiller@mailinator.com",
-                "lastModifiedDate": "2023-07-15 14:09:47",
-                "id": 2,
-                "documentId": 1,
-                "quizName": "Quiz Master of wild life",
-                "noOfQuestions": 6,
-                "timeInMins": 25,
-                "qualifyScore": 70,
-                "instructions": "The quizzes consists of questions carefully designed to help you self-assess your comprehension of the information presented on the topics covered in the module. No data will be collected on the website regarding your responses or how many times you take the quiz",
-                "deleted": false,
-                "documentName": "Wildlife offenses in Kenya"
-              },
-              {
-                "createdBy": "jhonmiller@mailinator.com",
-                "createdDate": "2023-07-15 14:08:49",
-                "lastModifiedBy": "jhonmiller@mailinator.com",
-                "lastModifiedDate": "2023-07-15 14:08:49",
-                "id": 1,
-                "documentId": 1,
-                "quizName": "Wild life quiz(Kenya)",
-                "noOfQuestions": 8,
-                "timeInMins": 20,
-                "qualifyScore": 65,
-                "instructions": "",
-                "deleted": false,
-                "documentName": "Wildlife offenses in Kenya"
-              },
-              {
-                "createdBy": "jhonmiller@mailinator.com",
-                "createdDate": "2023-07-15 14:08:49",
-                "lastModifiedBy": "jhonmiller@mailinator.com",
-                "lastModifiedDate": "2023-07-15 14:08:49",
-                "id": 1,
-                "documentId": 1,
-                "quizName": "Wild life quiz(Kenya)",
-                "noOfQuestions": 8,
-                "timeInMins": 20,
-                "qualifyScore": 65,
-                "instructions": "",
-                "deleted": false,
-                "documentName": "Wildlife offenses in Kenya"
-              },
-              {
-                "createdBy": "jhonmiller@mailinator.com",
-                "createdDate": "2023-07-15 14:08:49",
-                "lastModifiedBy": "jhonmiller@mailinator.com",
-                "lastModifiedDate": "2023-07-15 14:08:49",
-                "id": 1,
-                "documentId": 1,
-                "quizName": "Wild life quiz(Kenya)",
-                "noOfQuestions": 8,
-                "timeInMins": 20,
-                "qualifyScore": 65,
-                "instructions": "",
-                "deleted": false,
-                "documentName": "Wildlife offenses in Kenya"
-              },
-              {
-                "createdBy": "jhonmiller@mailinator.com",
-                "createdDate": "2023-07-15 14:08:49",
-                "lastModifiedBy": "jhonmiller@mailinator.com",
-                "lastModifiedDate": "2023-07-15 14:08:49",
-                "id": 1,
-                "documentId": 1,
-                "quizName": "Wild life quiz(Kenya)",
-                "noOfQuestions": 8,
-                "timeInMins": 20,
-                "qualifyScore": 65,
-                "instructions": "",
-                "deleted": false,
-                "documentName": "Wildlife offenses in Kenya"
-              }
-            ]
-        },
-        {
-            "title":'Wildlife offenses in Kenya',
-            "data" : [{
-                "createdBy": "jhonmiller@mailinator.com",
-                "createdDate": "2023-07-15 14:08:49",
-                "lastModifiedBy": "jhonmiller@mailinator.com",
-                "lastModifiedDate": "2023-07-15 14:08:49",
-                "id": 1,
-                "documentId": 1,
-                "quizName": "Wild life quiz(Kenya)",
-                "noOfQuestions": 8,
-                "timeInMins": 20,
-                "qualifyScore": 65,
-                "instructions": "",
-                "deleted": false,
-                "documentName": "Wildlife offenses in Kenya"
-              },
-              {
-                "createdBy": "jhonmiller@mailinator.com",
-                "createdDate": "2023-07-15 14:09:47",
-                "lastModifiedBy": "jhonmiller@mailinator.com",
-                "lastModifiedDate": "2023-07-15 14:09:47",
-                "id": 2,
-                "documentId": 1,
-                "quizName": "Quiz Master of wild life",
-                "noOfQuestions": 6,
-                "timeInMins": 25,
-                "qualifyScore": 70,
-                "instructions": "The quizzes consists of questions carefully designed to help you self-assess your comprehension of the information presented on the topics covered in the module. No data will be collected on the website regarding your responses or how many times you take the quiz",
-                "deleted": false,
-                "documentName": "Wildlife offenses in Kenya"
-              }]
-        },
-        {
-            "title":'Wildlife offenses in Kenya',
-            "data" : [{
-                "createdBy": "jhonmiller@mailinator.com",
-                "createdDate": "2023-07-15 14:08:49",
-                "lastModifiedBy": "jhonmiller@mailinator.com",
-                "lastModifiedDate": "2023-07-15 14:08:49",
-                "id": 1,
-                "documentId": 1,
-                "quizName": "Wild life quiz(Kenya)",
-                "noOfQuestions": 8,
-                "timeInMins": 20,
-                "qualifyScore": 65,
-                "instructions": "",
-                "deleted": false,
-                "documentName": "Wildlife offenses in Kenya"
-              },
-              {
-                "createdBy": "jhonmiller@mailinator.com",
-                "createdDate": "2023-07-15 14:09:47",
-                "lastModifiedBy": "jhonmiller@mailinator.com",
-                "lastModifiedDate": "2023-07-15 14:09:47",
-                "id": 2,
-                "documentId": 1,
-                "quizName": "Quiz Master of wild life",
-                "noOfQuestions": 6,
-                "timeInMins": 25,
-                "qualifyScore": 70,
-                "instructions": "The quizzes consists of questions carefully designed to help you self-assess your comprehension of the information presented on the topics covered in the module. No data will be collected on the website regarding your responses or how many times you take the quiz",
-                "deleted": false,
-                "documentName": "Wildlife offenses in Kenya"
-              }]
-        }
-      ]
+      {
+        "title":'Wildlife offenses in Kenya',
+        "createdBy": "jhonmiller@mailinator.com",
+        "createdDate": "2023-07-15 14:08:49",
+        "lastModifiedBy": "jhonmiller@mailinator.com",
+        "lastModifiedDate": "2023-07-15 14:08:49",
+        "id": 1,
+        "documentId": 1,
+        "quizName": "Wild life quiz(Kenya)",
+        "noOfQuestions": 8,
+        "timeInMins": 20,
+        "qualifyScore": 65,
+        "instructions": "",
+        "deleted": false,
+        "documentName": "Wildlife offenses in Kenya"
+      },
+      {
+        "title":'Wildlife offenses in Kenya',
+        "createdBy": "jhonmiller@mailinator.com",
+        "createdDate": "2023-07-15 14:09:47",
+        "lastModifiedBy": "jhonmiller@mailinator.com",
+        "lastModifiedDate": "2023-07-15 14:09:47",
+        "id": 2,
+        "documentId": 1,
+        "quizName": "Quiz Master of wild life",
+        "noOfQuestions": 6,
+        "timeInMins": 25,
+        "qualifyScore": 70,
+        "instructions": "The quizzes consists of questions carefully designed to help you self-assess your comprehension of the information presented on the topics covered in the module. No data will be collected on the website regarding your responses or how many times you take the quiz",
+        "deleted": false,
+        "documentName": "Wildlife offenses in Kenya"
+      },
+      {
+        "title":'Wildlife offenses in Kenya',
+        "createdBy": "jhonmiller@mailinator.com",
+        "createdDate": "2023-07-15 14:08:49",
+        "lastModifiedBy": "jhonmiller@mailinator.com",
+        "lastModifiedDate": "2023-07-15 14:08:49",
+        "id": 3,
+        "documentId": 1,
+        "quizName": "Wild life quiz(Kenya)",
+        "noOfQuestions": 8,
+        "timeInMins": 20,
+        "qualifyScore": 65,
+        "instructions": "",
+        "deleted": false,
+        "documentName": "Wildlife offenses in Kenya"
+      },
+      {
+        "title":'Wildlife offenses in Kenya',
+        "createdBy": "jhonmiller@mailinator.com",
+        "createdDate": "2023-07-15 14:08:49",
+        "lastModifiedBy": "jhonmiller@mailinator.com",
+        "lastModifiedDate": "2023-07-15 14:08:49",
+        "id": 4,
+        "documentId": 1,
+        "quizName": "Wild life quiz(Kenya)",
+        "noOfQuestions": 8,
+        "timeInMins": 20,
+        "qualifyScore": 65,
+        "instructions": "",
+        "deleted": false,
+        "documentName": "Wildlife offenses in Kenya"
+      },
+      {
+        "title":'Wildlife offenses in Kenya',
+        "createdBy": "jhonmiller@mailinator.com",
+        "createdDate": "2023-07-15 14:08:49",
+        "lastModifiedBy": "jhonmiller@mailinator.com",
+        "lastModifiedDate": "2023-07-15 14:08:49",
+        "id": 5,
+        "documentId": 1,
+        "quizName": "Wild life quiz(Kenya)",
+        "noOfQuestions": 8,
+        "timeInMins": 20,
+        "qualifyScore": 65,
+        "instructions": "",
+        "deleted": false,
+        "documentName": "Wildlife offenses in Kenya"
+      },
+      {
+        "title":'Wildlife offenses in Kenya',
+        "createdBy": "jhonmiller@mailinator.com",
+        "createdDate": "2023-07-15 14:08:49",
+        "lastModifiedBy": "jhonmiller@mailinator.com",
+        "lastModifiedDate": "2023-07-15 14:08:49",
+        "id": 6,
+        "documentId": 1,
+        "quizName": "Wild life quiz(Kenya)",
+        "noOfQuestions": 8,
+        "timeInMins": 20,
+        "qualifyScore": 65,
+        "instructions": "",
+        "deleted": false,
+        "documentName": "Wildlife offenses in Kenya"
+      }
+    ]
 
   return (
-    <View style={{flex:1}}>
+    <View style={{flex:1, paddingBottom:30, backgroundColor:'white'}}>
       {/* <FlatList 
       data={data}
       renderItem={({item})=>(
@@ -274,8 +179,11 @@ export default function QuizAdminList() {
       /> */}
       <FlatList
         data={data}
-        renderItem={({item})=><QuizByDocument title={item.title} quizes={item.data} />}
+        renderItem={({item})=><QuizItem name={item.title} questions={item.noOfQuestions} duration={item.timeInMins} qualifyScore={item.qualifyScore} isActive={true}/>}
       />
+      <TouchableOpacity style={{position:'absolute', bottom:0, alignSelf:'center', backgroundColor:'white', padding:6, borderRadius:50, shadowColor: "#000"}} onPress={()=>navigation.navigate('Add Quiz')}>
+      <AntDesign name="pluscircleo" size={50} color="black" />
+      </TouchableOpacity>
     </View>
   )
 }

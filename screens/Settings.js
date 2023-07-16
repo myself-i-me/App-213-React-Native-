@@ -11,9 +11,11 @@ import { useState,useEffect, useContext } from "react";
 import * as Font from "expo-font";
 import * as SplashScreen from "expo-splash-screen";
 import { AuthContext } from "../store/auth-context";
+import { Ionicons } from '@expo/vector-icons';
 let customFonts = {
-  Fraunces: require("../assets/fonts/Fraunces.ttf"),
-  Poppins: require("../assets/fonts/Poppins.ttf"),
+  'Fraunces': require("../assets/fonts/Fraunces.ttf"),
+  'Poppins': require("../assets/fonts/Poppins.ttf"),
+  'Poppins-Semibold': require('../assets/fonts/Poppins600.ttf'),
 };
 
 function SettingsScreen() {
@@ -142,14 +144,19 @@ function SettingsScreen() {
 
   return (
     <View style={styles.rootContainer}>
-     <View style = {{marginBottom:40}}>
+     <View style = {{marginBottom:0}}>
         <Text style = {styles.headings}> Language </Text>
         <Options items={languages}/>
      </View>
-     <View style = {{marginBottom:40}}>
+     <View style = {{marginBottom:0}}>
         <Text style = {styles.headings}> Theme </Text>
         <Themes items={themes}/>
      </View>
+     <View style={{flexDirection:'row', justifyContent:'space-between', borderWidth:0, borderColor:'red',alignItems:'center', paddingRight:30}}>
+        <Text style={[styles.headings, {marginTop:10}]}>Offline data</Text>
+        <Ionicons name="eye-off-outline" size={30} color="black" />
+     </View>
+     
     </View>
     
   );
@@ -161,9 +168,8 @@ export default SettingsScreen;
 const styles = StyleSheet.create({
   rootContainer: {
     flex: 1,
-    paddingTop: 100,
+    paddingTop: 20,
     marginLeft:20,
-    
   },
   radioButtonContainer: {
     flexDirection: "row",
@@ -193,10 +199,9 @@ const styles = StyleSheet.create({
     marginLeft: 16,
   },
   headings:{
-    fontFamily:'Poppins',
-    fontSize:18,
-    fontWeight:600,
+    fontFamily:'Poppins-semibold',
+    fontSize:20,
     color:'#000',
-    marginBottom:20,
+    marginBottom:7,
   }
 });
