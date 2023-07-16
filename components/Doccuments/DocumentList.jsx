@@ -124,7 +124,7 @@ export default function DocumentList({ route, navigation }) {
                     color: "white",
                     marginVertical: 10,
                     marginHorizontal: 20,
-                    backgroundColor: "transparent",
+                    // backgroundColor: "#b7f794",
                   }}
                 >
                   {country.name}
@@ -146,7 +146,8 @@ export default function DocumentList({ route, navigation }) {
                     color: "#2C160C",
                     marginVertical: 10,
                     marginHorizontal: 20,
-                    backgroundColor: "transparent",
+                    // backgroundColor: "#e79af5",
+                    // paddingBottom:6
                   }}
                 >
                   {country.name}
@@ -158,7 +159,7 @@ export default function DocumentList({ route, navigation }) {
       </ScrollView>
 
       <FlatList
-        style={{ paddingHorizontal: 10 }}
+        style={{ paddingHorizontal: 10, backgroundColor:'white' }}
         data={documentsList}
         keyExtractor={(item) => item.id}
         renderItem={({ item }) => (
@@ -174,6 +175,7 @@ const styles = StyleSheet.create({
     paddingTop: 20,
     paddingBottom: height * 0.07,
     backgroundColor: "white",
+    // height:height*1.4
   },
   button: {
     backgroundColor: "#2C9CCC99",

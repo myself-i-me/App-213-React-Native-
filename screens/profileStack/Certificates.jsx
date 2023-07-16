@@ -1,9 +1,11 @@
-import { StyleSheet, Text, View, Image, Dimensions, FlatList } from 'react-native'
+import { StyleSheet, Text, View, Image, Dimensions, FlatList, TouchableOpacity } from 'react-native'
 import React,{useContext} from 'react'
 import { SvgUri } from 'react-native-svg'
 import { DocContext } from '../../store/doc-context'
 const { width, height} = Dimensions.get('window')
-import { AntDesign } from '@expo/vector-icons';
+import { EvilIcons } from '@expo/vector-icons';
+import { Ionicons } from '@expo/vector-icons';
+
 function CertificateItem() {
   const shareIcon = require('../../assets/share-line-icon.png')
   const emailIcon = require('../../assets/envelope-line-icon.png')
@@ -13,16 +15,14 @@ function CertificateItem() {
     <Text style={{backgroundColor:'white', fontSize:20,fontWeight:'bold',}}>Basic Fundamentals of wildlife in Kenya</Text>
     <View style={{flexDirection:'row', justifyContent:'space-between'}}>
       <Text style={{textAlignVertical:'center'}}>12 July 2023</Text>
-      <View style={{flexDirection:'row', backgroundColor:'white'}}>
-      <AntDesign name="sharealt" size={24} color="black" />
-      <Image
-      source={emailIcon}
-      style={styles.icon}
-      />
-      <Image
-      source={downloadIcon}
-      style={styles.icon}
-      />
+      <View style={{flexDirection:'row', backgroundColor:'white', width:'45%', justifyContent:'space-evenly'}}>
+      
+      
+      
+
+      <TouchableOpacity><EvilIcons name="share-google" size={44} color="black" /></TouchableOpacity>
+      <TouchableOpacity><EvilIcons name="envelope" size={44} color="black" /></TouchableOpacity>
+      <TouchableOpacity><Ionicons name="cloud-download-outline" size={34} color="black" /></TouchableOpacity>
       </View> 
     </View>
   </View>
@@ -36,7 +36,7 @@ export default function Certificates() {
     <View style={{paddingHorizontal:width*0.02, backgroundColor:'white'}}>
       <FlatList
       data={data}
-      keyExtractor={item=>item.id}
+      keyExtractor={item=>item}
       renderItem={CertificateItem}
       showsVerticalScrollIndicator={false}
       />
