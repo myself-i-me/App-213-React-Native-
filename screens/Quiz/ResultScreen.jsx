@@ -16,7 +16,8 @@ let customFonts = {
   'Poppins': require('../../assets/fonts/Poppins.ttf'),
   'Fraunces-regular': require('../../assets/fonts/FrauncesRegular.ttf'),
   'Fraunces-semibold': require('../../assets/fonts/Fraunces_72pt-SemiBold.ttf'),
-  'Fraunces700' : require('../../assets/fonts/Fraunces_9pt_Soft-Bold.ttf')
+  'Fraunces700' : require('../../assets/fonts/Fraunces_9pt_Soft-Bold.ttf'),
+  "GrenzeGotish" : require('../../assets/fonts/GrenzeGotisch-Regular.ttf')
 };
 
 
@@ -40,6 +41,9 @@ function SuccessScreen({score, documentTitle}) {
     }
 
     return(
+    <SafeAreaView>
+        <Text style={{backgroundColor:'#145c7b0d', width:width ,fontFamily:'Fraunces700', fontSize:18, textAlign:'center', height:51, borderTopWidth:0.5, borderBottomWidth:0.5, borderTopColor:'#145C7B', borderBottomColor:'#145C7B', textAlignVertical:'center'}}>{documentTitle}</Text>
+        <ScrollView>
         <View style={styles.successContainer}>
         <Text style={{fontFamily:'Fraunces-semibold', fontSize:22}}>Basic fundamentals of wildlife of Kenya</Text>
         <Text style={{marginTop:height*0.05, fontSize:26,color:'#19771D' ,textAlign:'center',fontFamily:'Fraunces-semibold'}}>Congratulations</Text>
@@ -61,6 +65,8 @@ function SuccessScreen({score, documentTitle}) {
         </TouchableOpacity>
         </View>
     </View>
+        </ScrollView>
+    </SafeAreaView>
     )
 }
 
@@ -88,7 +94,7 @@ function FailScreen({score, goToHome, documentTitle}) {
         <ScrollView>
         <View style={styles.failScreenContainer}>
         <Text style={{fontFamily:'Fraunces-semibold', fontSize:28, alignSelf:'center'}}>Basic fundamentals of wildlife of Kenya</Text>
-        <Text style={{marginTop:height*0.05, fontSize:26,color:'#B41616' ,textAlign:'center', fontWeight:'bold'}}>Better luck next time</Text>
+        <Text style={{marginTop:height*0.05, fontSize:35,color:'#B41616' ,textAlign:'center', fontFamily:'GrenzeGotish'}}>Better luck next time</Text>
         <Image
         source={sadIcon}
         style={{backgroundColor:'white', alignSelf:'center', height:height*0.3, width:height*0.31, marginVertical:height*0.1}}
@@ -185,7 +191,8 @@ const styles = StyleSheet.create({
     successContainer: {
         width:'100%',
         flex:1,
-        backgroundColor:'white'
+        backgroundColor:'white',
+        paddingHorizontal:width*0.05,
     }
 
 })

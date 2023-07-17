@@ -1,7 +1,7 @@
 {
   "expo": {
-    "name": "testing_build",
-    "slug": "testing_build",
+    "name": "Quickref_sample",
+    "slug": "Quickref_sample",
     "version": "1.0.0",
     "orientation": "portrait",
     "icon": "./assets/icon.png",
@@ -21,16 +21,10 @@
       "adaptiveIcon": {
         "foregroundImage": "./assets/adaptive-icon.png",
         "backgroundColor": "#ffffff"
-      },
-      "package": "com.anivinder.testing_build"
+      }
     },
     "web": {
       "favicon": "./assets/favicon.png"
-    },
-    "extra": {
-      "eas": {
-        "projectId": "01be4372-a527-4038-bd7e-502037da675f"
-      }
     }
   }
 }

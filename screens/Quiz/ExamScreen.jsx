@@ -19,8 +19,7 @@ import {
   useNavigation,
   useRoute,
 } from "@react-navigation/native";
-import CountDown from "react-native-countdown-component";
-import ResultScreen from "./ResultScreen";
+import CountDown from "react-native-countdown-accurate";
 import { AuthContext } from "../../store/auth-context";
 
 const { width, height } = Dimensions.get("window");
@@ -56,6 +55,7 @@ const ExamScreen = () => {
   const route = useRoute();
   const examItem = route.params.item;
   const documentTitle = route.params.documentTitle;
+  const [finished, setFinished] = useState(false)
 
   useEffect(() => {
     docctx.setHeaderShowns(false);
@@ -76,6 +76,7 @@ const ExamScreen = () => {
                 StackActions.replace("Result", {
                   questions: quizQuestions,
                   quizId: quizIdRef.current,
+                  documentTitle: documentTitle,
                 })
               );
             },
@@ -298,8 +299,8 @@ const ExamScreen = () => {
               style={styles.timer}
               digitTxtStyle={{ color: "#AA2222", margin: 0 }}
               timeLabelStyle={{ color: "transparent" }}
-              until={examTime * 60}
-              onFinish={submitAnswers}
+              until={examItem*60}
+              running = {!finished}
               digitStyle={{ backgroundColor: "white" }}
               timeToShow={["M"]}
             />
@@ -319,8 +320,15 @@ const ExamScreen = () => {
               style={styles.timer}
               digitTxtStyle={{ color: "#AA2222" }}
               timeLabelStyle={{ color: "transparent" }}
-              until={examTime * 60}
-              onFinish={submitAnswers}
+              until={examItem*60}
+              running = {!finished}
+              onFinish={() => {
+                if(!finished){
+                  setFinished(true);
+                  console.log('not finished')
+                  submitAnswers();
+                }
+              }}
               digitStyle={{ backgroundColor: "white" }}
               timeToShow={["S"]}
             />

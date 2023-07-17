@@ -200,7 +200,7 @@ const styles = StyleSheet.create({
     fontFamily:'Poppins'
   },
   headings:{
-    fontFamily:'Poppins-semibold',
+    fontFamily:'Poppins-Semibold',
     fontSize:20,
     color:'#000',
     marginBottom:7,

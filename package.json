@@ -25,6 +25,7 @@
     "react": "18.2.0",
     "react-native": "0.71.8",
     "react-native-chart-kit": "^6.12.0",
+    "react-native-countdown-accurate": "^1.0.1",
     "react-native-countdown-component": "^2.7.1",
     "react-native-element-dropdown": "^2.9.0",
     "react-native-gesture-handler": "~2.9.0",

@@ -46,6 +46,7 @@ import { Feather } from '@expo/vector-icons';
 import { MaterialIcons } from '@expo/vector-icons';
 import { Ionicons } from '@expo/vector-icons';
 import { MaterialCommunityIcons } from '@expo/vector-icons';
+import HeaderRight from './components/HeaderRight';
 
 function AuthStack() {
   const navigator = useNavigation();
@@ -96,37 +97,37 @@ function AuthenticatedStack() {
         drawerContent={(props) => <CustomSidebarMenu {...props}  />}>
         <Drawer.Screen
           name="Home"
-          options={{ drawerLabelStyle:{fontFamily:'Poppins'},  headerShown:docctx.headerShown,unmountOnBlur:true,headerTintColor:'white', headerTitleAlign:'center' ,headerStyle:{backgroundColor:'#145C7B'}, headerTitle:docctx.headerTitle, headerTitleStyle:{fontFamily:'Fraunces',fontSize:24}, drawerIcon:({ color, size }) => (<Feather name="home" color={color} size={size} />)}}
+          options={{headerRight:({color,size})=>(<HeaderRight />) , drawerLabelStyle:{fontFamily:'Poppins'},  headerShown:docctx.headerShown,unmountOnBlur:true,headerTintColor:'white', headerTitleAlign:'center' ,headerStyle:{backgroundColor:'#145C7B'}, headerTitle:docctx.headerTitle, headerTitleStyle:{fontFamily:'Fraunces',fontSize:24}, drawerIcon:({ color, size }) => (<Feather name="home" color={color} size={size} />)}}
           component={TempDocs}
         />
         {role !== 'ROLE_USER' && <Drawer.Screen
           name="Document Management"
-          options={{ drawerLabelStyle:{fontFamily:'Poppins'},headerShown:true,headerTintColor:'white',unmountOnBlur:true, headerTitleAlign:'center' ,headerStyle:{backgroundColor:'#145C7B'}, headerTitle:'Documents' ,headerTitleStyle:{fontFamily:'Fraunces',fontSize:24}, drawerIcon:() => (<Ionicons name="documents-outline" size={24} color="black" />)}}
+          options={{ headerRight:({color,size})=>(<HeaderRight />) , drawerLabelStyle:{fontFamily:'Poppins'},headerShown:true,headerTintColor:'white',unmountOnBlur:true, headerTitleAlign:'center' ,headerStyle:{backgroundColor:'#145C7B'}, headerTitle:'Documents' ,headerTitleStyle:{fontFamily:'Fraunces',fontSize:24}, drawerIcon:() => (<Ionicons name="documents-outline" size={24} color="black" />)}}
           component={DocumentManagement}
         />}
         {role !== 'ROLE_USER' && <Drawer.Screen
           name="User Management"
-          options={{ drawerLabelStyle:{fontFamily:'Poppins'},headerShown:true,headerTintColor:'white',unmountOnBlur:true, headerTitleAlign:'center' ,headerStyle:{backgroundColor:'#145C7B'}, headerTitle:'Users', headerTitleStyle:{fontFamily:'Fraunces',fontSize:24},drawerIcon:({ color, size }) => (<Feather name="users" color={color} size={size} />)}}
+          options={{headerRight:({color,size})=>(<HeaderRight />) , drawerLabelStyle:{fontFamily:'Poppins'},headerShown:true,headerTintColor:'white',unmountOnBlur:true, headerTitleAlign:'center' ,headerStyle:{backgroundColor:'#145C7B'}, headerTitle:'Users', headerTitleStyle:{fontFamily:'Fraunces',fontSize:24},drawerIcon:({ color, size }) => (<Feather name="users" color={color} size={size} />)}}
           component={Users}
         /> }
         <Drawer.Screen 
           name='My Profile'
-          options={{ drawerLabelStyle:{fontFamily:'Poppins'},headerShown:true,headerTintColor:'white',unmountOnBlur:true, headerTitleAlign:'center' ,headerStyle:{backgroundColor:'#145C7B'}, headerTitleStyle:{fontFamily:'Fraunces',fontSize:24}, drawerIcon:({color,size}) => (<AntDesign name="profile" size={24} color="black" />)}}
+          options={{ headerRight:({color,size})=>(<HeaderRight />) , drawerLabelStyle:{fontFamily:'Poppins'},headerShown:true,headerTintColor:'white',unmountOnBlur:true, headerTitleAlign:'center' ,headerStyle:{backgroundColor:'#145C7B'}, headerTitleStyle:{fontFamily:'Fraunces',fontSize:24}, drawerIcon:({color,size}) => (<AntDesign name="profile" size={24} color="black" />)}}
           component={ProfileStack}
         />
         {role !== 'ROLE_USER' && <Drawer.Screen
         name='DashBoard'
-        options={{ drawerLabelStyle:{fontFamily:'Poppins'},headerShown:true,headerTintColor:'white',unmountOnBlur:true, headerTitleAlign:'center' ,headerStyle:{backgroundColor:'#145C7B'}, headerTitleStyle:{fontFamily:'Fraunces',fontSize:24}, drawerIcon:() =>(<MaterialCommunityIcons name="view-dashboard-outline" size={24} color="black" />)}}
+        options={{ headerRight:({color,size})=>(<HeaderRight />) , drawerLabelStyle:{fontFamily:'Poppins'},headerShown:true,headerTintColor:'white',unmountOnBlur:true, headerTitleAlign:'center' ,headerStyle:{backgroundColor:'#145C7B'}, headerTitleStyle:{fontFamily:'Fraunces',fontSize:24}, drawerIcon:() =>(<MaterialCommunityIcons name="view-dashboard-outline" size={24} color="black" />)}}
         component={DashBoard}
         />}
         <Drawer.Screen
           name="Settings"
-          options={{ drawerLabelStyle:{fontFamily:'Poppins'},headerShown:true,headerTintColor:'white',unmountOnBlur:true, headerTitleAlign:'center' ,headerStyle:{backgroundColor:'#145C7B'}, drawerIcon:({color,size}) => (<Feather name="settings" size={24} color="black" />)}}
+          options={{ headerRight:({color,size})=>(<HeaderRight />) , drawerLabelStyle:{fontFamily:'Poppins'},headerShown:true,headerTintColor:'white',unmountOnBlur:true, headerTitleAlign:'center' ,headerStyle:{backgroundColor:'#145C7B'}, drawerIcon:({color,size}) => (<Feather name="settings" size={24} color="black" />)}}
           component={SettingsScreen}
         />
         <Drawer.Screen
         name="Logout"
-        options={{ drawerLabelStyle:{fontFamily:'Poppins'},headerShown:true,headerTintColor:'white',unmountOnBlur:true, headerTitleAlign:'center' ,headerStyle:{backgroundColor:'#145C7B'}, drawerIcon:() =>(<MaterialIcons name="logout" size={24} color="black" />)}}
+        options={{ headerRight:({color,size})=>(<HeaderRight />) , drawerLabelStyle:{fontFamily:'Poppins'},headerShown:true,headerTintColor:'white',unmountOnBlur:true, headerTitleAlign:'center' ,headerStyle:{backgroundColor:'#145C7B'}, drawerIcon:() =>(<MaterialIcons name="logout" size={24} color="black" />)}}
         component={Logout}
       />
     </Drawer.Navigator>
