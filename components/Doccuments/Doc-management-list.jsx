@@ -74,7 +74,7 @@ export default function DocumentManagement({navigation}) {
   return (
     <View style={styles.container}>
       <ScrollView
-        style={{ marginBottom: 12 }}
+        style={{ marginBottom: 12,paddingLeft: 10 }}
         horizontal={true}
         showsHorizontalScrollIndicator={false}
       >

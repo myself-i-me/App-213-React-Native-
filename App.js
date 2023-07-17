@@ -41,6 +41,11 @@ let customFonts = {
   'Fraunces': require('./assets/fonts/Fraunces.ttf'),
   'Poppins': require('./assets/fonts/Poppins.ttf')
 };
+import { AntDesign } from '@expo/vector-icons';
+import { Feather } from '@expo/vector-icons';
+import { MaterialIcons } from '@expo/vector-icons';
+import { Ionicons } from '@expo/vector-icons';
+import { MaterialCommunityIcons } from '@expo/vector-icons';
 
 function AuthStack() {
   const navigator = useNavigation();
@@ -86,53 +91,42 @@ function AuthenticatedStack() {
         screenOptions={{
           activeTintColor: '#e91e63',
           itemStyle: { marginVertical: 5 },
+          drawerStyle:{width:300},
         }}
         drawerContent={(props) => <CustomSidebarMenu {...props}  />}>
         <Drawer.Screen
           name="Home"
-          options={{ headerShown:docctx.headerShown,unmountOnBlur:true,headerTintColor:'white', headerTitleAlign:'center' ,headerStyle:{backgroundColor:'#145C7B'}, headerTitle:docctx.headerTitle, headerTitleStyle:{fontFamily:'Fraunces',fontSize:24}}}
+          options={{ drawerLabelStyle:{fontFamily:'Poppins'},  headerShown:docctx.headerShown,unmountOnBlur:true,headerTintColor:'white', headerTitleAlign:'center' ,headerStyle:{backgroundColor:'#145C7B'}, headerTitle:docctx.headerTitle, headerTitleStyle:{fontFamily:'Fraunces',fontSize:24}, drawerIcon:({ color, size }) => (<Feather name="home" color={color} size={size} />)}}
           component={TempDocs}
         />
-        <Drawer.Screen
-          name="Documents"
-          options={{headerShown:true,headerTintColor:'white',unmountOnBlur:true, headerTitleAlign:'center' ,headerStyle:{backgroundColor:'#145C7B'}, headerTitleStyle:{fontFamily:'Fraunces',fontSize:24}}}
+        {role== 'ROLE_USER' && <Drawer.Screen
+          name="Document Management"
+          options={{ drawerLabelStyle:{fontFamily:'Poppins'},headerShown:true,headerTintColor:'white',unmountOnBlur:true, headerTitleAlign:'center' ,headerStyle:{backgroundColor:'#145C7B'}, headerTitle:'Documents' ,headerTitleStyle:{fontFamily:'Fraunces',fontSize:24}, drawerIcon:() => (<Ionicons name="documents-outline" size={24} color="black" />)}}
           component={DocumentManagement}
-        />
-        {role!= 'ROLE_USER' && <Drawer.Screen
-          name="Users Management"
-          options={{headerShown:true,headerTintColor:'white',unmountOnBlur:true, headerTitleAlign:'center' ,headerStyle:{backgroundColor:'#145C7B'}, headerTitleStyle:{fontFamily:'Fraunces',fontSize:24}}}
+        />}
+        {role== 'ROLE_USER' && <Drawer.Screen
+          name="User Management"
+          options={{ drawerLabelStyle:{fontFamily:'Poppins'},headerShown:true,headerTintColor:'white',unmountOnBlur:true, headerTitleAlign:'center' ,headerStyle:{backgroundColor:'#145C7B'}, headerTitle:'Users', headerTitleStyle:{fontFamily:'Fraunces',fontSize:24},drawerIcon:({ color, size }) => (<Feather name="users" color={color} size={size} />)}}
           component={Users}
         /> }
-        {
-          <Drawer.Screen
-          name="Quiz Management"
-          options={{headerShown:true,headerTintColor:'white',unmountOnBlur:true, headerTitleAlign:'center' ,headerStyle:{backgroundColor:'#145C7B'}, headerTitleStyle:{fontFamily:'Fraunces',fontSize:24}, headerTitle:'Quizes'}}
-          component={QuizAdminList}
-        />
-        }
         <Drawer.Screen 
           name='My Profile'
-          options={{headerShown:true,headerTintColor:'white',unmountOnBlur:true, headerTitleAlign:'center' ,headerStyle:{backgroundColor:'#145C7B'}, headerTitleStyle:{fontFamily:'Fraunces',fontSize:24}}}
+          options={{ drawerLabelStyle:{fontFamily:'Poppins'},headerShown:true,headerTintColor:'white',unmountOnBlur:true, headerTitleAlign:'center' ,headerStyle:{backgroundColor:'#145C7B'}, headerTitleStyle:{fontFamily:'Fraunces',fontSize:24}, drawerIcon:({color,size}) => (<AntDesign name="profile" size={24} color="black" />)}}
           component={ProfileStack}
         />
-        {role!= 'ROLE_USER' && <Drawer.Screen
+        {role== 'ROLE_USER' && <Drawer.Screen
         name='DashBoard'
-        options={{headerShown:true,headerTintColor:'white',unmountOnBlur:true, headerTitleAlign:'center' ,headerStyle:{backgroundColor:'#145C7B'}, headerTitleStyle:{fontFamily:'Fraunces',fontSize:24}}}
+        options={{ drawerLabelStyle:{fontFamily:'Poppins'},headerShown:true,headerTintColor:'white',unmountOnBlur:true, headerTitleAlign:'center' ,headerStyle:{backgroundColor:'#145C7B'}, headerTitleStyle:{fontFamily:'Fraunces',fontSize:24}, drawerIcon:() =>(<MaterialCommunityIcons name="view-dashboard-outline" size={24} color="black" />)}}
         component={DashBoard}
         />}
         <Drawer.Screen
-          name="Certificates"
-          options={{headerShown:true,headerTintColor:'white',unmountOnBlur:true, headerTitleAlign:'center' ,headerStyle:{backgroundColor:'#145C7B'}}}
-          component={Certificates}
-        />
-        <Drawer.Screen
           name="Settings"
-          options={{headerShown:true,headerTintColor:'white',unmountOnBlur:true, headerTitleAlign:'center' ,headerStyle:{backgroundColor:'#145C7B'}}}
+          options={{ drawerLabelStyle:{fontFamily:'Poppins'},headerShown:true,headerTintColor:'white',unmountOnBlur:true, headerTitleAlign:'center' ,headerStyle:{backgroundColor:'#145C7B'}, drawerIcon:({color,size}) => (<Feather name="settings" size={24} color="black" />)}}
           component={SettingsScreen}
         />
         <Drawer.Screen
         name="Logout"
-        options={{headerShown:true,headerTintColor:'white',unmountOnBlur:true, headerTitleAlign:'center' ,headerStyle:{backgroundColor:'#145C7B'}}}
+        options={{ drawerLabelStyle:{fontFamily:'Poppins'},headerShown:true,headerTintColor:'white',unmountOnBlur:true, headerTitleAlign:'center' ,headerStyle:{backgroundColor:'#145C7B'}, drawerIcon:() =>(<MaterialIcons name="logout" size={24} color="black" />)}}
         component={Logout}
       />
     </Drawer.Navigator>

@@ -13,33 +13,8 @@ certificates page -> heading
 register page -> checkbox validation
 
 Ramesh :
-1.Quiz generate api failing(userAnswer)
 
-2. Forgot Password -> Otp is 6 but need 4
-
-3. Request Access
-
-4. Accept document approve request -> post api(admin) ->
-{
-    "userId": 5,
-    "documentId": 6,
-    "requestedDateTime": "2023-07-16T20:46:58.551Z",
-    "appoved": true,
-    "approvedBy": "admin 1",
-    "approvedon": "2023-07-16",
-    "status": "true",
-    "rejectReason": "no reason"
-}
-
-5. For statistics -> need api for count of users in each country
-
-6.api/quizmaster/get/all -> api need modification
-
-7. change password -> {
-  "success": false,
-  "message": "Your Password updated successfully",
-  "response": {}
-}
+1. For statistics -> need api for count of users in each country
 
 Neelesh:
 
@@ -48,3 +23,12 @@ Neelesh:
 2. App icons
 
 
+
+
+tasks to do :
+
+0. username, user email in dashboard and dashboard styling
+1. My profile on top right of every page.
+2. while exam -> styling
+3. Dashboard
+4. exam result api -> minor fix

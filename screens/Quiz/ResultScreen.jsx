@@ -136,6 +136,8 @@ function ResultScreen (props) {
                 setScore(response.percentScore);
             } catch (error) {
                 console.log('error in getting result request', error.request)
+                Alert.alert('Error',' Error in getting result');
+                navigation.navigate('QuizHomeScreen')
             }
             setResultLoading(false)
         }

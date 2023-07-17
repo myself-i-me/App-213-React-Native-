@@ -197,6 +197,7 @@ const styles = StyleSheet.create({
   radioButtonText: {
     fontSize: 16,
     marginLeft: 16,
+    fontFamily:'Poppins'
   },
   headings:{
     fontFamily:'Poppins-semibold',

@@ -6,7 +6,7 @@ const {width, height} = Dimensions.get('window')
 import * as Font from "expo-font";
 import * as SplashScreen from "expo-splash-screen";
 import { AuthContext } from '../store/auth-context';
-import { getDashboardApiData } from '../util/adminApis';
+import { getDashboardApiData, getStatistics } from '../util/adminApis';
 import LoadingOverlay from '../components/ui/LoadingOverlay';
 let customFonts = {
   Fraunces: require("../assets/fonts/Fraunces.ttf"),
@@ -17,6 +17,7 @@ let customFonts = {
 export default function DashBoard() {
   const [isFontsLoaded, setIsFontsLoaded] = useState(false);
   const [dashboardData, setDashboardData] = useState(null);
+  const [statistics, setStatistics] = useState([]);
   const [isFetching, setIsFetching] = useState(false);
   const authctx = useContext(AuthContext);
   useEffect(() =>{
@@ -29,6 +30,8 @@ export default function DashBoard() {
         let dashboardData = await getDashboardApiData(authctx.token);
         console.log('dashboard data is', dashboardData)
         setDashboardData(dashboardData);
+        let statistics = await getStatistics(authctx.token);
+        setStatistics(statistics);
       } catch (error) {
         console.log('error is', error)
       }
@@ -83,33 +86,12 @@ export default function DashBoard() {
       <PieChart
         data={[
           {
-            name: 'A',
-            population: 12,
+            name: 'Kenya',
+            population: 3,
             color: '#1bc34d',
             legendFontColor: '#b123c4',
             legendFontSize: 15,
-          },
-          {
-            name: 'B',
-            population: 15,
-            color: '#c3f2a1',
-            legendFontColor: '#b123c4',
-            legendFontSize: 15,
-          },
-          {
-            name: 'C',
-            population: 27,
-            color: '#bb2345',
-            legendFontColor: '#b123c4',
-            legendFontSize: 15,
-          },
-          {
-            name: 'D',
-            population: 42,
-            color: '#abcdef',
-            legendFontColor: '#b123c4',
-            legendFontSize: 15,
-          },
+          }
         ]}
         width={Dimensions.get('window').width}
         height={220}

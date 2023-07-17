@@ -48,7 +48,23 @@ export async function getDashboardApiData(token) {
   return dashboardData;
 }
 
+export async function getStatistics(token) {
+  const url = `http://ihiapps.com:8080/wildbase/dashboard/chart/data`;
+  let response = await axios.get(url,{
+    headers:{
+      Authorization: "Bearer " + token
+    }
+  })
+  return response.data.response.data
+}
 
+export async function changeUserStatus(userId,status,token) {
+  const url = `http://ihiapps.com:8080/wildbase/users/status/update/${userId}?status=${status}`
+  let response = await axios.patch(url,{},{
+    headers : {Authorization:"Bearer "+token},
+  })
+  return response.data;
+}
 
 export async function approveDocumentRequest(token) {
   const url = `http://ihiapps.com:8080/wildbase/documents/approve/request`;

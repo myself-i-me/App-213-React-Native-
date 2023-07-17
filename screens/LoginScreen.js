@@ -49,9 +49,9 @@ function LoginScreen({navigation}) {
   async function loginHandler({ email, password }) {
     setisAuthenticating(true);
     try {
-      const {token, refreshToken, userId, role} = await login(email, password);
-      console.log(userId, role)
-      authCtx.setUserDetails(userId,role);
+      const {token, refreshToken, userId, role, userName, userEmail} = await login(email, password);
+      console.log('storing use rdat',userId, userName,userEmail, role)
+      authCtx.setUserDetails(userId,userName,userEmail,role);
       authCtx.authenticate(token,refreshToken);
     } catch (error) {
       if(error?.response.data.message == 'Your account has not been approved yet.Plaese contact Administrator for approval.'){

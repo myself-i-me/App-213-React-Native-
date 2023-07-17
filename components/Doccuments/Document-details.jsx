@@ -37,6 +37,7 @@ export default function DocumentDetails({route, navigation}) {
     const [isFontsLoaded, setIsFontsLoaded] = useState(false);
 
     useEffect(() =>{
+        docContext.setHeaderTitles('')
         async function  loadFontsAsync() {
         await Font.loadAsync(customFonts);
         setIsFontsLoaded(true);
@@ -108,7 +109,7 @@ export default function DocumentDetails({route, navigation}) {
                         <Text style={styles.buttonText}>Download pdf</Text>
                     </TouchableOpacity>
                     <TouchableOpacity style={styles.button} onPress={() => {
-                        role !== 'ROLE_USER' ? navigation.navigate('Quiz',{documentId: currentItem.id, documentTitle:currentItem.title}) : navigation.navigate('Quiz Management', {})
+                        role === 'ROLE_USER' ? navigation.navigate('Quiz',{documentId: currentItem.id, documentTitle:currentItem.title}) : navigation.navigate('Quiz Management', {})
                     }}>
                         <Text style={styles.buttonText}>Quiz</Text>
                     </TouchableOpacity>

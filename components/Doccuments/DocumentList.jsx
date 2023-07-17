@@ -45,6 +45,7 @@ export default function DocumentList({ route, navigation }) {
   const [isFontsLoaded, setIsFontsLoaded] = useState(false);
 
   useEffect(() => {
+    docContext.setHeaderTitles('Home')
     async function fetchDocuments() {
       setIsFetching(true);
       try {
@@ -103,9 +104,8 @@ export default function DocumentList({ route, navigation }) {
       <View style={styles.container}>
       <ScrollView
         style={{
-          paddingBottom: 12,
+          marginBottom: 12,
           paddingLeft: 10,
-          backgroundColor: "transparent",
         }}
         horizontal={true}
         showsHorizontalScrollIndicator={false}
@@ -175,9 +175,9 @@ export default function DocumentList({ route, navigation }) {
 
 const styles = StyleSheet.create({
   container: {
-    paddingTop: 20,
+    paddingTop: 10,
     paddingBottom: height * 0.07,
-    backgroundColor: "white",
+    // backgroundColor: "white",
     // height:height*1.4
   },
   button: {
@@ -187,7 +187,7 @@ const styles = StyleSheet.create({
     minWidth: 50,
     // textAlignVertical:'center',
     textAlign: "center",
-
+    textAlignVertical: "center",
     // paddingVertical:10,
     // paddingHorizontal:20,
   },
@@ -197,5 +197,6 @@ const styles = StyleSheet.create({
     marginHorizontal: 5,
     minWidth: 50,
     textAlign: "center",
+    textAlignVertical:'center',
   },
 });

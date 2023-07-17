@@ -16,8 +16,6 @@ import {
 } from "@react-navigation/drawer";
 import * as Font from "expo-font";
 import * as SplashScreen from "expo-splash-screen";
-import { DocContext } from "./store/doc-context";
-import { useRoute } from "@react-navigation/native";
 import { AuthContext } from "./store/auth-context";
 
 let customFonts = {
@@ -32,17 +30,20 @@ const { width, height } = Dimensions.get("window");
 const profileImage = require("./assets/profile.png");
 const CustomSidebarMenu = (props) => {
 
+  const [userName, setUserName] = useState('')
+  const [userEmail, setUserEmail] = useState('')
+
   const authctx = useContext(AuthContext);
-  console.log('authctx is',authctx.userId)
-  const name = "John Doe";
   const [isFontsLoaded, setIsFontsLoaded] = useState(false);
   useEffect(() => {
-    // console.log('routes are', route.params)
-    console.log('in custom side bar menu', props)
+    console.log('in custom side bar menu', props);
     async function loadFontsAsync() {
+      let userData = await authctx.getUserDetails();
       await Font.loadAsync(customFonts);
       setIsFontsLoaded(true);
       SplashScreen.hideAsync();
+      setUserEmail(userData.userEmail);
+      setUserName(userData.userName)
     }
     loadFontsAsync();
   }, []);
@@ -77,10 +78,10 @@ const CustomSidebarMenu = (props) => {
               paddingLeft:15
             }}
           >
-            {name}
+            {userName}
           </Text>
         </View>
-        <Text style={{ fontFamily:'Poppins', backgroundColor: "transparent", fontSize:20, paddingLeft:15 }}>john.doe@gmail.com</Text>
+        <Text style={{ fontFamily:'Poppins', backgroundColor: "transparent", fontSize:20, paddingLeft:15 }}>{userEmail}</Text>
       </View>
       <DrawerContentScrollView {...props}>
         <DrawerItemList {...props} />
@@ -103,7 +104,7 @@ const styles = StyleSheet.create({
 
     // backgroundColor:'red',
     borderWidth: 3,
-    borderColor:'blue'
+    borderColor:'#08B783'
   },
   customItem: {
     padding: 16,

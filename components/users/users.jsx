@@ -89,7 +89,7 @@ export default function Users() {
         </ScrollView>
 
         <FlatList
-        style={{paddingHorizontal:10}}
+        style={{paddingHorizontal:10 }}
         data={users}
         keyExtractor={(item)=>item.id}
         renderItem={({item}) => <UserItem item={item} />}

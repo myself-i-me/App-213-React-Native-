@@ -38,12 +38,15 @@ export async function login(email, password) {
     response,
     "::::::::::::::::::::::::::::::::::::::::::;"
   );
-  const token = response?.data?.response.token;
-  const refreshToken = response?.data?.response.refreshToken;
-  console.log("response is", response?.data?.response?.profile);
-  const userId = String(response?.data?.response?.profile?.id);
-  const role = response?.data?.response?.profile?.authorities[0]?.authority;
-  return { token, refreshToken, userId, role };
+  let responsedata = response.data.response
+  const token = responsedata.token;
+  const refreshToken = responsedata.refreshToken;
+  const userId = String(responsedata?.profile?.id);
+  const role = responsedata?.profile?.authorities[0]?.authority;
+  const userName = responsedata.profile.firstName + ' ' + responsedata.profile.lastName;
+  const userEmail = responsedata.profile.email;
+  console.log({ token, refreshToken, userId, userName, userEmail, role })
+  return { token, refreshToken, userId, userName, userEmail, role };
 }
 
 export async function refreshTokenFunction(refreshToken) {

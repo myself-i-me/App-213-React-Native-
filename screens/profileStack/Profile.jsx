@@ -1,4 +1,4 @@
-import React, {useState, useEffect} from "react";
+import React, {useState, useEffect, useContext} from "react";
 import {
   StyleSheet,
   Text,
@@ -20,18 +20,24 @@ let customFonts = {
   "Fraunces-regular": require("../../assets/fonts/FrauncesRegular.ttf"),
   "Fraunces-semibold": require("../../assets/fonts/Fraunces_72pt-SemiBold.ttf"),
 };
-
+import { AuthContext } from "../../store/auth-context";
 const { width, height} = Dimensions.get('window');
 
 export default function Profile() {
   const [isFontsLoaded, setIsFontsLoaded] = useState(false);
   const navigation = useNavigation();
+  const [userName,setUserName] = useState('');
+  const [userEmail,setUserEmail] = useState('')
+  const authctx = useContext(AuthContext)
 
   useEffect(() =>{
     async function loadFontsAsync() {
+      let userData = await authctx.getUserDetails()
       await Font.loadAsync(customFonts);
       setIsFontsLoaded(true);
       SplashScreen.hideAsync();
+      setUserName(userData.userName);
+      setUserEmail(userData.userEmail)
     }
     loadFontsAsync();
   },[])
@@ -51,9 +57,9 @@ export default function Profile() {
               </TouchableOpacity>
           </View>
           <View style={styles.personInfoContainer}>
-              <Text style={styles.personName}>Person Doe</Text>
+              <Text style={styles.personName}>{userName}</Text>
               <Text style={styles.personOccupation}>Warden</Text>
-              <Text style={styles.personEmail}>person.doe@gamil.com</Text>
+              <Text style={styles.personEmail}>{userEmail}</Text>
           </View>
           <View style={styles.section}>
               <Text style={styles.sectionLabel}>Organization</Text>
@@ -100,7 +106,7 @@ const styles = StyleSheet.create({
   profileImage: {
     borderRadius: 12,
     width:100,
-    height:100
+    height:100,
   },
 
   cardContainer: {
@@ -157,11 +163,11 @@ const styles = StyleSheet.create({
     alignItems: "center", // Add this line,
 
     borderWidth:1,
-    borderColor:'green'
+    // borderColor:'green'
   },
 
   personName: {
-    fontSize: 40,
+    fontSize: 28,
     fontWeight: "900",
     fontFamily:'Poppins'
   },
