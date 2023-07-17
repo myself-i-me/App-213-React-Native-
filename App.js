@@ -32,6 +32,10 @@ import ProfileStack from './screens/profileStack/profileHome';
 import DashBoard from './screens/DashBoard';
 import SettingsScreen from './screens/Settings';
 import * as Font from 'expo-font'
+import QuizAdminList from './screens/Quiz/QuizAdminList';
+import Certificates from './screens/profileStack/Certificates';
+import AddNewQuiz from './screens/Quiz/AddNewQuiz';
+
 import ResetPassword from './screens/ResetPassword';
 let customFonts = {
   'Fraunces': require('./assets/fonts/Fraunces.ttf'),
@@ -67,6 +71,8 @@ function TempDocs() {
       <Stack.Screen name= "Documents" component={DocumentList} options={{headerShown: false}}/>
       <Stack.Screen name = "docdetails" component={DocumentDetails} options={{headerShown: false}}/>
       <Stack.Screen name='Quiz' component={QuizScreen} options={{headerShown:false, drawerLabel:'Quiz'}}  />
+      <Stack.Screen name='Quiz Management' component={QuizAdminList} options={{headerShown:false}} />
+      <Stack.Screen name='Add Quiz' component={AddNewQuiz} options={{headerShown:false}} />
     </Stack.Navigator>
   )
 }
@@ -87,16 +93,23 @@ function AuthenticatedStack() {
           options={{ headerShown:docctx.headerShown,unmountOnBlur:true,headerTintColor:'white', headerTitleAlign:'center' ,headerStyle:{backgroundColor:'#145C7B'}, headerTitle:docctx.headerTitle, headerTitleStyle:{fontFamily:'Fraunces',fontSize:24}}}
           component={TempDocs}
         />
-        {role!= 'ROLE_USER' && <Drawer.Screen
-          name="Documents Management"
+        <Drawer.Screen
+          name="Documents"
           options={{headerShown:true,headerTintColor:'white',unmountOnBlur:true, headerTitleAlign:'center' ,headerStyle:{backgroundColor:'#145C7B'}, headerTitleStyle:{fontFamily:'Fraunces',fontSize:24}}}
           component={DocumentManagement}
-        />}
+        />
         {role!= 'ROLE_USER' && <Drawer.Screen
           name="Users Management"
           options={{headerShown:true,headerTintColor:'white',unmountOnBlur:true, headerTitleAlign:'center' ,headerStyle:{backgroundColor:'#145C7B'}, headerTitleStyle:{fontFamily:'Fraunces',fontSize:24}}}
           component={Users}
-        />}
+        /> }
+        {
+          <Drawer.Screen
+          name="Quiz Management"
+          options={{headerShown:true,headerTintColor:'white',unmountOnBlur:true, headerTitleAlign:'center' ,headerStyle:{backgroundColor:'#145C7B'}, headerTitleStyle:{fontFamily:'Fraunces',fontSize:24}, headerTitle:'Quizes'}}
+          component={QuizAdminList}
+        />
+        }
         <Drawer.Screen 
           name='My Profile'
           options={{headerShown:true,headerTintColor:'white',unmountOnBlur:true, headerTitleAlign:'center' ,headerStyle:{backgroundColor:'#145C7B'}, headerTitleStyle:{fontFamily:'Fraunces',fontSize:24}}}
@@ -107,6 +120,11 @@ function AuthenticatedStack() {
         options={{headerShown:true,headerTintColor:'white',unmountOnBlur:true, headerTitleAlign:'center' ,headerStyle:{backgroundColor:'#145C7B'}, headerTitleStyle:{fontFamily:'Fraunces',fontSize:24}}}
         component={DashBoard}
         />}
+        <Drawer.Screen
+          name="Certificates"
+          options={{headerShown:true,headerTintColor:'white',unmountOnBlur:true, headerTitleAlign:'center' ,headerStyle:{backgroundColor:'#145C7B'}}}
+          component={Certificates}
+        />
         <Drawer.Screen
           name="Settings"
           options={{headerShown:true,headerTintColor:'white',unmountOnBlur:true, headerTitleAlign:'center' ,headerStyle:{backgroundColor:'#145C7B'}}}
