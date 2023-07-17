@@ -99,12 +99,12 @@ function AuthenticatedStack() {
           options={{ drawerLabelStyle:{fontFamily:'Poppins'},  headerShown:docctx.headerShown,unmountOnBlur:true,headerTintColor:'white', headerTitleAlign:'center' ,headerStyle:{backgroundColor:'#145C7B'}, headerTitle:docctx.headerTitle, headerTitleStyle:{fontFamily:'Fraunces',fontSize:24}, drawerIcon:({ color, size }) => (<Feather name="home" color={color} size={size} />)}}
           component={TempDocs}
         />
-        {role== 'ROLE_USER' && <Drawer.Screen
+        {role !== 'ROLE_USER' && <Drawer.Screen
           name="Document Management"
           options={{ drawerLabelStyle:{fontFamily:'Poppins'},headerShown:true,headerTintColor:'white',unmountOnBlur:true, headerTitleAlign:'center' ,headerStyle:{backgroundColor:'#145C7B'}, headerTitle:'Documents' ,headerTitleStyle:{fontFamily:'Fraunces',fontSize:24}, drawerIcon:() => (<Ionicons name="documents-outline" size={24} color="black" />)}}
           component={DocumentManagement}
         />}
-        {role== 'ROLE_USER' && <Drawer.Screen
+        {role !== 'ROLE_USER' && <Drawer.Screen
           name="User Management"
           options={{ drawerLabelStyle:{fontFamily:'Poppins'},headerShown:true,headerTintColor:'white',unmountOnBlur:true, headerTitleAlign:'center' ,headerStyle:{backgroundColor:'#145C7B'}, headerTitle:'Users', headerTitleStyle:{fontFamily:'Fraunces',fontSize:24},drawerIcon:({ color, size }) => (<Feather name="users" color={color} size={size} />)}}
           component={Users}
@@ -114,7 +114,7 @@ function AuthenticatedStack() {
           options={{ drawerLabelStyle:{fontFamily:'Poppins'},headerShown:true,headerTintColor:'white',unmountOnBlur:true, headerTitleAlign:'center' ,headerStyle:{backgroundColor:'#145C7B'}, headerTitleStyle:{fontFamily:'Fraunces',fontSize:24}, drawerIcon:({color,size}) => (<AntDesign name="profile" size={24} color="black" />)}}
           component={ProfileStack}
         />
-        {role== 'ROLE_USER' && <Drawer.Screen
+        {role !== 'ROLE_USER' && <Drawer.Screen
         name='DashBoard'
         options={{ drawerLabelStyle:{fontFamily:'Poppins'},headerShown:true,headerTintColor:'white',unmountOnBlur:true, headerTitleAlign:'center' ,headerStyle:{backgroundColor:'#145C7B'}, headerTitleStyle:{fontFamily:'Fraunces',fontSize:24}, drawerIcon:() =>(<MaterialCommunityIcons name="view-dashboard-outline" size={24} color="black" />)}}
         component={DashBoard}
